@@ -36,11 +36,19 @@
         p.instrucao {
             font-size: 16px;
             color: #ccc;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        audio {
+        .player-container {
             width: 100%;
-            outline: none;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 110px;
+            background: transparent;
         }
     </style>
 </head>
@@ -54,11 +62,10 @@
         
         <p class="instrucao">Aperte o play abaixo para ouvir a transmissão ao vivo</p>
         
-        <!-- Player oficial rodando direto do SHOUTcast -->
-        <audio controls preload="none">
-            <source src="http://212.84.160.3:6097/;." type="audio/mpeg">
-            Seu navegador não suporta áudio HTML5.
-        </audio>
+        <!-- Player embutido oficial via HTTPS -->
+        <div class="player-container">
+            <iframe src="https://musicasinesqueciveis.listenmyshow.com" scrolling="no"></iframe>
+        </div>
     </div>
 
 </body>
