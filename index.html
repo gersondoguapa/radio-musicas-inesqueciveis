@@ -6,80 +6,59 @@
     <title>Rádio Músicas Inesquecíveis</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #0b0b0b;
+            background-color: #121212;
             color: #ffffff;
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .container {
             text-align: center;
+            margin: 0;
             padding: 20px;
-            max-width: 600px;
         }
         h1 {
-            font-size: 26px;
-            margin-bottom: 20px;
-            color: #ff6600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            color: #ff7700;
+            margin-top: 20px;
+            font-size: 28px;
         }
         .radio-box {
-            background: #161616;
+            max-width: 500px;
+            margin: 30px auto;
+            background: #1e1e1e;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            border: 2px solid #222;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .radio-box img {
             width: 100%;
-            max-width: 500px;
-            height: auto;
+            max-height: 350px;
+            object-fit: contain;
             border-radius: 8px;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 15px;
         }
-        .player-box {
-            margin-top: 15px;
+        p.instrucao {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
         }
         audio {
             width: 100%;
-            max-width: 380px;
-        }
-        p.instrucao {
-            font-size: 14px;
-            color: #bbb;
-            margin-top: 15px;
-            margin-bottom: 15px;
+            outline: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Rádio Músicas Inesquecíveis</h1>
-        
-        <div class="radio-box">
-            <!-- Imagem do seu aparelho de som -->
-            <img src="som.jpg" alt="Aparelho de Som - Rádio Músicas Inesquecíveis">
-            
-            <p class="instrucao">Aperte o play abaixo para ouvir a transmissão ao vivo</p>
+    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
 
-            <!-- Player oficial rodando direto -->
-            <div class="player-box">
-                <audio controls preload="none">
-                    <source src="https://musicasinesqueciveis.listen2myshow.com" type="audio/mpeg">
-                    Seu navegador não suporta áudio HTML5.
-                </audio>
-            </div>
-        </div>
+    <div class="radio-box">
+        <!-- Imagem do seu aparelho de som -->
+        <img src="som.jpg" alt="Aparelho de Som - Rádio Músicas Inesquecíveis">
+        
+        <p class="instrucao">Aperte o play abaixo para ouvir a transmissão ao vivo</p>
+        
+        <!-- Player oficial rodando direto do SHOUTcast -->
+        <audio controls preload="none">
+            <source src="http://212.84.160.3:6097/;stream.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio HTML5.
+        </audio>
     </div>
 
 </body>
