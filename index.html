@@ -36,11 +36,27 @@
         p.instrucao {
             font-size: 16px;
             color: #ccc;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         audio {
             width: 100%;
             outline: none;
+            margin-bottom: 15px;
+        }
+        .btn-ouvir {
+            display: inline-block;
+            background-color: #ff7700;
+            color: #ffffff;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+        .btn-ouvir:hover {
+            background-color: #e06600;
         }
     </style>
 </head>
@@ -52,13 +68,18 @@
         <!-- Imagem do seu aparelho de som -->
         <img src="som.jpg" alt="Aparelho de Som - Rádio Músicas Inesquecíveis">
         
-        <p class="instrucao">Aperte o play abaixo para ouvir a transmissão ao vivo</p>
+        <p class="instrucao">Aperte o play abaixo para tocar a rádio:</p>
         
-        <!-- Player de áudio direto -->
-        <audio controls>
-            <source src="https://musicasinesqueciveis.listenmyshow.com/stream" type="audio/mpeg">
+        <!-- Player com link direto otimizado para SHOUTcast -->
+        <audio controls preload="none">
+            <source src="http://212.84.160.3:6097/;" type="audio/mpeg">
             Seu navegador não suporta áudio HTML5.
         </audio>
+        
+        <br>
+        
+        <!-- Botão de emergência caso queira abrir direto no player do painel -->
+        <a href="https://musicasinesqueciveis.listenmyshow.com" class="btn-ouvir" target="_blank">🎵 ABRIR PLAYER OFICIAL</a>
     </div>
 
 </body>
