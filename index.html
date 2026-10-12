@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Rádio Músicas Inesquecíveis</title>
 
     <style>
@@ -77,7 +76,7 @@
             margin-top: 12px;
         }
 
-        /* Estilo do Letreiro da Música Atual */
+        /* Caixa de Tocando Agora idêntica ao painel original */
         .tocando-agora {
             margin-top: 15px;
             padding: 12px;
@@ -111,8 +110,7 @@
     <div class="radio-box">
 
         <div class="imagem-radio">
-            <img src="som.jpg"
-                 alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
             <button id="botao-play"
                     type="button"
@@ -132,13 +130,17 @@
             Rádio pronta para tocar
         </p>
 
-        <!-- Caixa do Tocando Agora -->
+        <!-- Letreiro de Música Atualizado com os dados do servidor oficial -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
-            <div id="nome-musica">Conectando ao servidor...</div>
+            <div id="nome-musica">Conectando aos dados da rádio...</div>
         </div>
 
     </div>
+
+    <!-- Dados ocultos extraídos do código-fonte oficial -->
+    <div style="display:none" id="urladdress">https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1</div>
+    <div style="display:none" id="channel-subdomain">musicasinesqueciveis</div>
 
     <script>
         const audio = document.getElementById("audio-radio");
@@ -146,33 +148,32 @@
         const status = document.getElementById("status-radio");
         const divMusica = document.getElementById("nome-musica");
 
-        const enderecoRadio =
-            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+        // Endereço de streaming oficial extraído da fonte
+        const enderecoRadio = document.getElementById("urladdress").textContent;
 
-        // Função otimizada para buscar a música atual usando o script JSONP do servidor Shoutcast (porta 6097)
+        // Função oficial que busca os metadados do servidor Shoutcast baseado na porta 6097 e IP do seu código
         function atualizarInfoMusica() {
-            // Cria um elemento script dinâmico para burlar o bloqueio de segurança do navegador (CORS)
-            const scriptAntigo = document.getElementById("shoutcast-jsonp");
+            const scriptAntigo = document.getElementById("shoutcast-script");
             if (scriptAntigo) {
                 scriptAntigo.remove();
             }
 
             const script = document.createElement("script");
-            script.id = "shoutcast-jsonp";
-            // Rota oficial de status JSON do servidor Shoutcast na porta 6097
-            script.src = "https://fpsnew2.listen2myradio.com:2199/stats.js?ip=212.84.160.3&port=6097&type=s1&callback=mostrarMusica";
+            script.id = "shoutcast-script";
+            // Puxa os dados direto do servidor oficial usando a porta da sua rádio
+            script.src = "https://fpsnew2.listen2myradio.com:2199/stats.js?ip=212.84.160.3&port=6097&type=s1&callback=exibirDadosRadio";
             document.body.appendChild(script);
         }
 
-        // Função global que recebe os dados do servidor da rádio
-        window.mostrarMusica = function(dados) {
+        // Função de retorno chamada pelo script do servidor da rádio
+        window.exibirDadosRadio = function(dados) {
             try {
                 if (dados && dados.songtitle) {
                     divMusica.textContent = dados.songtitle;
                 } else if (dados && dados.data && dados.data[0] && dados.data[0].songtitle) {
                     divMusica.textContent = dados.data[0].songtitle;
                 } else {
-                    divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo";
+                    divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo 🎶";
                 }
             } catch (e) {
                 divMusica.textContent = "Rádio Músicas Inesquecíveis - No Ar";
@@ -199,8 +200,7 @@
                 status.textContent = "Rádio ao vivo";
                 atualizarInfoMusica();
             } catch (erro) {
-                status.textContent =
-                    "Não foi possível tocar. Vamos verificar a conexão.";
+                status.textContent = "Não foi possível tocar. Verifique a conexão.";
                 console.error(erro);
             }
         }
@@ -223,8 +223,7 @@
         });
 
         audio.addEventListener("error", function() {
-            status.textContent =
-                "Não foi possível carregar o áudio da rádio.";
+            status.textContent = "Não foi possível carregar o áudio da rádio.";
         });
     </script>
 
