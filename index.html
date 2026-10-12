@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rádio Músicas Inesquecíveis</title>
 
     <style>
@@ -76,7 +77,7 @@
             margin-top: 12px;
         }
 
-        /* Estilo da caixa que vai exibir o widget oficial de metadados */
+        /* Estilo do Letreiro da Música Atual */
         .tocando-agora {
             margin-top: 15px;
             padding: 10px;
@@ -89,18 +90,15 @@
             display: block;
             font-size: 12px;
             color: #aaa;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Estilizando o player embutido para ficar limpo */
-        .widget-musica {
-            width: 100%;
-            border: none;
-            background: transparent;
-            height: 45px;
-            overflow: hidden;
+        #nome-musica {
+            font-size: 15px;
+            color: #fff;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -112,7 +110,8 @@
     <div class="radio-box">
 
         <div class="imagem-radio">
-            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <img src="som.jpg"
+                 alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
             <button id="botao-play"
                     type="button"
@@ -132,10 +131,10 @@
             Rádio pronta para tocar
         </p>
 
-        <!-- Caixa do Tocando Agora integrada com o subdomínio oficial da sua rádio -->
+        <!-- Caixa que vai exibir o nome da música em tempo real -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
-            <iframe class="widget-musica" src="https://musicasinesqueciveis.listen2myshow.com/"></iframe>
+            <div id="nome-musica">Aguardando conexão...</div>
         </div>
 
     </div>
@@ -144,9 +143,29 @@
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
         const status = document.getElementById("status-radio");
+        const divMusica = document.getElementById("nome-musica");
 
         const enderecoRadio =
             "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+
+        // Função para buscar o título da música atual do servidor Shoutcast/Icecast
+        function atualizarInfoMusica() {
+            // URL de status do servidor para capturar os dados do stream na porta 6097
+            const urlStatus = "https://fpsnew2.listen2myradio.com:2199/start/musicasinesqueciveis";
+            
+            // Usando uma requisição leve para pegar o JSON de status do Centovacast/Shoutcast associado ao painel
+            fetch("https://fpsnew2.listen2myradio.com:2199/rpc/v1/stream/status", { cache: "no-store" })
+                .then(resposta => resposta.json())
+                .then(dados => {
+                    if (dados && dados.data && dados.data[0] && dados.data[0].songtitle) {
+                        divMusica.textContent = dados.data[0].songtitle;
+                    }
+                })
+                .catch(() => {
+                    // Fallback alternativo caso a API direta exija CORS: mantém o player rodando liso
+                    divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo";
+                });
+        }
 
         async function alternarRadio() {
             if (!audio.paused) {
@@ -166,6 +185,7 @@
                 await audio.play();
                 botao.textContent = "Ⅱ";
                 status.textContent = "Rádio ao vivo";
+                atualizarInfoMusica();
             } catch (erro) {
                 status.textContent =
                     "Não foi possível tocar. Vamos verificar a conexão.";
@@ -176,10 +196,19 @@
         audio.addEventListener("playing", function() {
             botao.textContent = "Ⅱ";
             status.textContent = "Rádio ao vivo";
+            // Atualiza imediatamente e depois a cada 15 segundos
+            atualizarInfoMusica();
+            if (!window.intervaloMusica) {
+                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
+            }
         });
 
         audio.addEventListener("pause", function() {
             botao.textContent = "▶️";
+            if (window.intervaloMusica) {
+                clearInterval(window.intervaloMusica);
+                window.intervaloMusica = null;
+            }
         });
 
         audio.addEventListener("error", function() {
