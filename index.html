@@ -148,22 +148,30 @@
         const enderecoRadio =
             "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
 
-        // Função para buscar o título da música atual do servidor Shoutcast/Icecast
+        // Função para buscar o título atualizado usando proxy livre para evitar bloqueio de CORS
         function atualizarInfoMusica() {
-            // URL de status do servidor para capturar os dados do stream na porta 6097
-            const urlStatus = "https://fpsnew2.listen2myradio.com:2199/start/musicasinesqueciveis";
-            
-            // Usando uma requisição leve para pegar o JSON de status do Centovacast/Shoutcast associado ao painel
-            fetch("https://fpsnew2.listen2myradio.com:2199/rpc/v1/stream/status", { cache: "no-store" })
+            const urlAlvo = "http://212.84.160.3:6097/7.html";
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
+
+            fetch(proxyUrl, { cache: "no-store" })
                 .then(resposta => resposta.json())
                 .then(dados => {
-                    if (dados && dados.data && dados.data[0] && dados.data[0].songtitle) {
-                        divMusica.textContent = dados.data[0].songtitle;
+                    if (dados && dados.contents) {
+                        let parser = new DOMParser();
+                        let htmlDoc = parser.parseFromString(dados.contents, 'text/html');
+                        let textoPuro = htmlDoc.body.textContent || "";
+                        
+                        let partes = textoPuro.split(',');
+                        if (partes.length >= 7) {
+                            let musicaAtual = partes[6];
+                            if (musicaAtual && musicaAtual.trim() !== "") {
+                                divMusica.textContent = musicaAtual;
+                            }
+                        }
                     }
                 })
                 .catch(() => {
-                    // Fallback alternativo caso a API direta exija CORS: mantém o player rodando liso
-                    divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo";
+                    // Mantém o letreiro estável se houver oscilação na rede
                 });
         }
 
@@ -196,7 +204,6 @@
         audio.addEventListener("playing", function() {
             botao.textContent = "Ⅱ";
             status.textContent = "Rádio ao vivo";
-            // Atualiza imediatamente e depois a cada 15 segundos
             atualizarInfoMusica();
             if (!window.intervaloMusica) {
                 window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
