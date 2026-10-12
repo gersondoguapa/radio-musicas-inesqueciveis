@@ -76,10 +76,10 @@
             margin-top: 12px;
         }
 
-        /* Estilo do Letreiro */
+        /* Estilo da caixa que vai exibir o widget oficial de metadados */
         .tocando-agora {
             margin-top: 15px;
-            padding: 12px;
+            padding: 10px;
             background: #282828;
             border-radius: 8px;
             border-left: 4px solid #ff7700;
@@ -94,11 +94,13 @@
             letter-spacing: 1px;
         }
 
-        #nome-musica {
-            font-size: 16px;
-            color: #fff;
-            font-weight: bold;
-            word-break: break-word;
+        /* Estilizando o player embutido para ficar limpo */
+        .widget-musica {
+            width: 100%;
+            border: none;
+            background: transparent;
+            height: 45px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -130,25 +132,21 @@
             Rádio pronta para tocar
         </p>
 
-        <!-- Caixa do Tocando Agora integrada ao subdomínio oficial -->
+        <!-- Caixa do Tocando Agora integrada com o subdomínio oficial da sua rádio -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
-            <div id="nome-musica">Rádio Músicas Inesquecíveis - No Ar 🎶</div>
+            <iframe class="widget-musica" src="https://musicasinesqueciveis.listen2myshow.com/"></iframe>
         </div>
 
     </div>
-
-    <!-- Frame invisível de monitoramento oficial extraído da sua fonte para manter a conexão ativa -->
-    <iframe width="0" height="0" style="display:none;visibility:hidden" src="https://control-panel.cloudl2mr.com/monitor-api?add_listener=yes&version=2&radio_id=924289940&subdomain=musicasinesqueciveis.listen2myshow.com"></iframe>
 
     <script>
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
         const status = document.getElementById("status-radio");
-        const divMusica = document.getElementById("nome-musica");
 
-        // Link de áudio direto da porta oficial do seu servidor
-        const enderecoRadio = "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+        const enderecoRadio =
+            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
 
         async function alternarRadio() {
             if (!audio.paused) {
@@ -168,9 +166,9 @@
                 await audio.play();
                 botao.textContent = "Ⅱ";
                 status.textContent = "Rádio ao vivo";
-                divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo";
             } catch (erro) {
-                status.textContent = "Não foi possível tocar. Verifique a conexão.";
+                status.textContent =
+                    "Não foi possível tocar. Vamos verificar a conexão.";
                 console.error(erro);
             }
         }
@@ -185,7 +183,8 @@
         });
 
         audio.addEventListener("error", function() {
-            status.textContent = "Não foi possível carregar o áudio da rádio.";
+            status.textContent =
+                "Não foi possível carregar o áudio da rádio.";
         });
     </script>
 
