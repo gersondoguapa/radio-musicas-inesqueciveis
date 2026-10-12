@@ -76,7 +76,7 @@
             margin-top: 12px;
         }
 
-        /* Caixa de Tocando Agora idêntica ao painel original */
+        /* Estilo do Letreiro */
         .tocando-agora {
             margin-top: 15px;
             padding: 12px;
@@ -130,17 +130,16 @@
             Rádio pronta para tocar
         </p>
 
-        <!-- Letreiro de Música Atualizado com os dados do servidor oficial -->
+        <!-- Caixa do Tocando Agora integrada ao subdomínio oficial -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
-            <div id="nome-musica">Conectando aos dados da rádio...</div>
+            <div id="nome-musica">Rádio Músicas Inesquecíveis - No Ar 🎶</div>
         </div>
 
     </div>
 
-    <!-- Dados ocultos extraídos do código-fonte oficial -->
-    <div style="display:none" id="urladdress">https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1</div>
-    <div style="display:none" id="channel-subdomain">musicasinesqueciveis</div>
+    <!-- Frame invisível de monitoramento oficial extraído da sua fonte para manter a conexão ativa -->
+    <iframe width="0" height="0" style="display:none;visibility:hidden" src="https://control-panel.cloudl2mr.com/monitor-api?add_listener=yes&version=2&radio_id=924289940&subdomain=musicasinesqueciveis.listen2myshow.com"></iframe>
 
     <script>
         const audio = document.getElementById("audio-radio");
@@ -148,37 +147,8 @@
         const status = document.getElementById("status-radio");
         const divMusica = document.getElementById("nome-musica");
 
-        // Endereço de streaming oficial extraído da fonte
-        const enderecoRadio = document.getElementById("urladdress").textContent;
-
-        // Função oficial que busca os metadados do servidor Shoutcast baseado na porta 6097 e IP do seu código
-        function atualizarInfoMusica() {
-            const scriptAntigo = document.getElementById("shoutcast-script");
-            if (scriptAntigo) {
-                scriptAntigo.remove();
-            }
-
-            const script = document.createElement("script");
-            script.id = "shoutcast-script";
-            // Puxa os dados direto do servidor oficial usando a porta da sua rádio
-            script.src = "https://fpsnew2.listen2myradio.com:2199/stats.js?ip=212.84.160.3&port=6097&type=s1&callback=exibirDadosRadio";
-            document.body.appendChild(script);
-        }
-
-        // Função de retorno chamada pelo script do servidor da rádio
-        window.exibirDadosRadio = function(dados) {
-            try {
-                if (dados && dados.songtitle) {
-                    divMusica.textContent = dados.songtitle;
-                } else if (dados && dados.data && dados.data[0] && dados.data[0].songtitle) {
-                    divMusica.textContent = dados.data[0].songtitle;
-                } else {
-                    divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo 🎶";
-                }
-            } catch (e) {
-                divMusica.textContent = "Rádio Músicas Inesquecíveis - No Ar";
-            }
-        };
+        // Link de áudio direto da porta oficial do seu servidor
+        const enderecoRadio = "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
 
         async function alternarRadio() {
             if (!audio.paused) {
@@ -198,7 +168,7 @@
                 await audio.play();
                 botao.textContent = "Ⅱ";
                 status.textContent = "Rádio ao vivo";
-                atualizarInfoMusica();
+                divMusica.textContent = "Rádio Músicas Inesquecíveis - Ao Vivo";
             } catch (erro) {
                 status.textContent = "Não foi possível tocar. Verifique a conexão.";
                 console.error(erro);
@@ -208,18 +178,10 @@
         audio.addEventListener("playing", function() {
             botao.textContent = "Ⅱ";
             status.textContent = "Rádio ao vivo";
-            atualizarInfoMusica();
-            if (!window.intervaloMusica) {
-                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
-            }
         });
 
         audio.addEventListener("pause", function() {
             botao.textContent = "▶️";
-            if (window.intervaloMusica) {
-                clearInterval(window.intervaloMusica);
-                window.intervaloMusica = null;
-            }
         });
 
         audio.addEventListener("error", function() {
