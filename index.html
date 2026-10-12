@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rádio Músicas Inesquecíveis</title>
+
     <style>
         body {
             background-color: #121212;
@@ -13,11 +15,13 @@
             margin: 0;
             padding: 20px;
         }
+
         h1 {
             color: #ff7700;
             margin-top: 20px;
             font-size: 28px;
         }
+
         .radio-box {
             max-width: 500px;
             margin: 30px auto;
@@ -26,40 +30,132 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .radio-box img {
+
+        .imagem-radio {
+            position: relative;
             width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border-radius: 8px;
             margin-bottom: 15px;
         }
-        p.instrucao {
+
+        .imagem-radio img {
+            display: block;
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        #botao-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 76px;
+            height: 76px;
+            border: 3px solid white;
+            border-radius: 50%;
+            background: #ff7700;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        #botao-play:hover {
+            background: #e56800;
+        }
+
+        .instrucao {
             font-size: 16px;
             color: #ccc;
             margin-bottom: 15px;
         }
-        .player-iframe {
-            width: 100%;
-            height: 150px;
-            border: none;
-            background: transparent;
-            overflow: hidden;
+
+        #status-radio {
+            color: #ff7700;
+            font-size: 14px;
+            margin-top: 12px;
         }
     </style>
 </head>
+
 <body>
 
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
 
     <div class="radio-box">
-        <!-- Imagem do seu aparelho de som -->
-        <img src="som.jpg" alt="Aparelho de Som - Rádio Músicas Inesquecíveis">
-        
-        <p class="instrucao">Ouça a transmissão ao vivo:</p>
-        
-        <!-- Player Oficial Embutido via HTTPS -->
-        <iframe class="player-iframe" src="https://musicasinesqueciveis.listenmyshow.com" scrolling="no"></iframe>
+
+        <div class="imagem-radio">
+            <img src="som.jpg"
+                 alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+
+            <button id="botao-play"
+                    type="button"
+                    aria-label="Tocar rádio"
+                    onclick="alternarRadio()">
+                ▶️
+            </button>
+        </div>
+
+        <p class="instrucao">
+            Aperte o play para ouvir a transmissão ao vivo
+        </p>
+
+        <audio id="audio-radio" preload="none"></audio>
+
+        <p id="status-radio">
+            Rádio pronta para tocar
+        </p>
+
     </div>
+
+    <script>
+        const audio = document.getElementById("audio-radio");
+        const botao = document.getElementById("botao-play");
+        const status = document.getElementById("status-radio");
+
+        const enderecoRadio =
+            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+
+        async function alternarRadio() {
+            if (!audio.paused) {
+                audio.pause();
+                botao.textContent = "▶️";
+                status.textContent = "Rádio pausada";
+                return;
+            }
+
+            if (!audio.src) {
+                audio.src = enderecoRadio;
+            }
+
+            status.textContent = "Conectando à rádio...";
+
+            try {
+                await audio.play();
+                botao.textContent = "Ⅱ";
+                status.textContent = "Rádio ao vivo";
+            } catch (erro) {
+                status.textContent =
+                    "Não foi possível tocar. Vamos verificar a conexão.";
+                console.error(erro);
+            }
+        }
+
+        audio.addEventListener("playing", function() {
+            botao.textContent = "Ⅱ";
+            status.textContent = "Rádio ao vivo";
+        });
+
+        audio.addEventListener("pause", function() {
+            botao.textContent = "▶️";
+        });
+
+        audio.addEventListener("error", function() {
+            status.textContent =
+                "Não foi possível carregar o áudio da rádio.";
+        });
+    </script>
 
 </body>
 </html>
