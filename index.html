@@ -33,29 +33,6 @@
             overflow: hidden;
         }
 
-        /* Fachos de luz nos cantos superiores */
-        .luz-topo-esq {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(255,230,0,0.45) 0%, rgba(255,230,0,0) 70%);
-            pointer-events: none;
-            z-index: 6;
-        }
-
-        .luz-topo-dir {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(0,180,255,0.45) 0%, rgba(0,180,255,0) 70%);
-            pointer-events: none;
-            z-index: 6;
-        }
-
         .imagem-radio {
             position: relative;
             width: 100%;
@@ -73,7 +50,7 @@
         /* Botão de play ajustado mais para cima para centralizar no círculo branco */
         #botao-play {
             position: absolute;
-            top: 44.5%;
+            top: 42.5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 46px;
@@ -100,11 +77,11 @@
         /* Efeito Vermelho vivo sincronizado */
         .batida-vermelha {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
-            background: rgba(255, 0, 51, 0.5);
-            box-shadow: 0 0 14px #ff0033;
+            background: rgba(255, 0, 51, 0.45);
+            box-shadow: 0 0 12px #ff0033;
             pointer-events: none;
             animation: bateVermelho 0.35s infinite alternate ease-in-out;
             z-index: 3;
@@ -113,13 +90,26 @@
         /* Efeito Azul Ciano sincronizado */
         .efeito-azul {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
-            background: rgba(0, 204, 255, 0.5);
-            box-shadow: 0 0 14px #00ccff;
+            background: rgba(0, 204, 255, 0.45);
+            box-shadow: 0 0 12px #00ccff;
             pointer-events: none;
             animation: bateAzul 0.35s infinite alternate-reverse ease-in-out;
+            z-index: 3;
+        }
+
+        /* Efeito Verde vibrante nas caixas */
+        .efeito-verde {
+            position: absolute;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(0, 255, 100, 0.4);
+            box-shadow: 0 0 12px #00ff66;
+            pointer-events: none;
+            animation: bateVerde 0.4s infinite alternate ease-in-out;
             z-index: 3;
         }
 
@@ -136,13 +126,18 @@
         }
 
         @keyframes bateVermelho {
-            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
         }
 
         @keyframes bateAzul {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+        }
+
+        @keyframes bateVerde {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
         }
 
         /* Equalizador no visor superior */
@@ -219,19 +214,18 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
 
     <div class="radio-box">
-        <!-- Fachos de luz nos cantos superiores -->
-        <div class="luz-topo-esq"></div>
-        <div class="luz-topo-dir"></div>
 
         <div class="imagem-radio">
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Ambos os alto-falantes com exatamente a mesma sintonia (Vermelho e Azul batendo juntos) -->
+            <!-- Alto-falantes com Vermelho, Azul e Verde batendo sincronizados em ambos os lados -->
             <div class="efeito-azul pos-esq"></div>
             <div class="efeito-azul pos-dir"></div>
             <div class="batida-vermelha pos-esq"></div>
             <div class="batida-vermelha pos-dir"></div>
+            <div class="efeito-verde pos-esq"></div>
+            <div class="efeito-verde pos-dir"></div>
 
             <!-- Equalizador animado no visor superior -->
             <div class="ondas-visor">
@@ -242,7 +236,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play centralizado perfeitamente no círculo branco -->
+            <!-- Botão de play centralizado no círculo branco -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
