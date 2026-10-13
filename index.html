@@ -45,10 +45,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play posicionado mais acima para o centro exato */
+        /* Botão de play reajustado para o centro exato da rodinha do som */
         #botao-play {
             position: absolute;
-            top: 33%;
+            top: 49%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 40px;
@@ -72,7 +72,7 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Batida vermelha subida para as pontas e centro dos alto-falantes */
+        /* Batida vermelha posicionada um pouco mais para baixo, bem no centro dos alto-falantes */
         .batida-vermelha {
             position: absolute;
             width: 65px;
@@ -85,16 +85,16 @@
             z-index: 3;
         }
 
-        /* Esquerdo: mais para cima e para a ponta esquerda */
+        /* Esquerdo: mais para baixo para centralizar no cone */
         .batida-esq {
-            top: 45%;
+            top: 55%;
             left: 17%;
             transform: translate(-50%, -50%);
         }
 
-        /* Direito: mais para cima e para a ponta direita */
+        /* Direito: mais para baixo para centralizar no cone */
         .batida-dir {
-            top: 45%;
+            top: 55%;
             left: 83%;
             transform: translate(-50%, -50%);
         }
@@ -183,7 +183,7 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Batidas vermelhas posicionadas mais acima e nas pontas corretas -->
+            <!-- Batidas vermelhas centralizadas perfeitamente nos alto-falantes -->
             <div class="batida-vermelha batida-esq"></div>
             <div class="batida-vermelha batida-dir"></div>
 
@@ -196,7 +196,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play ajustado mais para cima -->
+            <!-- Botão de play posicionado no centro exato -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
