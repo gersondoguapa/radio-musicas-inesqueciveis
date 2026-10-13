@@ -45,10 +45,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play centralizado e limpo */
+        /* Botão de play subido ligeiramente (dois pontinhos) para encaixar no centro */
         #botao-play {
             position: absolute;
-            top: 45%;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 40px;
@@ -72,7 +72,7 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Batida vermelha bem forte e viva ("pá, pá, pá") em cima dos alto-falantes */
+        /* Batida vermelha forte nos alto-falantes com posições corrigidas */
         .batida-vermelha {
             position: absolute;
             width: 75px;
@@ -85,16 +85,16 @@
             z-index: 3;
         }
 
-        /* Posicionamento exato no centro dos alto-falantes das caixas laterais */
+        /* Posicionamento milimétrico reajustado para o centro exato de cada alto-falante */
         .batida-esq {
-            top: 56%;
-            left: 21.5%;
+            top: 55%;
+            left: 20%;
             transform: translate(-50%, -50%);
         }
 
         .batida-dir {
-            top: 56%;
-            right: 21.5%;
+            top: 55%;
+            left: 80%;
             transform: translate(-50%, -50%);
         }
 
@@ -103,7 +103,7 @@
             100% { transform: translate(-50%, -50%) scale(1.18); opacity: 1; box-shadow: 0 0 22px #ff3366; }
         }
 
-        /* Equalizador posicionado exatamente em cima do visor digital superior */
+        /* Equalizador no visor superior (intacto como você pediu) */
         .ondas-visor {
             position: absolute;
             top: 15%;
@@ -182,7 +182,7 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Batida vermelha viva nos alto-falantes -->
+            <!-- Batida vermelha redimensionada e encaixada em cima dos alto-falantes -->
             <div class="batida-vermelha batida-esq"></div>
             <div class="batida-vermelha batida-dir"></div>
 
@@ -195,7 +195,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play centralizado -->
+            <!-- Botão de play ajustado ligeiramente para cima -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
