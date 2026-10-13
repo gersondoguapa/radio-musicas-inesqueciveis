@@ -46,10 +46,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play menor, transparente e bem mais para cima (perto do topo) */
+        /* Botão de play no tamanho exato, transparente e ajustado para o centro perfeito */
         #botao-play {
             position: absolute;
-            top: 38%;
+            top: 48%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 40px;
@@ -73,38 +73,32 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Miolo do alto-falante batendo (efeito mecânico de subwoofer) */
-        .cone-batendo {
+        /* Efeito de LED Laranja/Âmbar fixo nos alto-falantes (sem bolhas irritantes) */
+        .led-falante {
             position: absolute;
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.35);
-            box-shadow: 0 0 10px #00ffcc, inset 0 0 6px #00ffcc;
+            background: rgba(255, 119, 0, 0.25);
+            box-shadow: 0 0 10px rgba(255, 119, 0, 0.8), inset 0 0 6px rgba(255, 165, 0, 0.6);
             pointer-events: none;
-            animation: bateCone 0.35s infinite alternate ease-in-out;
             z-index: 3;
         }
 
-        /* Posição exata nos miolos dos alto-falantes */
-        .cone-esq {
+        /* Posição exata nos miolos dos alto-falantes laterais */
+        .led-esq {
             top: 55%;
             left: 21.5%;
             transform: translate(-50%, -50%);
         }
 
-        .cone-dir {
+        .led-dir {
             top: 55%;
             right: 21.5%;
             transform: translate(-50%, -50%);
         }
 
-        @keyframes bateCone {
-            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-
-        /* Equalizador/Ondas de som na parte inferior */
+        /* Equalizador/Ondas de som na parte inferior (verde, igual você gostou) */
         .ondas-som {
             position: absolute;
             bottom: 25px;
@@ -185,11 +179,11 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Miolos dos alto-falantes batendo como subwoofer -->
-            <div class="cone-batendo cone-esq"></div>
-            <div class="cone-batendo cone-dir"></div>
+            <!-- Brilho LED laranja fixo nos alto-falantes (sem efeito de bolha) -->
+            <div class="led-falante led-esq"></div>
+            <div class="led-falante led-dir"></div>
 
-            <!-- Ondas sonoras animadas balançando -->
+            <!-- Ondas sonoras animadas balançando embaixo -->
             <div class="ondas-som">
                 <span></span>
                 <span></span>
@@ -199,7 +193,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play menor, transparente e bem mais para cima -->
+            <!-- Botão de play centralizado e ajustado -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
