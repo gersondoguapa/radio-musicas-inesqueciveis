@@ -84,7 +84,7 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* EFEITO NOS ALTO-FALANTES: Bloco 100% unido (Vermelho -> Amarelo -> Verde -> Azul) sem frestas */
+        /* EFEITO NOS ALTO-FALANTES: Bloco sólido (Vermelho -> Azul Forte -> Verde -> Azul Externo) sem transparência */
         .bloco-luz-esq, .bloco-luz-dir {
             position: absolute;
             top: 52%;
@@ -93,16 +93,16 @@
             transform: translate(-50%, -50%);
             border-radius: 50%;
             background: radial-gradient(circle, 
-                rgba(255, 0, 51, 0.98) 0%, 
-                rgba(255, 0, 51, 0.98) 30%, 
-                rgba(255, 204, 0, 0.95) 30%, 
-                rgba(255, 204, 0, 0.95) 55%, 
-                rgba(0, 255, 128, 0.95) 55%, 
-                rgba(0, 255, 128, 0.95) 75%, 
-                rgba(0, 204, 255, 0.95) 75%, 
-                rgba(0, 204, 255, 0.95) 100%
+                rgb(255, 0, 51) 0%, 
+                rgb(255, 0, 51) 28%, 
+                rgb(0, 102, 255) 28%, 
+                rgb(0, 102, 255) 52%, 
+                rgb(0, 230, 115) 52%, 
+                rgb(0, 230, 115) 75%, 
+                rgb(0, 204, 255) 75%, 
+                rgb(0, 204, 255) 100%
             );
-            box-shadow: 0 0 15px rgba(0, 204, 255, 0.8), inset 0 0 10px rgba(255, 0, 51, 0.8);
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.9), inset 0 0 10px rgba(255, 0, 51, 0.9);
             pointer-events: none;
             animation: pulsarBloco 0.35s infinite alternate ease-in-out;
             z-index: 3;
@@ -112,7 +112,7 @@
         .bloco-luz-dir { left: 83%; }
 
         @keyframes pulsarBloco {
-            0% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.85; }
+            0% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.9; }
             100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
         }
 
@@ -197,7 +197,7 @@
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Blocos de luz unificados nos alto-falantes (Esquerda e Direita) -->
+            <!-- Blocos de luz unificados sem transparência nos alto-falantes -->
             <div class="bloco-luz-esq"></div>
             <div class="bloco-luz-dir"></div>
 
