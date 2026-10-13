@@ -45,12 +45,12 @@
             border-radius: 8px;
         }
 
-        /* Botão de play subido dois pontos */
+        /* Botão forçado por pixels para subir de verdade na marra */
         #botao-play {
             position: absolute;
-            top: 46%;
+            top: 135px;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             width: 40px;
             height: 40px;
             border: 2px solid rgba(255, 255, 255, 0.7);
@@ -69,10 +69,10 @@
         #botao-play:hover {
             background: rgba(255, 119, 0, 0.7);
             border-color: #ffffff;
-            transform: translate(-50%, -50%) scale(1.08);
+            transform: translateX(-50%) scale(1.08);
         }
 
-        /* Batida vermelha subida mais um ponto */
+        /* Pulsador vermelho centralizado */
         .batida-vermelha {
             position: absolute;
             width: 65px;
@@ -83,6 +83,19 @@
             pointer-events: none;
             animation: bateVermelho 0.35s infinite alternate ease-in-out;
             z-index: 3;
+        }
+
+        /* Efeito azul ciano ao fundo */
+        .efeito-azul {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(0, 255, 204, 0.25);
+            box-shadow: 0 0 15px #00ffcc;
+            pointer-events: none;
+            animation: bateAzul 0.35s infinite alternate-reverse ease-in-out;
+            z-index: 2;
         }
 
         .batida-esq {
@@ -102,7 +115,12 @@
             100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
         }
 
-        /* Equalizador no visor superior (intacto) */
+        @keyframes bateAzul {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* Equalizador no visor superior */
         .ondas-visor {
             position: absolute;
             top: 15%;
@@ -181,7 +199,9 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Batidas vermelhas ajustadas -->
+            <!-- Pulsadores nas caixas -->
+            <div class="efeito-azul batida-esq"></div>
+            <div class="efeito-azul batida-dir"></div>
             <div class="batida-vermelha batida-esq"></div>
             <div class="batida-vermelha batida-dir"></div>
 
@@ -194,7 +214,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play ajustado -->
+            <!-- Botão de play -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
