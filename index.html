@@ -29,6 +29,31 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeitos de luz superior (amarelo e azul nos cantos) */
+        .luz-topo-esq {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,230,0,0.45) 0%, rgba(255,230,0,0) 70%);
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        .luz-topo-dir {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(0,180,255,0.45) 0%, rgba(0,180,255,0) 70%);
+            pointer-events: none;
+            z-index: 6;
         }
 
         .imagem-radio {
@@ -45,21 +70,21 @@
             border-radius: 8px;
         }
 
-        /* Botão forçado por pixels para subir de verdade na marra */
+        /* Botão posicionado exatamente no círculo branco central do som */
         #botao-play {
             position: absolute;
-            top: 135px;
+            top: 56.5%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(255, 255, 255, 0.7);
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             color: white;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.7);
             z-index: 5;
             display: flex;
             align-items: center;
@@ -67,57 +92,57 @@
         }
 
         #botao-play:hover {
-            background: rgba(255, 119, 0, 0.7);
+            background: rgba(255, 119, 0, 0.8);
             border-color: #ffffff;
-            transform: translateX(-50%) scale(1.08);
+            transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Pulsador vermelho centralizado */
-        .batida-vermelha {
+        /* Pulsador Amarelo nas caixas */
+        .batida-amarela {
             position: absolute;
             width: 65px;
             height: 65px;
             border-radius: 50%;
-            background: rgba(255, 0, 51, 0.5);
-            box-shadow: 0 0 12px #ff0033, inset 0 0 8px #ff3366;
+            background: rgba(255, 204, 0, 0.4);
+            box-shadow: 0 0 14px #ffcc00, inset 0 0 8px #ffee55;
             pointer-events: none;
-            animation: bateVermelho 0.35s infinite alternate ease-in-out;
+            animation: bateAmarelo 0.35s infinite alternate ease-in-out;
             z-index: 3;
         }
 
-        /* Efeito azul ciano ao fundo */
+        /* Efeito Azul Ciano nas caixas */
         .efeito-azul {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.25);
-            box-shadow: 0 0 15px #00ffcc;
+            background: rgba(0, 204, 255, 0.4);
+            box-shadow: 0 0 14px #00ccff, inset 0 0 8px #55eeff;
             pointer-events: none;
             animation: bateAzul 0.35s infinite alternate-reverse ease-in-out;
             z-index: 2;
         }
 
-        .batida-esq {
+        .pos-esq {
             top: 52%;
             left: 17%;
             transform: translate(-50%, -50%);
         }
 
-        .batida-dir {
+        .pos-dir {
             top: 52%;
             left: 83%;
             transform: translate(-50%, -50%);
         }
 
-        @keyframes bateVermelho {
+        @keyframes bateAmarelo {
             0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
             100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
         }
 
         @keyframes bateAzul {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
         }
 
         /* Equalizador no visor superior */
@@ -194,16 +219,19 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
 
     <div class="radio-box">
+        <!-- Fachos de luz nos cantos superiores -->
+        <div class="luz-topo-esq"></div>
+        <div class="luz-topo-dir"></div>
 
         <div class="imagem-radio">
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Pulsadores nas caixas -->
-            <div class="efeito-azul batida-esq"></div>
-            <div class="efeito-azul batida-dir"></div>
-            <div class="batida-vermelha batida-esq"></div>
-            <div class="batida-vermelha batida-dir"></div>
+            <!-- Pulsadores com contraste Amarelo e Azul nas caixas -->
+            <div class="efeito-azul pos-esq"></div>
+            <div class="batida-amarela pos-dir"></div>
+            <div class="batida-amarela pos-esq"></div>
+            <div class="efeito-azul pos-dir"></div>
 
             <!-- Equalizador animado no visor superior -->
             <div class="ondas-visor">
@@ -214,7 +242,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play -->
+            <!-- Botão de play centralizado no seletor branco do som -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
