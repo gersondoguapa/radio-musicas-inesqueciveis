@@ -56,7 +56,7 @@
             border-radius: 10px;
         }
 
-        /* Botão de play devolvido exatamente para a posição mais abaixo no painel central */
+        /* Botão de play na posição perfeita e inferior */
         #botao-play {
             position: absolute;
             top: 57%;
@@ -84,7 +84,7 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* EFEITO NOS ALTO-FALANTES: Com o visual exato que apareceu na sua prévia */
+        /* EFEITO PROFISSIONAL RESTAURADO: Luz integrada que respeita a textura e fica por baixo da grade */
         .bloco-luz-esq, .bloco-luz-dir {
             position: absolute;
             top: 51.5%;
@@ -93,23 +93,25 @@
             transform: translate(-50%, -50%);
             border-radius: 50%;
             background: radial-gradient(circle, 
-                rgba(255, 0, 60, 0.95) 0%, 
-                rgba(255, 50, 0, 0.85) 45%, 
-                rgba(255, 0, 0, 0.75) 75%, 
-                transparent 100%
+                rgba(255, 0, 50, 0.98) 0%, 
+                rgba(255, 60, 0, 0.88) 40%, 
+                rgba(180, 0, 30, 0.75) 70%, 
+                rgba(0, 0, 0, 0.9) 100%
             );
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.95), 0 0 14px rgba(255, 0, 60, 0.85);
+            mix-blend-mode: screen;
+            opacity: 0.95;
             pointer-events: none;
-            animation: pulsarBloco 0.35s infinite alternate ease-in-out;
-            z-index: 3;
+            animation: pulsarAvancado 0.35s infinite alternate ease-in-out;
+            z-index: 2;
         }
 
         .bloco-luz-esq { left: 17%; }
         .bloco-luz-dir { left: 83.5%; }
 
-        @keyframes pulsarBloco {
-            0% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.85; }
-            100% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
+        @keyframes pulsarAvancado {
+            0% { transform: translate(-50%, -50%) scale(0.93); opacity: 0.82; }
+            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
         }
 
         /* Equalizador no visor superior */
@@ -193,7 +195,7 @@
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Efeito de luz nos alto-falantes -->
+            <!-- Efeito de luz avançado integrado por baixo da grade -->
             <div class="bloco-luz-esq"></div>
             <div class="bloco-luz-dir"></div>
 
@@ -206,7 +208,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play na posição correta e inferior -->
+            <!-- Botão de play na posição correta -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
