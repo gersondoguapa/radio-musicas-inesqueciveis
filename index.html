@@ -45,10 +45,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play subido ligeiramente (dois pontinhos) para encaixar no centro */
+        /* Botão de play posicionado mais acima para o centro exato */
         #botao-play {
             position: absolute;
-            top: 42%;
+            top: 33%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 40px;
@@ -72,38 +72,39 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Batida vermelha forte nos alto-falantes com posições corrigidas */
+        /* Batida vermelha subida para as pontas e centro dos alto-falantes */
         .batida-vermelha {
             position: absolute;
-            width: 75px;
-            height: 75px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: rgba(255, 0, 51, 0.45);
-            box-shadow: 0 0 15px #ff0033, inset 0 0 10px #ff3366;
+            background: rgba(255, 0, 51, 0.5);
+            box-shadow: 0 0 12px #ff0033, inset 0 0 8px #ff3366;
             pointer-events: none;
             animation: bateVermelho 0.35s infinite alternate ease-in-out;
             z-index: 3;
         }
 
-        /* Posicionamento milimétrico reajustado para o centro exato de cada alto-falante */
+        /* Esquerdo: mais para cima e para a ponta esquerda */
         .batida-esq {
-            top: 55%;
-            left: 20%;
+            top: 45%;
+            left: 17%;
             transform: translate(-50%, -50%);
         }
 
+        /* Direito: mais para cima e para a ponta direita */
         .batida-dir {
-            top: 55%;
-            left: 80%;
+            top: 45%;
+            left: 83%;
             transform: translate(-50%, -50%);
         }
 
         @keyframes bateVermelho {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; box-shadow: 0 0 8px #ff0033; }
-            100% { transform: translate(-50%, -50%) scale(1.18); opacity: 1; box-shadow: 0 0 22px #ff3366; }
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
         }
 
-        /* Equalizador no visor superior (intacto como você pediu) */
+        /* Equalizador no visor superior (intacto) */
         .ondas-visor {
             position: absolute;
             top: 15%;
@@ -182,11 +183,11 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Batida vermelha redimensionada e encaixada em cima dos alto-falantes -->
+            <!-- Batidas vermelhas posicionadas mais acima e nas pontas corretas -->
             <div class="batida-vermelha batida-esq"></div>
             <div class="batida-vermelha batida-dir"></div>
 
-            <!-- Equalizador animado em cima do visor digital -->
+            <!-- Equalizador animado no visor superior -->
             <div class="ondas-visor">
                 <span></span>
                 <span></span>
@@ -195,7 +196,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play ajustado ligeiramente para cima -->
+            <!-- Botão de play ajustado mais para cima -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
