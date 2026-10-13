@@ -16,29 +16,18 @@
             padding: 20px;
         }
 
-        /* Faixa preta elegante cobrindo o topo de ponta a ponta */
-        .faixa-topo-personalizada {
-            width: 100%;
-            background-color: #000000;
-            padding: 25px 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            border-bottom: 1px solid #1f1f28;
-        }
-
         h1 {
-            color: #00d2ff;
-            margin: 0 0 8px 0;
-            font-size: 30px;
-            text-shadow: 0 0 14px rgba(0, 210, 255, 0.6);
-            letter-spacing: 0.5px;
+            color: #ff7700;
+            margin-top: 15px;
+            font-size: 28px;
+            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
         }
 
         .subtitulo-topo {
-            font-size: 15px;
-            color: #b0b0c0;
-            margin: 0;
-            letter-spacing: 0.8px;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
 
         .radio-box {
@@ -198,10 +187,8 @@
 
 <body>
 
-    <div class="faixa-topo-personalizada">
-        <h1>ღ♪ ღúsicas♪nesquecíveis - @</h1>
-        <div class="subtitulo-topo">Sempre com o melhor da música!</div>
-    </div>
+    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
+    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
     <div class="radio-box">
 
@@ -270,9 +257,9 @@
                         
                         let partes = textoPuro.split(',');
                         if (partes.length >= 7) {
-                            let musicaAtual = partes.pop(); // ou partes[6]
-                            if (partes[6] && partes[6].trim() !== "") {
-                                divMusica.textContent = partes[6];
+                            let musicaAtual = partes[6];
+                            if (musicaAtual && musicaAtual.trim() !== "") {
+                                divMusica.textContent = musicaAtual;
                             }
                         }
                     }
