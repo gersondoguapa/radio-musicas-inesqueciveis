@@ -56,21 +56,21 @@
             border-radius: 10px;
         }
 
-        /* Botão de play na posição perfeita e inferior */
+        /* Botão de play menor, refinado e encaixado bem no centro do seletor de volume */
         #botao-play {
             position: absolute;
-            top: 57%;
+            top: 41.5%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 36px;
-            height: 36px;
-            border: 2px solid rgba(255, 255, 255, 0.95);
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            font-size: 12px;
+            font-size: 9px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 0 10px rgba(255, 119, 0, 0.5);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 6px rgba(255, 119, 0, 0.5);
             z-index: 10;
             display: flex;
             align-items: center;
@@ -81,10 +81,10 @@
         #botao-play:hover {
             background: rgba(255, 119, 0, 0.9);
             border-color: #ffffff;
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.15);
         }
 
-        /* EFEITO PROFISSIONAL RESTAURADO: Luz integrada que respeita a textura e fica por baixo da grade */
+        /* Efeito profissional de luz nos alto-falantes */
         .bloco-luz-esq, .bloco-luz-dir {
             position: absolute;
             top: 51.5%;
@@ -195,7 +195,7 @@
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Efeito de luz avançado integrado por baixo da grade -->
+            <!-- Efeito de luz nos alto-falantes -->
             <div class="bloco-luz-esq"></div>
             <div class="bloco-luz-dir"></div>
 
@@ -208,7 +208,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play na posição correta -->
+            <!-- Botão de play menor e centralizado no seletor -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
