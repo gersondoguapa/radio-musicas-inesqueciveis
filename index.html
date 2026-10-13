@@ -8,7 +8,7 @@
 
     <style>
         body {
-            background-color: #0b0b0e;
+            background-color: #121212;
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -18,28 +18,17 @@
 
         h1 {
             color: #ff7700;
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 28px;
-            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
-        }
-
-        .subtitulo-topo {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
         }
 
         .radio-box {
-            max-width: 520px;
-            margin: 0 auto 20px auto;
-            background: #141418;
+            max-width: 500px;
+            margin: 30px auto;
+            background: #1e1e1e;
             padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 204, 255, 0.15);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #22222c;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .imagem-radio {
@@ -53,172 +42,31 @@
             width: 100%;
             max-height: 350px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
-        /* LEDs no topo alinhados perfeitamente sobre os cantos das caixas de som */
-        .led-topo-esq {
-            position: absolute;
-            top: 22%;
-            left: 17%;
-            width: 65px;
-            height: 5px;
-            background: #ffcc00;
-            box-shadow: 0 0 10px #ffcc00, 0 0 18px #ff7700;
-            border-radius: 3px;
-            z-index: 6;
-            pointer-events: none;
-            transform: translate(-50%, -50%) rotate(-22deg);
-        }
-
-        .led-topo-dir {
-            position: absolute;
-            top: 22%;
-            right: 17%;
-            width: 65px;
-            height: 5px;
-            background: #00ccff;
-            box-shadow: 0 0 10px #00ccff, 0 0 18px #0066ff;
-            border-radius: 3px;
-            z-index: 6;
-            pointer-events: none;
-            transform: translate(50%, -50%) rotate(22deg);
-        }
-
-        /* Botão de play perfeitamente centralizado no círculo branco */
         #botao-play {
             position: absolute;
-            top: 42.5%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 46px;
-            height: 46px;
-            border: 2px solid rgba(255, 255, 255, 0.95);
+            width: 76px;
+            height: 76px;
+            border: 3px solid white;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.75);
+            background: #ff7700;
             color: white;
-            font-size: 15px;
+            font-size: 32px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 0 10px rgba(255, 119, 0, 0.5);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         #botao-play:hover {
-            background: rgba(255, 119, 0, 0.9);
-            border-color: #ffffff;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        /* Anéis de LED azuis contidos rigorosamente dentro do alto-falante */
-        .anel-luz-esq {
-            position: absolute;
-            top: 52%;
-            left: 17%;
-            width: 76px;
-            height: 76px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 3px solid rgba(0, 204, 255, 0.9);
-            box-shadow: 0 0 10px #00ccff, inset 0 0 8px rgba(0, 204, 255, 0.6);
-            pointer-events: none;
-            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
-            z-index: 3;
-        }
-
-        .anel-luz-dir {
-            position: absolute;
-            top: 52%;
-            left: 83%;
-            width: 76px;
-            height: 76px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 3px solid rgba(0, 204, 255, 0.9);
-            box-shadow: 0 0 10px #00ccff, inset 0 0 8px rgba(0, 204, 255, 0.6);
-            pointer-events: none;
-            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
-            z-index: 3;
-        }
-
-        /* Miolo Vermelho preenchendo o centro perfeitamente */
-        .miolo-vermelho-esq {
-            position: absolute;
-            top: 52%;
-            left: 17%;
-            width: 38px;
-            height: 38px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: rgba(255, 0, 51, 0.95);
-            box-shadow: 0 0 10px #ff0033, 0 0 16px #ff3366;
-            pointer-events: none;
-            animation: pulsarMiolo 0.35s infinite alternate-reverse ease-in-out;
-            z-index: 4;
-        }
-
-        .miolo-vermelho-dir {
-            position: absolute;
-            top: 52%;
-            left: 83%;
-            width: 38px;
-            height: 38px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: rgba(255, 0, 51, 0.95);
-            box-shadow: 0 0 10px #ff0033, 0 0 16px #ff3366;
-            pointer-events: none;
-            animation: pulsarMiolo 0.35s infinite alternate-reverse ease-in-out;
-            z-index: 4;
-        }
-
-        @keyframes pulsarAnel {
-            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; }
-        }
-
-        @keyframes pulsarMiolo {
-            0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
-        }
-
-        /* Equalizador no visor superior */
-        .ondas-visor {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 3px;
-            align-items: flex-end;
-            height: 18px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .ondas-visor span {
-            width: 3px;
-            background: #00ffcc;
-            border-radius: 2px;
-            box-shadow: 0 0 6px #00ffcc;
-            animation: balancaOnda 0.6s infinite ease-in-out;
-        }
-
-        .ondas-visor span:nth-child(2) { animation-duration: 0.4s; }
-        .ondas-visor span:nth-child(3) { animation-duration: 0.7s; }
-        .ondas-visor span:nth-child(4) { animation-duration: 0.5s; }
-        .ondas-visor span:nth-child(5) { animation-duration: 0.8s; }
-
-        @keyframes balancaOnda {
-            0%, 100% { height: 3px; }
-            50% { height: 15px; }
+            background: #e56800;
         }
 
         .instrucao {
-            font-size: 15px;
+            font-size: 16px;
             color: #ccc;
             margin-bottom: 15px;
         }
@@ -226,30 +74,29 @@
         #status-radio {
             color: #ff7700;
             font-size: 14px;
-            margin-top: 10px;
-            font-weight: bold;
+            margin-top: 12px;
         }
 
+        /* Estilo do Letreiro da Música Atual */
         .tocando-agora {
             margin-top: 15px;
-            padding: 12px;
-            background: #1b1b22;
-            border-radius: 10px;
+            padding: 10px;
+            background: #282828;
+            border-radius: 8px;
             border-left: 4px solid #ff7700;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
         .tocando-agora span {
             display: block;
-            font-size: 11px;
-            color: #888;
+            font-size: 12px;
+            color: #aaa;
             margin-bottom: 3px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
         }
 
         #nome-musica {
-            font-size: 14px;
+            font-size: 15px;
             color: #fff;
             font-weight: bold;
         }
@@ -259,34 +106,13 @@
 <body>
 
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
-    <div class="subtitulo-topo">A sua rádio 24 horas no ar, sempre com o melhor da música!</div>
 
     <div class="radio-box">
 
         <div class="imagem-radio">
-            <!-- LEDs no topo alinhados exatamente nas caixas -->
-            <div class="led-topo-esq"></div>
-            <div class="led-topo-dir"></div>
-
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Anéis de LED azuis e miolos vermelhos alinhados dentro dos alto-falantes -->
-            <div class="anel-luz-esq"></div>
-            <div class="anel-luz-dir"></div>
-            <div class="miolo-vermelho-esq"></div>
-            <div class="miolo-vermelho-dir"></div>
-
-            <!-- Equalizador animado no visor superior -->
-            <div class="ondas-visor">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- Botão de play centralizado no círculo branco -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
@@ -305,6 +131,7 @@
             Rádio pronta para tocar
         </p>
 
+        <!-- Caixa que vai exibir o nome da música em tempo real -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
             <div id="nome-musica">Aguardando conexão...</div>
@@ -321,6 +148,7 @@
         const enderecoRadio =
             "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
 
+        // Função para buscar o título atualizado usando proxy livre para evitar bloqueio de CORS
         function atualizarInfoMusica() {
             const urlAlvo = "http://212.84.160.3:6097/7.html";
             const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
@@ -342,7 +170,9 @@
                         }
                     }
                 })
-                .catch(() => {});
+                .catch(() => {
+                    // Mantém o letreiro estável se houver oscilação na rede
+                });
         }
 
         async function alternarRadio() {
