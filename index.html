@@ -8,7 +8,7 @@
 
     <style>
         body {
-            background-color: #121212;
+            background-color: #0b0b0e;
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -18,19 +18,57 @@
 
         h1 {
             color: #ff7700;
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 28px;
+            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
+        }
+
+        .subtitulo-topo {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
 
         .radio-box {
-            max-width: 500px;
-            margin: 30px auto;
-            background: #1e1e1e;
+            max-width: 520px;
+            margin: 0 auto 20px auto;
+            background: #141418;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 204, 255, 0.15);
             position: relative;
             overflow: hidden;
+            border: 1px solid #22222c;
+        }
+
+        /* LEDs modernos no topo das caixas de som (esquerda e direita) */
+        .led-topo-esq {
+            position: absolute;
+            top: 15px;
+            left: 35px;
+            width: 75px;
+            height: 6px;
+            background: #ffcc00;
+            box-shadow: 0 0 12px #ffcc00, 0 0 20px #ff7700;
+            border-radius: 3px;
+            z-index: 6;
+            pointer-events: none;
+            transform: rotate(-12deg);
+        }
+
+        .led-topo-dir {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            width: 75px;
+            height: 6px;
+            background: #00ccff;
+            box-shadow: 0 0 12px #00ccff, 0 0 20px #0066ff;
+            border-radius: 3px;
+            z-index: 6;
+            pointer-events: none;
+            transform: rotate(12deg);
         }
 
         .imagem-radio {
@@ -44,10 +82,10 @@
             width: 100%;
             max-height: 350px;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        /* Botão de play perfeitamente centralizado no círculo branco */
+        /* Botão de play perfeitamente centralizado no círculo branco do aparelho */
         #botao-play {
             position: absolute;
             top: 42.5%;
@@ -55,72 +93,96 @@
             transform: translate(-50%, -50%);
             width: 46px;
             height: 46px;
-            border: 2px solid rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.95);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.75);
             color: white;
             font-size: 15px;
             cursor: pointer;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.8);
-            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 0 10px rgba(255, 119, 0, 0.5);
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s, background 0.2s;
         }
 
         #botao-play:hover {
-            background: rgba(255, 119, 0, 0.85);
+            background: rgba(255, 119, 0, 0.9);
             border-color: #ffffff;
-            transform: translate(-50%, -50%) scale(1.08);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* Miolo Vermelho pequeno pulsando no centro do alto-falante */
-        .miolo-vermelho {
+        /* Anéis de LED profissionais nos alto-falantes (Estilo da Foto de Referência) */
+        .anel-luz-esq {
             position: absolute;
-            width: 25px;
-            height: 25px;
+            top: 52%;
+            left: 17%;
+            width: 82px;
+            height: 82px;
+            transform: translate(-50%, -50%);
             border-radius: 50%;
-            background: rgba(255, 0, 51, 0.9);
-            box-shadow: 0 0 12px #ff0033, 0 0 20px #ff3366;
+            border: 4px solid rgba(0, 204, 255, 0.85);
+            box-shadow: 0 0 15px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.6);
             pointer-events: none;
-            animation: bateMiolo 0.3s infinite alternate ease-in-out;
-            z-index: 4;
-        }
-
-        /* Anel Azul grosso em volta (centro vazado) */
-        .anel-azul {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 5px solid rgba(0, 204, 255, 0.85);
-            background: transparent;
-            box-shadow: 0 0 12px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.6);
-            pointer-events: none;
-            animation: bateAnel 0.3s infinite alternate-reverse ease-in-out;
+            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
             z-index: 3;
         }
 
-        .pos-esq {
-            top: 52%;
-            left: 17%;
-            transform: translate(-50%, -50%);
-        }
-
-        .pos-dir {
+        .anel-luz-dir {
+            position: absolute;
             top: 52%;
             left: 83%;
+            width: 82px;
+            height: 82px;
             transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 4px solid rgba(0, 204, 255, 0.85);
+            box-shadow: 0 0 15px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.6);
+            pointer-events: none;
+            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
+            z-index: 3;
         }
 
-        @keyframes bateMiolo {
+        /* Miolo Vermelho pulsando no centro dos alto-falantes */
+        .miolo-vermelho-esq {
+            position: absolute;
+            top: 52%;
+            left: 17%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(255, 0, 51, 0.95);
+            box-shadow: 0 0 14px #ff0033, 0 0 22px #ff3366;
+            pointer-events: none;
+            animation: pulsarMiolo 0.35s infinite alternate-reverse ease-in-out;
+            z-index: 4;
+        }
+
+        .miolo-vermelho-dir {
+            position: absolute;
+            top: 52%;
+            left: 83%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(255, 0, 51, 0.95);
+            box-shadow: 0 0 14px #ff0033, 0 0 22px #ff3366;
+            pointer-events: none;
+            animation: pulsarMiolo 0.35s infinite alternate-reverse ease-in-out;
+            z-index: 4;
+        }
+
+        @keyframes pulsarAnel {
+            0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+        }
+
+        @keyframes pulsarMiolo {
             0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.7; }
-            100% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
-        }
-
-        @keyframes bateAnel {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
         /* Equalizador no visor superior */
@@ -134,14 +196,14 @@
             align-items: flex-end;
             height: 18px;
             pointer-events: none;
-            z-index: 4;
+            z-index: 5;
         }
 
         .ondas-visor span {
             width: 3px;
             background: #00ffcc;
             border-radius: 2px;
-            box-shadow: 0 0 5px #00ffcc;
+            box-shadow: 0 0 6px #00ffcc;
             animation: balancaOnda 0.6s infinite ease-in-out;
         }
 
@@ -156,7 +218,7 @@
         }
 
         .instrucao {
-            font-size: 16px;
+            font-size: 15px;
             color: #ccc;
             margin-bottom: 15px;
         }
@@ -164,28 +226,30 @@
         #status-radio {
             color: #ff7700;
             font-size: 14px;
-            margin-top: 12px;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .tocando-agora {
             margin-top: 15px;
-            padding: 10px;
-            background: #282828;
-            border-radius: 8px;
+            padding: 12px;
+            background: #1b1b22;
+            border-radius: 10px;
             border-left: 4px solid #ff7700;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
         .tocando-agora span {
             display: block;
-            font-size: 12px;
-            color: #aaa;
+            font-size: 11px;
+            color: #888;
             margin-bottom: 3px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
 
         #nome-musica {
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
             font-weight: bold;
         }
@@ -195,18 +259,23 @@
 <body>
 
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
+    <div class="subtitulo-topo">A sua rádio 24 horas no ar, sempre com o melhor da música!</div>
 
     <div class="radio-box">
 
         <div class="imagem-radio">
+            <!-- LEDs modernos no topo das caixas -->
+            <div class="led-topo-esq"></div>
+            <div class="led-topo-dir"></div>
+
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Anéis azuis e miolos vermelhos pulsando em ambos os alto-falantes -->
-            <div class="anel-azul pos-esq"></div>
-            <div class="anel-azul pos-dir"></div>
-            <div class="miolo-vermelho pos-esq"></div>
-            <div class="miolo-vermelho pos-dir"></div>
+            <!-- Anéis de LED azuis e miolos vermelhos nos alto-falantes -->
+            <div class="anel-luz-esq"></div>
+            <div class="anel-luz-dir"></div>
+            <div class="miolo-vermelho-esq"></div>
+            <div class="miolo-vermelho-dir"></div>
 
             <!-- Equalizador animado no visor superior -->
             <div class="ondas-visor">
