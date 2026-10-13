@@ -70,19 +70,19 @@
             border-radius: 8px;
         }
 
-        /* Botão de play centralizado bem no círculo branco */
+        /* Botão de play ajustado para subir e encaixar perfeitamente no círculo branco */
         #botao-play {
             position: absolute;
-            top: 57.5%;
+            top: 47.5%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border: 2px solid rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.65);
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             box-shadow: 0 2px 12px rgba(0,0,0,0.8);
             z-index: 5;
@@ -97,43 +97,43 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Efeito Vermelho vivo para destacar nas batidas */
+        /* Efeito Vermelho vivo */
         .batida-vermelha {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(255, 0, 51, 0.6);
-            box-shadow: 0 0 16px #ff0033, inset 0 0 8px #ff3366;
+            background: rgba(255, 0, 51, 0.5);
+            box-shadow: 0 0 14px #ff0033;
             pointer-events: none;
             animation: bateVermelho 0.35s infinite alternate ease-in-out;
             z-index: 3;
         }
 
-        /* Efeito Amarelo nas caixas */
+        /* Efeito Amarelo vibrante */
         .batida-amarela {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(255, 204, 0, 0.45);
+            background: rgba(255, 204, 0, 0.5);
             box-shadow: 0 0 14px #ffcc00;
             pointer-events: none;
             animation: bateAmarelo 0.35s infinite alternate ease-in-out;
-            z-index: 2;
+            z-index: 3;
         }
 
-        /* Efeito Azul Ciano nas caixas */
+        /* Efeito Azul Ciano */
         .efeito-azul {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(0, 204, 255, 0.45);
+            background: rgba(0, 204, 255, 0.5);
             box-shadow: 0 0 14px #00ccff;
             pointer-events: none;
             animation: bateAzul 0.35s infinite alternate-reverse ease-in-out;
-            z-index: 2;
+            z-index: 3;
         }
 
         .pos-esq {
@@ -149,18 +149,18 @@
         }
 
         @keyframes bateVermelho {
-            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.7; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
         }
 
         @keyframes bateAmarelo {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
         @keyframes bateAzul {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
         /* Equalizador no visor superior */
@@ -245,7 +245,7 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Cores ajustadas: Vermelho voltando a brilhar junto com Amarelo e Azul -->
+            <!-- Cores misturadas: Azul e Amarelo nas caixas junto com os reflexos vermelhos -->
             <div class="efeito-azul pos-esq"></div>
             <div class="batida-amarela pos-dir"></div>
             <div class="batida-vermelha pos-esq"></div>
@@ -260,7 +260,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play centralizado perfeitamente no seletor branco -->
+            <!-- Botão de play centralizado no círculo branco -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
