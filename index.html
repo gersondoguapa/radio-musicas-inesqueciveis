@@ -33,7 +33,7 @@
             overflow: hidden;
         }
 
-        /* Efeitos de luz superior (amarelo e azul nos cantos) */
+        /* Fachos de luz nos cantos superiores */
         .luz-topo-esq {
             position: absolute;
             top: 0;
@@ -70,21 +70,21 @@
             border-radius: 8px;
         }
 
-        /* Botão posicionado exatamente no círculo branco central do som */
+        /* Botão de play centralizado bem no círculo branco */
         #botao-play {
             position: absolute;
-            top: 56.5%;
+            top: 57.5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 48px;
             height: 48px;
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.9);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             color: white;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.7);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.8);
             z-index: 5;
             display: flex;
             align-items: center;
@@ -92,32 +92,45 @@
         }
 
         #botao-play:hover {
-            background: rgba(255, 119, 0, 0.8);
+            background: rgba(255, 119, 0, 0.85);
             border-color: #ffffff;
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Pulsador Amarelo nas caixas */
+        /* Efeito Vermelho vivo para destacar nas batidas */
+        .batida-vermelha {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 0, 51, 0.6);
+            box-shadow: 0 0 16px #ff0033, inset 0 0 8px #ff3366;
+            pointer-events: none;
+            animation: bateVermelho 0.35s infinite alternate ease-in-out;
+            z-index: 3;
+        }
+
+        /* Efeito Amarelo nas caixas */
         .batida-amarela {
             position: absolute;
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            background: rgba(255, 204, 0, 0.4);
-            box-shadow: 0 0 14px #ffcc00, inset 0 0 8px #ffee55;
+            background: rgba(255, 204, 0, 0.45);
+            box-shadow: 0 0 14px #ffcc00;
             pointer-events: none;
             animation: bateAmarelo 0.35s infinite alternate ease-in-out;
-            z-index: 3;
+            z-index: 2;
         }
 
         /* Efeito Azul Ciano nas caixas */
         .efeito-azul {
             position: absolute;
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            background: rgba(0, 204, 255, 0.4);
-            box-shadow: 0 0 14px #00ccff, inset 0 0 8px #55eeff;
+            background: rgba(0, 204, 255, 0.45);
+            box-shadow: 0 0 14px #00ccff;
             pointer-events: none;
             animation: bateAzul 0.35s infinite alternate-reverse ease-in-out;
             z-index: 2;
@@ -135,14 +148,19 @@
             transform: translate(-50%, -50%);
         }
 
+        @keyframes bateVermelho {
+            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+
         @keyframes bateAmarelo {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
         }
 
         @keyframes bateAzul {
             0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
         }
 
         /* Equalizador no visor superior */
@@ -227,11 +245,11 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Pulsadores com contraste Amarelo e Azul nas caixas -->
+            <!-- Cores ajustadas: Vermelho voltando a brilhar junto com Amarelo e Azul -->
             <div class="efeito-azul pos-esq"></div>
             <div class="batida-amarela pos-dir"></div>
-            <div class="batida-amarela pos-esq"></div>
-            <div class="efeito-azul pos-dir"></div>
+            <div class="batida-vermelha pos-esq"></div>
+            <div class="batida-vermelha pos-dir"></div>
 
             <!-- Equalizador animado no visor superior -->
             <div class="ondas-visor">
@@ -242,7 +260,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play centralizado no seletor branco do som -->
+            <!-- Botão de play centralizado perfeitamente no seletor branco -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
