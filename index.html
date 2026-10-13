@@ -45,10 +45,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play reajustado para o centro exato da rodinha do som */
+        /* Botão de play subido um pontinho */
         #botao-play {
             position: absolute;
-            top: 49%;
+            top: 48%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 40px;
@@ -72,7 +72,7 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Batida vermelha posicionada um pouco mais para baixo, bem no centro dos alto-falantes */
+        /* Batida vermelha subida dois pontinhos */
         .batida-vermelha {
             position: absolute;
             width: 65px;
@@ -85,16 +85,14 @@
             z-index: 3;
         }
 
-        /* Esquerdo: mais para baixo para centralizar no cone */
         .batida-esq {
-            top: 55%;
+            top: 53%;
             left: 17%;
             transform: translate(-50%, -50%);
         }
 
-        /* Direito: mais para baixo para centralizar no cone */
         .batida-dir {
-            top: 55%;
+            top: 53%;
             left: 83%;
             transform: translate(-50%, -50%);
         }
@@ -183,7 +181,7 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Batidas vermelhas centralizadas perfeitamente nos alto-falantes -->
+            <!-- Batidas vermelhas ajustadas -->
             <div class="batida-vermelha batida-esq"></div>
             <div class="batida-vermelha batida-dir"></div>
 
@@ -196,7 +194,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play posicionado no centro exato -->
+            <!-- Botão de play ajustado -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
