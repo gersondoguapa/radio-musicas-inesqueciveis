@@ -8,7 +8,7 @@
 
     <style>
         body {
-            background-color: #121212;
+            background-color: #0b0b0e;
             color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -18,17 +18,28 @@
 
         h1 {
             color: #ff7700;
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 28px;
+            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
+        }
+
+        .subtitulo-topo {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
 
         .radio-box {
-            max-width: 500px;
-            margin: 30px auto;
-            background: #1e1e1e;
+            max-width: 520px;
+            margin: 0 auto 20px auto;
+            background: #141418;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #22222c;
         }
 
         .imagem-radio {
@@ -42,31 +53,134 @@
             width: 100%;
             max-height: 350px;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
+        /* Botão de play menor, ajustado e centralizado no círculo do volume */
         #botao-play {
             position: absolute;
-            top: 50%;
+            top: 41%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 76px;
-            height: 76px;
-            border: 3px solid white;
+            width: 36px;
+            height: 36px;
+            border: 2px solid rgba(255, 255, 255, 0.95);
             border-radius: 50%;
-            background: #ff7700;
+            background: rgba(0, 0, 0, 0.75);
             color: white;
-            font-size: 32px;
+            font-size: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 0 10px rgba(255, 119, 0, 0.5);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
         }
 
         #botao-play:hover {
-            background: #e56800;
+            background: rgba(255, 119, 0, 0.9);
+            border-color: #ffffff;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* EFEITOS NOS ALTO-FALANTES (Miolo Vermelho + Anel Amarelo + Anel Azul) */
+        
+        /* 1. Anel Externo Azul (contido no woofer) */
+        .anel-azul-esq, .anel-azul-dir {
+            position: absolute;
+            top: 52%;
+            width: 76px;
+            height: 76px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 4px solid rgba(0, 204, 255, 0.9);
+            box-shadow: 0 0 10px #00ccff, inset 0 0 6px rgba(0, 204, 255, 0.6);
+            pointer-events: none;
+            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
+            z-index: 3;
+        }
+        .anel-azul-esq { left: 17%; }
+        .anel-azul-dir { left: 83%; }
+
+        /* 2. Anel Intermediário Amarelo (colado no vermelho e no azul) */
+        .anel-amarelo-esq, .anel-amarelo-dir {
+            position: absolute;
+            top: 52%;
+            width: 52px;
+            height: 52px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 5px solid rgba(255, 204, 0, 0.95);
+            box-shadow: 0 0 8px #ffcc00;
+            pointer-events: none;
+            animation: pulsarAnel 0.35s infinite alternate ease-in-out;
+            z-index: 4;
+        }
+        .anel-amarelo-esq { left: 17%; }
+        .anel-amarelo-dir { left: 83%; }
+
+        /* 3. Miolo Central Vermelho (sólido preenchendo o centro) */
+        .miolo-vermelho-esq, .miolo-vermelho-dir {
+            position: absolute;
+            top: 52%;
+            width: 26px;
+            height: 26px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(255, 0, 51, 0.98);
+            box-shadow: 0 0 10px #ff0033, 0 0 15px #ff3366;
+            pointer-events: none;
+            animation: pulsarMiolo 0.35s infinite alternate-reverse ease-in-out;
+            z-index: 5;
+        }
+        .miolo-vermelho-esq { left: 17%; }
+        .miolo-vermelho-dir { left: 83%; }
+
+        @keyframes pulsarAnel {
+            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; }
+        }
+
+        @keyframes pulsarMiolo {
+            0% { transform: translate(-50%, -50%) scale(0.90); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+        }
+
+        /* Equalizador no visor superior */
+        .ondas-visor {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+            height: 18px;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        .ondas-visor span {
+            width: 3px;
+            background: #00ffcc;
+            border-radius: 2px;
+            box-shadow: 0 0 6px #00ffcc;
+            animation: balancaOnda 0.6s infinite ease-in-out;
+        }
+
+        .ondas-visor span:nth-child(2) { animation-duration: 0.4s; }
+        .ondas-visor span:nth-child(3) { animation-duration: 0.7s; }
+        .ondas-visor span:nth-child(4) { animation-duration: 0.5s; }
+        .ondas-visor span:nth-child(5) { animation-duration: 0.8s; }
+
+        @keyframes balancaOnda {
+            0%, 100% { height: 3px; }
+            50% { height: 15px; }
         }
 
         .instrucao {
-            font-size: 16px;
+            font-size: 15px;
             color: #ccc;
             margin-bottom: 15px;
         }
@@ -74,29 +188,30 @@
         #status-radio {
             color: #ff7700;
             font-size: 14px;
-            margin-top: 12px;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
-        /* Estilo do Letreiro da Música Atual */
         .tocando-agora {
             margin-top: 15px;
-            padding: 10px;
-            background: #282828;
-            border-radius: 8px;
+            padding: 12px;
+            background: #1b1b22;
+            border-radius: 10px;
             border-left: 4px solid #ff7700;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
         .tocando-agora span {
             display: block;
-            font-size: 12px;
-            color: #aaa;
+            font-size: 11px;
+            color: #888;
             margin-bottom: 3px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
 
         #nome-musica {
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
             font-weight: bold;
         }
@@ -106,13 +221,32 @@
 <body>
 
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
+    <div class="subtitulo-topo">A sua rádio 24 horas no ar, sempre com o melhor da música!</div>
 
     <div class="radio-box">
 
         <div class="imagem-radio">
-            <img src="som.jpg"
-                 alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
+            <!-- Camadas de luz internas dos alto-falantes (Esquerda e Direita) -->
+            <div class="anel-azul-esq"></div>
+            <div class="anel-amarelo-esq"></div>
+            <div class="miolo-vermelho-esq"></div>
+
+            <div class="anel-azul-dir"></div>
+            <div class="anel-amarelo-dir"></div>
+            <div class="miolo-vermelho-dir"></div>
+
+            <!-- Equalizador animado no visor -->
+            <div class="ondas-visor">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Botão de play menor e centralizado -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
@@ -131,7 +265,6 @@
             Rádio pronta para tocar
         </p>
 
-        <!-- Caixa que vai exibir o nome da música em tempo real -->
         <div class="tocando-agora">
             <span>Tocando Agora</span>
             <div id="nome-musica">Aguardando conexão...</div>
@@ -148,7 +281,6 @@
         const enderecoRadio =
             "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
 
-        // Função para buscar o título atualizado usando proxy livre para evitar bloqueio de CORS
         function atualizarInfoMusica() {
             const urlAlvo = "http://212.84.160.3:6097/7.html";
             const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
@@ -170,9 +302,7 @@
                         }
                     }
                 })
-                .catch(() => {
-                    // Mantém o letreiro estável se houver oscilação na rede
-                });
+                .catch(() => {});
         }
 
         async function alternarRadio() {
