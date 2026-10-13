@@ -42,35 +42,6 @@
             border: 1px solid #22222c;
         }
 
-        /* LEDs modernos no topo das caixas de som (esquerda e direita) */
-        .led-topo-esq {
-            position: absolute;
-            top: 15px;
-            left: 35px;
-            width: 75px;
-            height: 6px;
-            background: #ffcc00;
-            box-shadow: 0 0 12px #ffcc00, 0 0 20px #ff7700;
-            border-radius: 3px;
-            z-index: 6;
-            pointer-events: none;
-            transform: rotate(-12deg);
-        }
-
-        .led-topo-dir {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            width: 75px;
-            height: 6px;
-            background: #00ccff;
-            box-shadow: 0 0 12px #00ccff, 0 0 20px #0066ff;
-            border-radius: 3px;
-            z-index: 6;
-            pointer-events: none;
-            transform: rotate(12deg);
-        }
-
         .imagem-radio {
             position: relative;
             width: 100%;
@@ -85,7 +56,36 @@
             border-radius: 10px;
         }
 
-        /* Botão de play perfeitamente centralizado no círculo branco do aparelho */
+        /* LEDs no topo alinhados perfeitamente sobre os cantos das caixas de som */
+        .led-topo-esq {
+            position: absolute;
+            top: 22%;
+            left: 17%;
+            width: 65px;
+            height: 5px;
+            background: #ffcc00;
+            box-shadow: 0 0 10px #ffcc00, 0 0 18px #ff7700;
+            border-radius: 3px;
+            z-index: 6;
+            pointer-events: none;
+            transform: translate(-50%, -50%) rotate(-22deg);
+        }
+
+        .led-topo-dir {
+            position: absolute;
+            top: 22%;
+            right: 17%;
+            width: 65px;
+            height: 5px;
+            background: #00ccff;
+            box-shadow: 0 0 10px #00ccff, 0 0 18px #0066ff;
+            border-radius: 3px;
+            z-index: 6;
+            pointer-events: none;
+            transform: translate(50%, -50%) rotate(22deg);
+        }
+
+        /* Botão de play perfeitamente centralizado no círculo branco */
         #botao-play {
             position: absolute;
             top: 42.5%;
@@ -113,7 +113,7 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* Anéis de LED profissionais nos alto-falantes (Estilo da Foto de Referência) */
+        /* Anéis de LED azuis nos alto-falantes */
         .anel-luz-esq {
             position: absolute;
             top: 52%;
@@ -264,7 +264,7 @@
     <div class="radio-box">
 
         <div class="imagem-radio">
-            <!-- LEDs modernos no topo das caixas -->
+            <!-- LEDs no topo alinhados exatamente nas caixas -->
             <div class="led-topo-esq"></div>
             <div class="led-topo-dir"></div>
 
