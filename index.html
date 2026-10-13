@@ -70,10 +70,10 @@
             border-radius: 8px;
         }
 
-        /* Botão de play ajustado para subir e encaixar perfeitamente no círculo branco */
+        /* Botão de play ajustado mais para cima para centralizar no círculo branco */
         #botao-play {
             position: absolute;
-            top: 47.5%;
+            top: 44.5%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 46px;
@@ -97,7 +97,7 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
-        /* Efeito Vermelho vivo */
+        /* Efeito Vermelho vivo sincronizado */
         .batida-vermelha {
             position: absolute;
             width: 60px;
@@ -110,20 +110,7 @@
             z-index: 3;
         }
 
-        /* Efeito Amarelo vibrante */
-        .batida-amarela {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 204, 0, 0.5);
-            box-shadow: 0 0 14px #ffcc00;
-            pointer-events: none;
-            animation: bateAmarelo 0.35s infinite alternate ease-in-out;
-            z-index: 3;
-        }
-
-        /* Efeito Azul Ciano */
+        /* Efeito Azul Ciano sincronizado */
         .efeito-azul {
             position: absolute;
             width: 60px;
@@ -151,11 +138,6 @@
         @keyframes bateVermelho {
             0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
             100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
-        }
-
-        @keyframes bateAmarelo {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
         @keyframes bateAzul {
@@ -245,9 +227,9 @@
             <img src="som.jpg"
                  alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Cores misturadas: Azul e Amarelo nas caixas junto com os reflexos vermelhos -->
+            <!-- Ambos os alto-falantes com exatamente a mesma sintonia (Vermelho e Azul batendo juntos) -->
             <div class="efeito-azul pos-esq"></div>
-            <div class="batida-amarela pos-dir"></div>
+            <div class="efeito-azul pos-dir"></div>
             <div class="batida-vermelha pos-esq"></div>
             <div class="batida-vermelha pos-dir"></div>
 
@@ -260,7 +242,7 @@
                 <span></span>
             </div>
 
-            <!-- Botão de play centralizado no círculo branco -->
+            <!-- Botão de play centralizado perfeitamente no círculo branco -->
             <button id="botao-play"
                     type="button"
                     aria-label="Tocar rádio"
