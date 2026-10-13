@@ -84,7 +84,7 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* EFEITO LADO ESQUERDO: Reduzido e ajustado milimetricamente ao centro do woofer */
+        /* EFEITO LADO ESQUERDO: Perfeitamente confinado e simulando profundidade atrás da grade */
         .bloco-luz-esq {
             position: absolute;
             top: 51.5%;
@@ -103,13 +103,15 @@
                 rgb(0, 204, 255) 75%, 
                 rgb(0, 204, 255) 100%
             );
-            box-shadow: 0 0 12px rgba(0, 204, 255, 0.9), inset 0 0 8px rgba(255, 0, 51, 0.9);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 204, 255, 0.6);
+            mix-blend-mode: screen;
+            opacity: 0.92;
             pointer-events: none;
             animation: pulsarBloco 0.35s infinite alternate ease-in-out;
-            z-index: 3;
+            z-index: 2;
         }
 
-        /* EFEITO LADO DIREITO: Reduzido, puxado um "umzinho" para a direita e ajustado ao centro */
+        /* EFEITO LADO DIREITO: Perfeitamente confinado e alinhado */
         .bloco-luz-dir {
             position: absolute;
             top: 51.5%;
@@ -128,15 +130,17 @@
                 rgb(0, 204, 255) 75%, 
                 rgb(0, 204, 255) 100%
             );
-            box-shadow: 0 0 12px rgba(0, 204, 255, 0.9), inset 0 0 8px rgba(255, 0, 51, 0.9);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 204, 255, 0.6);
+            mix-blend-mode: screen;
+            opacity: 0.92;
             pointer-events: none;
             animation: pulsarBloco 0.35s infinite alternate ease-in-out;
-            z-index: 3;
+            z-index: 2;
         }
 
         @keyframes pulsarBloco {
-            0% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.9; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.85; }
+            100% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.98; }
         }
 
         /* Equalizador no visor superior */
@@ -220,7 +224,7 @@
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-            <!-- Blocos de luz ajustados e centralizados -->
+            <!-- Blocos de luz fundidos internamente nos alto-falantes -->
             <div class="bloco-luz-esq"></div>
             <div class="bloco-luz-dir"></div>
 
