@@ -30,34 +30,9 @@
             letter-spacing: 0.5px;
         }
 
-        /* Container principal que organiza os logos dos lados e o som no centro */
-        .bloco-central-radio {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            max-width: 850px;
-            margin: 0 auto 20px auto;
-            flex-wrap: wrap;
-        }
-
-        /* Estilo para os logos laterais */
-        .logo-lateral {
-            width: 120px;
-            max-height: 250px;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            transition: transform 0.2s;
-        }
-
-        .logo-lateral:hover {
-            transform: scale(1.05);
-        }
-
         .radio-box {
-            width: 100%;
             max-width: 520px;
+            margin: 0 auto 20px auto;
             background: #141418;
             padding: 20px;
             border-radius: 16px;
@@ -215,61 +190,47 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
-    <!-- Bloco que centraliza os logos nas laterais e o som no meio -->
-    <div class="bloco-central-radio">
+    <div class="radio-box">
 
-        <!-- Logo da Esquerda (Facebook) -->
-        <a href="#" target="_blank">
-            <img src="https://raw.githubusercontent.com/gersondoguapa/radio-musicas-inesqueciveis/main/Imagem%20do%20WhatsApp%202026-10-14%20%C3%A0s%2000%3A31%3A45%20(1).jpeg" alt="Grupo Facebook" class="logo-lateral">
-        </a>
+        <div class="imagem-radio">
+            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
 
-        <!-- Caixa Central com o Aparelho de Som e o Player -->
-        <div class="radio-box">
-            <div class="imagem-radio">
-                <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <!-- Efeito de luz nos alto-falantes -->
+            <div class="bloco-luz-esq"></div>
+            <div class="bloco-luz-dir"></div>
 
-                <!-- Efeito de luz nos alto-falantes -->
-                <div class="bloco-luz-esq"></div>
-                <div class="bloco-luz-dir"></div>
-
-                <!-- Equalizador animado no visor -->
-                <div class="ondas-visor">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <!-- Botão de play menor e centralizado no seletor -->
-                <button id="botao-play"
-                        type="button"
-                        aria-label="Tocar rádio"
-                        onclick="alternarRadio()">
-                    ▶️
-                </button>
+            <!-- Equalizador animado no visor -->
+            <div class="ondas-visor">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
 
-            <p class="instrucao">
-                Aperte o play para ouvir a transmissão ao vivo
-            </p>
-
-            <audio id="audio-radio" preload="none"></audio>
-
-            <p id="status-radio">
-                Rádio pronta para tocar
-            </p>
-
-            <div class="tocando-agora">
-                <span>Tocando Agora</span>
-                <div id="nome-musica">Aguardando conexão...</div>
-            </div>
+            <!-- Botão de play menor e centralizado no seletor -->
+            <button id="botao-play"
+                    type="button"
+                    aria-label="Tocar rádio"
+                    onclick="alternarRadio()">
+                ▶️
+            </button>
         </div>
 
-        <!-- Logo da Direita (WhatsApp) -->
-        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank">
-            <img src="https://raw.githubusercontent.com/gersondoguapa/radio-musicas-inesqueciveis/main/Imagem%20do%20WhatsApp%202026-10-14%20%C3%A0s%2000%3A31%3A45.jpeg" alt="Peça sua música no WhatsApp" class="logo-lateral">
-        </a>
+        <p class="instrucao">
+            Aperte o play para ouvir a transmissão ao vivo
+        </p>
+
+        <audio id="audio-radio" preload="none"></audio>
+
+        <p id="status-radio">
+            Rádio pronta para tocar
+        </p>
+
+        <div class="tocando-agora">
+            <span>Tocando Agora</span>
+            <div id="nome-musica">Aguardando conexão...</div>
+        </div>
 
     </div>
 
