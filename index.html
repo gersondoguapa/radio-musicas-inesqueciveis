@@ -183,31 +183,6 @@
             font-weight: bold;
         }
 
-        /* Estilo compacto para os dois ícones lado a lado embaixo */
-        .icones-inferiores {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .icones-inferiores a {
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-
-        .icones-inferiores a:hover {
-            transform: scale(1.05);
-        }
-
-        .icones-inferiores img {
-            width: 110px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
         /* Estilo para a caixa da Web TV em baixo */
         .tv-box {
             max-width: 520px;
@@ -243,6 +218,31 @@
             height: 100%;
             border: 0;
         }
+
+        /* Estilo compacto para os dois ícones lado a lado embaixo da TV */
+        .icones-inferiores {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .icones-inferiores a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .icones-inferiores a:hover {
+            transform: scale(1.05);
+        }
+
+        .icones-inferiores img {
+            width: 110px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 
@@ -251,6 +251,7 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
+    <!-- Bloco da Rádio (Em cima) -->
     <div class="radio-box">
 
         <div class="imagem-radio">
@@ -293,7 +294,16 @@
             <div id="nome-musica">Aguardando conexão...</div>
         </div>
 
-        <!-- Dois ícones de ação lado a lado na parte de baixo -->
+    </div>
+
+    <!-- Bloco da Web TV (No meio) -->
+    <div class="tv-box">
+        <h3>Web TV - Ao Vivo</h3>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/1kO1NNyv2DE" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Dois ícones de ação lado a lado na parte de baixo da TV -->
         <div class="icones-inferiores">
             <!-- Botão WhatsApp com o nome exato da sua imagem -->
             <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
@@ -304,15 +314,6 @@
             <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
                 <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
             </a>
-        </div>
-
-    </div>
-
-    <!-- Bloco da Web TV (Embaixo da Rádio) -->
-    <div class="tv-box">
-        <h3>Web TV - Ao Vivo</h3>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/1kO1NNyv2DE" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
