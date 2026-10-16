@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Rádio Músicas Inesquecíveis</title>
 
     <style>
@@ -30,16 +29,19 @@
             letter-spacing: 0.5px;
         }
 
-        .radio-box {
+        .radio-box, .tv-box, .chat-box {
             max-width: 520px;
             margin: 0 auto 20px auto;
             background: #141418;
             padding: 20px;
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            position: relative;
-            overflow: hidden;
             border: 1px solid #22222c;
+            position: relative;
+        }
+
+        .radio-box {
+            overflow: hidden;
         }
 
         .imagem-radio {
@@ -56,7 +58,6 @@
             border-radius: 10px;
         }
 
-        /* Botão de play menor, refinado e encaixado bem no centro do seletor */
         #botao-play {
             position: absolute;
             top: 41.5%;
@@ -84,7 +85,6 @@
             transform: translate(-50%, -50%) scale(1.15);
         }
 
-        /* Efeito profissional de luz nos alto-falantes */
         .bloco-luz-esq, .bloco-luz-dir {
             position: absolute;
             top: 51.5%;
@@ -114,7 +114,6 @@
             100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
         }
 
-        /* Equalizador no visor superior */
         .ondas-visor {
             position: absolute;
             top: 15%;
@@ -173,383 +172,4 @@
             font-size: 11px;
             color: #888;
             margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-        }
-
-        #nome-musica {
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        /* Estilo para a caixa da Web TV */
-        .tv-box {
-            max-width: 520px;
-            margin: 20px auto 0 auto;
-            background: #141418;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            border: 1px solid #22222c;
-        }
-
-        .tv-box h3 {
-            color: #ff7700;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Caixa de Bate-Papo Incremental com Emojis no Meio */
-        .chat-box {
-            max-width: 520px;
-            margin: 20px auto 0 auto;
-            background: #141418;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            border: 1px solid #22222c;
-            text-align: left;
-        }
-
-        .chat-box h3 {
-            color: #ff7700;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        .mensagens-container {
-            background: #0f0f13;
-            border-radius: 10px;
-            padding: 12px;
-            height: 150px;
-            overflow-y: auto;
-            border: 1px solid #222;
-            font-size: 13px;
-            color: #ddd;
-            margin-bottom: 10px;
-        }
-
-        /* Barra de Emojis rápida para caprichar no chat */
-        .emoji-bar {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            background: #121217;
-            padding: 6px;
-            border-radius: 8px;
-            border: 1px solid #222;
-        }
-
-        .emoji-btn {
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 6px;
-            cursor: pointer;
-            padding: 4px 8px;
-            font-size: 16px;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .emoji-btn:hover {
-            background: #ff7700;
-            transform: scale(1.1);
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 8px;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            padding: 10px;
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
-        }
-
-        .chat-input-area button {
-            padding: 10px 16px;
-            background: #ff7700;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .chat-input-area button:hover {
-            background: #e06600;
-        }
-
-        /* Barra dos três ícones de logo organizados lado a lado no rodapé */
-        .icones-inferiores {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-
-        .icones-inferiores a {
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-
-        .icones-inferiores a:hover {
-            transform: scale(1.05);
-        }
-
-        .icones-inferiores img {
-            width: 105px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-    </style>
-</head>
-
-<body>
-
-    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
-    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
-
-    <!-- Bloco da Rádio (Em cima) -->
-    <div class="radio-box">
-
-        <div class="imagem-radio">
-            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
-
-            <!-- Efeito de luz nos alto-falantes -->
-            <div class="bloco-luz-esq"></div>
-            <div class="bloco-luz-dir"></div>
-
-            <!-- Equalizador animado no visor -->
-            <div class="ondas-visor">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- Botão de play menor e centralizado no seletor -->
-            <button id="botao-play"
-                    type="button"
-                    aria-label="Tocar rádio"
-                    onclick="alternarRadio()">
-                ▶️
-            </button>
-        </div>
-
-        <p class="instrucao">
-            Aperte o play para ouvir a transmissão ao vivo
-        </p>
-
-        <audio id="audio-radio" preload="none"></audio>
-
-        <p id="status-radio">
-            Rádio pronta para tocar
-        </p>
-
-        <div class="tocando-agora">
-            <span>Tocando Agora</span>
-            <div id="nome-musica">Aguardando conexão...</div>
-        </div>
-
-    </div>
-
-    <!-- Bloco da Web TV (Logo abaixo) -->
-    <div class="tv-box">
-        <h3>Web TV - Ao Vivo</h3>
-        <div class="video-container">
-            <iframe src="https://iblups.com/embed/musicasinesqueciveis" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <!-- Bloco de Bate-Papo Incremental com Emojis (No Meio) -->
-    <div class="chat-box">
-        <h3>Bate-Papo da Rádio</h3>
-        <div class="mensagens-container" id="historico-chat">
-            <div style="color: #888; text-align: center; margin-top: 40px;">Seja bem-vindo ao chat! Peça sua música ou mande seu recado 🎶💬</div>
-        </div>
-
-        <!-- Barra de Emojis -->
-        <div class="emoji-bar">
-            <button class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
-            <button class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
-            <button class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
-            <button class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
-            <button class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
-            <button class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
-        </div>
-
-        <div class="chat-input-area">
-            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
-            <button type="button" onclick="enviarMensagem()">Enviar</button>
-        </div>
-    </div>
-
-    <!-- Os Três Ícones de Logo no Rodapé (Por último) -->
-    <div class="icones-inferiores">
-        <!-- 1. Botão WhatsApp -->
-        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
-            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
-        </a>
-
-        <!-- 2. Botão Facebook -->
-        <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
-            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
-        </a>
-
-        <!-- 3. Novo Botão Play Alternativo / Web TV (Com o nome exato da imagem no GitHub) -->
-        <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
-            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
-        </a>
-    </div>
-
-    <script>
-        const audio = document.getElementById("audio-radio");
-        const botao = document.getElementById("botao-play");
-        const status = document.getElementById("status-radio");
-        const divMusica = document.getElementById("nome-musica");
-
-        const enderecoRadio =
-            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
-
-        function atualizarInfoMusica() {
-            const urlAlvo = "http://212.84.160.3:6097/7.html";
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
-
-            fetch(proxyUrl, { cache: "no-store" })
-                .then(resposta => resposta.json())
-                .then(dados => {
-                    if (dados && dados.contents) {
-                        let parser = new DOMParser();
-                        let htmlDoc = parser.parseFromString(dados.contents, 'text/html');
-                        let textoPuro = htmlDoc.body.textContent || "";
-                        
-                        let partes = textoPuro.split(',');
-                        if (partes.length >= 7) {
-                            let musicaAtual = partes[6];
-                            if (musicaAtual && musicaAtual.trim() !== "") {
-                                divMusica.textContent = musicaAtual;
-                            }
-                        }
-                    }
-                })
-                .catch(() => {});
-        }
-
-        async function alternarRadio() {
-            if (!audio.paused) {
-                audio.pause();
-                botao.textContent = "▶️";
-                status.textContent = "Rádio pausada";
-                return;
-            }
-
-            if (!audio.src) {
-                audio.src = enderecoRadio;
-            }
-
-            status.textContent = "Conectando à rádio...";
-
-            try {
-                await audio.play();
-                botao.textContent = "Ⅱ";
-                status.textContent = "Rádio ao vivo";
-                atualizarInfoMusica();
-            } catch (erro) {
-                status.textContent =
-                    "Não foi possível tocar. Vamos verificar a conexão.";
-                console.error(erro);
-            }
-        }
-
-        audio.addEventListener("playing", function() {
-            botao.textContent = "Ⅱ";
-            status.textContent = "Rádio ao vivo";
-            atualizarInfoMusica();
-            if (!window.intervaloMusica) {
-                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
-            }
-        });
-
-        audio.addEventListener("pause", function() {
-            botao.textContent = "▶️";
-            if (window.intervaloMusica) {
-                clearInterval(window.intervaloMusica);
-                window.intervaloMusica = null;
-            }
-        });
-
-        audio.addEventListener("error", function() {
-            status.textContent =
-                "Não foi possível carregar o áudio da rádio.";
-        });
-
-        // Funções do Bate-Papo com Emojis
-        function inserirEmoji(emoji) {
-            const input = document.getElementById("input-mensagem");
-            input.value += emoji;
-            input.focus();
-        }
-
-        function enviarMensagem() {
-            const input = document.getElementById("input-mensagem");
-            const historico = document.getElementById("historico-chat");
-            const texto = input.value.trim();
-
-            if (texto !== "") {
-                if (historico.innerHTML.includes("Seja bem-vindo")) {
-                    historico.innerHTML = "";
-                }
-                const novaMsg = document.createElement("div");
-                novaMsg.style.marginBottom = "6px";
-                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
-                historico.appendChild(novaMsg);
-                input.value = "";
-                historico.scrollTop = historico.scrollHeight;
-            }
-        }
-
-        function verificarEnter(e) {
-            if (e.key === "Enter") {
-                enviarMensagem();
-            }
-        }
-    </script>
-
-</body>
-</html>
+            text-transform:
