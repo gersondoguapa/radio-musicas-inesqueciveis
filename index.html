@@ -183,16 +183,15 @@
             font-weight: bold;
         }
 
-        /* Estilo para a caixa de aviso/visual no lugar do YouTube */
+        /* Estilo para a caixa da Web TV com o player da Iblups */
         .tv-box {
             max-width: 520px;
             margin: 20px auto 0 auto;
             background: #141418;
-            padding: 25px 20px;
+            padding: 20px;
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
             border: 1px solid #22222c;
-            text-align: center;
         }
 
         .tv-box h3 {
@@ -202,53 +201,31 @@
             font-size: 18px;
         }
 
-        /* Equalizador Visual Grande no lugar do vídeo */
-        .equalizador-grande {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            height: 70px;
-            margin: 20px 0 10px 0;
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
         }
 
-        .equalizador-grande span {
-            display: block;
-            width: 8px;
-            height: 15px;
-            background: #ff7700;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(255, 119, 0, 0.6);
-            animation: sobeDesce 1s infinite ease-in-out;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
-        .equalizador-grande span:nth-child(1) { animation-delay: 0.1s; }
-        .equalizador-grande span:nth-child(2) { animation-delay: 0.3s; }
-        .equalizador-grande span:nth-child(3) { animation-delay: 0.2s; }
-        .equalizador-grande span:nth-child(4) { animation-delay: 0.5s; }
-        .equalizador-grande span:nth-child(5) { animation-delay: 0.15s; }
-        .equalizador-grande span:nth-child(6) { animation-delay: 0.4s; }
-        .equalizador-grande span:nth-child(7) { animation-delay: 0.25s; }
-
-        @keyframes sobeDesce {
-            0%, 100% { height: 12px; background: #ff5500; }
-            50% { height: 55px; background: #ffbb00; box-shadow: 0 0 15px #ffbb00; }
-        }
-
-        .aviso-novidade {
-            font-size: 13px;
-            color: #aaa;
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Estilo compacto para os dois ícones lado a lado embaixo */
+        /* Estilo compacto para os dois ícones lado a lado embaixo da TV */
         .icones-inferiores {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .icones-inferiores a {
@@ -319,24 +296,14 @@
 
     </div>
 
-    <!-- Bloco Visual (No lugar do YouTube antigo) -->
+    <!-- Bloco da Web TV (No meio com o player da Iblups) -->
     <div class="tv-box">
-        <h3>Transmissão Visual • Em Breve Nova Plataforma</h3>
-        
-        <!-- Equalizador moderno animado -->
-        <div class="equalizador-grande">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <h3>Web TV - Ao Vivo</h3>
+        <div class="video-container">
+            <iframe src="https://iblups.com/embed/musicasinesqueciveis" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-        
-        <div class="aviso-novidade">O áudio principal segue 100% ativo e sem interrupções!</div>
 
-        <!-- Dois ícones de ação lado a lado na parte de baixo -->
+        <!-- Dois ícones de ação lado a lado na parte de baixo da TV -->
         <div class="icones-inferiores">
             <!-- Botão WhatsApp com o nome exato da sua imagem -->
             <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
