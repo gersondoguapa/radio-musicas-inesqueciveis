@@ -207,105 +207,24 @@
             border: 0;
         }
 
-        /* Caixa de Bate-Papo Super Esticada para Baixo */
+        /* Super Chat Profissional Esticado para Baixo */
         .chat-box {
             text-align: left;
         }
 
-        .mensagens-container {
-            background: #0f0f13;
-            border-radius: 10px;
-            padding: 12px;
-            height: 320px; /* Bem grandão e compridão para baixo! */
-            overflow-y: auto;
-            border: 1px solid #222;
-            font-size: 13px;
-            color: #ddd;
-            margin-bottom: 12px;
-        }
-
-        .emoji-panel {
-            background: #121217;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-height: 90px;
-            overflow-y: auto;
-        }
-
-        .emoji-btn {
-            background: #1e1e26;
+        .chat-frame-wrapper {
+            width: 100%;
+            height: 380px; /* Bem grandão e esticado para baixo como você pediu! */
+            border-radius: 12px;
+            overflow: hidden;
             border: 1px solid #333;
-            border-radius: 6px;
-            cursor: pointer;
-            padding: 6px 9px;
-            font-size: 16px;
-            transition: background 0.2s, transform 0.1s;
+            background: #0b0b0e;
         }
 
-        .emoji-btn:hover {
-            background: #ff7700;
-            transform: scale(1.15);
-        }
-
-        .chat-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .chat-controls input {
-            flex: 1;
-            padding: 11px;
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
-        }
-
-        #btn-ptt {
-            background: #2b2b36;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 10px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.2s, border-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #btn-ptt.gravando {
-            background: #ff0033;
-            border-color: #ff7700;
-            animation: pulsarGravacao 0.6s infinite alternate;
-        }
-
-        @keyframes pulsarGravacao {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
-
-        .chat-controls button.enviar-btn {
-            padding: 11px 16px;
-            background: #ff7700;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .chat-controls button.enviar-btn:hover {
-            background: #e06600;
+        .chat-frame-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .icones-inferiores {
@@ -340,6 +259,7 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
+    <!-- Bloco da Rádio -->
     <div class="radio-box">
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
@@ -359,6 +279,7 @@
         </div>
     </div>
 
+    <!-- Bloco da Web TV -->
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
@@ -366,50 +287,28 @@
         </div>
     </div>
 
-    <!-- Bate-Papo Super Esticado para Baixo -->
+    <!-- Bloco de Bate-Papo Profissional Global -->
     <div class="chat-box">
         <h3>Bate-Papo da Rádio</h3>
-        
-        <!-- Janela de histórico grande para caber muita conversa -->
-        <div class="mensagens-container" id="historico-chat">
-            <div style="color: #888; text-align: center; margin-top: 130px;">Seja bem-vindo ao mural interativo! Mande seu recado, use emojis ou grave um áudio PTT 🎙️🎶</div>
-        </div>
-
-        <!-- Painel de Emojis Completo -->
-        <div class="emoji-panel">
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎤')">🎤</button>
-        </div>
-
-        <div class="chat-controls">
-            <button type="button" id="btn-ptt" title="Gravar mensagem de voz (Walkie-Talkie)" onclick="alternarGravacaoPtt()">🎙️</button>
-            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
-            <button type="button" class="enviar-btn" onclick="enviarMensagem()">Enviar</button>
+        <div class="chat-frame-wrapper">
+            <!-- Widget de chat global incorporado de alta performance otimizado para web rádios -->
+            <iframe src="https://xat.com/web_box/?id=220499252&dark=1" title="Bate-Papo Rádio Músicas Inesquecíveis" allow="encrypted-media"></iframe>
         </div>
     </div>
 
+    <!-- Rodapé com os Três Logos -->
     <div class="icones-inferiores">
+        <!-- 1. Botão WhatsApp -->
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
             <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
         </a>
 
+        <!-- 2. Botão Facebook -->
         <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
             <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
         </a>
 
+        <!-- 3. Botão Play Alternativo / Web TV -->
         <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
             <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
         </a>
@@ -489,85 +388,6 @@
                 window.intervaloMusica = null;
             }
         });
-
-        function inserirEmoji(emoji) {
-            const input = document.getElementById("input-mensagem");
-            input.value += emoji;
-            input.focus();
-        }
-
-        function enviarMensagem() {
-            const input = document.getElementById("input-mensagem");
-            const historico = document.getElementById("historico-chat");
-            const texto = input.value.trim();
-
-            if (texto !== "") {
-                if (historico.innerHTML.includes("Seja bem-vindo")) {
-                    historico.innerHTML = "";
-                }
-                const novaMsg = document.createElement("div");
-                novaMsg.style.marginBottom = "8px";
-                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
-                historico.appendChild(novaMsg);
-                input.value = "";
-                historico.scrollTop = historico.scrollHeight;
-            }
-        }
-
-        function verificarEnter(e) {
-            if (e.key === "Enter") {
-                enviarMensagem();
-            }
-        }
-
-        let mediaRecorder;
-        let audioChunks = [];
-        let gravando = false;
-
-        async function alternarGravacaoPtt() {
-            const btnPtt = document.getElementById("btn-ptt");
-            const historico = document.getElementById("historico-chat");
-
-            if (!gravando) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    audioChunks = [];
-
-                    mediaRecorder.ondataavailable = event => {
-                        audioChunks.push(event.data);
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        const audioUrl = URL.createObjectURL(audioBlob);
-
-                        if (historico.innerHTML.includes("Seja bem-vindo")) {
-                            historico.innerHTML = "";
-                        }
-
-                        const msgAudio = document.createElement("div");
-                        msgAudio.style.marginBottom = "10px";
-                        msgAudio.innerHTML = `<strong style="color: #ff7700;">Áudio PTT (Walkie-Talkie):</strong><br><audio controls style="width: 100%; height: 35px; margin-top: 4px;" src="${audioUrl}"></audio>`;
-                        historico.appendChild(msgAudio);
-                        historico.scrollTop = historico.scrollHeight;
-                    };
-
-                    mediaRecorder.start();
-                    gravando = true;
-                    btnPtt.classList.add("gravando");
-                    btnPtt.title = "Gravando... Clique novamente para parar e enviar!";
-                } catch (err) {
-                    alert("Não foi possível acessar o microfone. Verifique as permissões do navegador.");
-                    console.error(err);
-                }
-            } else {
-                mediaRecorder.stop();
-                gravando = false;
-                btnPtt.classList.remove("gravando");
-                btnPtt.title = "Gravar mensagem de voz (Walkie-Talkie)";
-            }
-        }
     </script>
 </body>
 </html>
