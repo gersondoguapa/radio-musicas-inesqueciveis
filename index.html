@@ -219,7 +219,7 @@
             border: 0;
         }
 
-        /* Caixa de Bate-Papo / Recados no Meio */
+        /* Caixa de Bate-Papo Incremental com Emojis no Meio */
         .chat-box {
             max-width: 520px;
             margin: 20px auto 0 auto;
@@ -243,12 +243,39 @@
             background: #0f0f13;
             border-radius: 10px;
             padding: 12px;
-            height: 140px;
+            height: 150px;
             overflow-y: auto;
             border: 1px solid #222;
             font-size: 13px;
-            color: #bbb;
-            margin-bottom: 12px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        /* Barra de Emojis rápida para caprichar no chat */
+        .emoji-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            background: #121217;
+            padding: 6px;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        .emoji-btn {
+            background: #1e1e26;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .emoji-btn:hover {
+            background: #ff7700;
+            transform: scale(1.1);
         }
 
         .chat-input-area {
@@ -367,12 +394,26 @@
         </div>
     </div>
 
-    <!-- Bloco de Bate-Papo / Recados (No Meio) -->
+    <!-- Bloco de Bate-Papo Incremental com Emojis (No Meio) -->
     <div class="chat-box">
         <h3>Bate-Papo da Rádio</h3>
         <div class="mensagens-container" id="historico-chat">
-            <div style="color: #888; text-align: center; margin-top: 40px;">Seja bem-vindo ao chat! Peça sua música ou mande seu recado.</div>
+            <div style="color: #888; text-align: center; margin-top: 40px;">Seja bem-vindo ao chat! Peça sua música ou mande seu recado 🎶💬</div>
         </div>
+
+        <!-- Barra de Emojis -->
+        <div class="emoji-bar">
+            <button class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
+            <button class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
+            <button class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
+            <button class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
+            <button class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
+            <button class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
+        </div>
+
         <div class="chat-input-area">
             <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
             <button type="button" onclick="enviarMensagem()">Enviar</button>
@@ -391,9 +432,9 @@
             <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
         </a>
 
-        <!-- 3. Novo Botão Play Alternativo / Web TV (Levando para o servidor) -->
+        <!-- 3. Novo Botão Play Alternativo / Web TV (Com o nome exato da imagem no GitHub) -->
         <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
-            <img src="Imagem do WhatsApp 2026-10-16.jpeg" alt="Play Alternativo Web TV">
+            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
         </a>
     </div>
 
@@ -478,7 +519,13 @@
                 "Não foi possível carregar o áudio da rádio.";
         });
 
-        // Função simples para interagir no chat local
+        // Funções do Bate-Papo com Emojis
+        function inserirEmoji(emoji) {
+            const input = document.getElementById("input-mensagem");
+            input.value += emoji;
+            input.focus();
+        }
+
         function enviarMensagem() {
             const input = document.getElementById("input-mensagem");
             const historico = document.getElementById("historico-chat");
