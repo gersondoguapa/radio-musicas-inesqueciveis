@@ -172,4 +172,334 @@
             font-size: 11px;
             color: #888;
             margin-bottom: 3px;
-            text-transform:
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        #nome-musica {
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .tv-box h3, .chat-box h3 {
+            color: #ff7700;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .chat-box {
+            text-align: left;
+        }
+
+        .mensagens-container {
+            background: #0f0f13;
+            border-radius: 10px;
+            padding: 12px;
+            height: 180px;
+            overflow-y: auto;
+            border: 1px solid #222;
+            font-size: 13px;
+            color: #ddd;
+            margin-bottom: 12px;
+        }
+
+        .emoji-panel {
+            background: #121217;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .emoji-btn {
+            background: #1e1e26;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 4px 7px;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .emoji-btn:hover {
+            background: #ff7700;
+            transform: scale(1.15);
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .chat-controls input {
+            flex: 1;
+            padding: 11px;
+            background: #1e1e26;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        #btn-ptt {
+            background: #2b2b36;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #btn-ptt.gravando {
+            background: #ff0033;
+            border-color: #ff7700;
+            animation: pulsarGravacao 0.6s infinite alternate;
+        }
+
+        @keyframes pulsarGravacao {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .chat-controls button.enviar-btn {
+            padding: 11px 16px;
+            background: #ff7700;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-controls button.enviar-btn:hover {
+            background: #e06600;
+        }
+
+        .icones-inferiores {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .icones-inferiores a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .icones-inferiores a:hover {
+            transform: scale(1.05);
+        }
+
+        .icones-inferiores img {
+            width: 105px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
+    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
+
+    <div class="radio-box">
+        <div class="imagem-radio">
+            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <div class="bloco-luz-esq"></div>
+            <div class="bloco-luz-dir"></div>
+            <div class="ondas-visor">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <button id="botao-play" type="button" aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
+        </div>
+        <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
+        <audio id="audio-radio" preload="none"></audio>
+        <p id="status-radio">Rádio pronta para tocar</p>
+        <div class="tocando-agora">
+            <span>Tocando Agora</span>
+            <div id="nome-musica">Aguardando conexão...</div>
+        </div>
+    </div>
+
+    <div class="tv-box">
+        <h3>Web TV - Ao Vivo</h3>
+        <div class="video-container">
+            <iframe src="https://iblups.com/embed/musicasinesqueciveis" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="chat-box">
+        <h3>Bate-Papo da Rádio</h3>
+        <div class="mensagens-container" id="historico-chat">
+            <div style="color: #888; text-align: center; margin-top: 45px;">Seja bem-vindo ao mural interativo! Mande seu recado, use emojis ou grave um áudio PTT 🎙️🎶</div>
+        </div>
+
+        <div class="emoji-panel">
+            <button class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
+            <button class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
+            <button class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
+            <button class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
+            <button class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
+            <button class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
+            <button class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
+            <button class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
+            <button class="emoji-btn" onclick="inserirEmoji('🎤')">🎤</button>
+        </div>
+
+        <div class="chat-controls">
+            <button type="button" id="btn-ptt" title="Gravar mensagem de voz (Walkie-Talkie)" onclick="alternarGravacaoPtt()">🎙️</button>
+            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
+            <button type="button" class="enviar-btn" onclick="enviarMensagem()">Enviar</button>
+        </div>
+    </div>
+
+    <div class="icones-inferiores">
+        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
+            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
+        </a>
+
+        <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
+            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
+        </a>
+
+        <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
+            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
+        </a>
+    </div>
+
+    <script>
+        const audio = document.getElementById("audio-radio");
+        const botao = document.getElementById("botao-play");
+        const status = document.getElementById("status-radio");
+        const divMusica = document.getElementById("nome-musica");
+
+        const enderecoRadio =
+            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+
+        function atualizarInfoMusica() {
+            const urlAlvo = "http://212.84.160.3:6097/7.html";
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
+
+            fetch(proxyUrl, { cache: "no-store" })
+                .then(resposta => resposta.json())
+                .then(dados => {
+                    if (dados && dados.contents) {
+                        let parser = new DOMParser();
+                        let htmlDoc = parser.parseFromString(dados.contents, 'text/html');
+                        let textoPuro = htmlDoc.body.textContent || "";
+                        
+                        let partes = textoPuro.split(',');
+                        if (partes.length >= 7) {
+                            let musicaAtual = partes[6];
+                            if (musicaAtual && musicaAtual.trim() !== "") {
+                                divMusica.textContent = musicaAtual;
+                            }
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
+        async function alternarRadio() {
+            if (!audio.paused) {
+                audio.pause();
+                botao.textContent = "▶️";
+                status.textContent = "Rádio pausada";
+                return;
+            }
+
+            if (!audio.src) {
+                audio.src = enderecoRadio;
+            }
+
+            status.textContent = "Conectando à rádio...";
+
+            try {
+                await audio.play();
+                botao.textContent = "Ⅱ";
+                status.textContent = "Rádio ao vivo";
+                atualizarInfoMusica();
+            } catch (erro) {
+                status.textContent = "Não foi possível tocar. Verifique a conexão.";
+                console.error(erro);
+            }
+        }
+
+        audio.addEventListener("playing", function() {
+            botao.textContent = "Ⅱ";
+            status.textContent = "Rádio ao vivo";
+            atualizarInfoMusica();
+            if (!window.intervaloMusica) {
+                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
+            }
+        });
+
+        audio.addEventListener("pause", function() {
+            botao.textContent = "▶️";
+            if (window.intervaloMusica) {
+                clearInterval(window.intervaloMusica);
+                window.intervaloMusica = null;
+            }
+        });
+
+        function inserirEmoji(emoji) {
+            const input = document.getElementById("input-mensagem");
+            input.value += emoji;
+            input.focus();
+        }
+
+        function enviarMensagem() {
+            const input = document.getElementById("input-mensagem");
+            const historico = document.getElementById("historico-chat");
+            const texto = input.value.trim();
+
+            if (texto !== "") {
+                if (historico.innerHTML.includes("Seja bem-vindo")) {
+                    historico.innerHTML = "";
+                }
+                const novaMsg = document.createElement("div");
+                novaMsg.style.marginBottom = "8px";
+                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte
