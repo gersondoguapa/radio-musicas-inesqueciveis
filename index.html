@@ -56,7 +56,7 @@
             border-radius: 10px;
         }
 
-        /* Botão de play menor, refinado e encaixado bem no centro do seletor de volume */
+        /* Botão de play menor, refinado e encaixado bem no centro do seletor */
         #botao-play {
             position: absolute;
             top: 41.5%;
@@ -183,7 +183,7 @@
             font-weight: bold;
         }
 
-        /* Estilo para a caixa da Web TV com o player da Iblups */
+        /* Estilo para a caixa da Web TV */
         .tv-box {
             max-width: 520px;
             margin: 20px auto 0 auto;
@@ -204,7 +204,7 @@
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 10px;
@@ -219,13 +219,76 @@
             border: 0;
         }
 
-        /* Barra dos três ícones organizados e espaçados no rodapé */
+        /* Caixa de Bate-Papo / Recados no Meio */
+        .chat-box {
+            max-width: 520px;
+            margin: 20px auto 0 auto;
+            background: #141418;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #22222c;
+            text-align: left;
+        }
+
+        .chat-box h3 {
+            color: #ff7700;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .mensagens-container {
+            background: #0f0f13;
+            border-radius: 10px;
+            padding: 12px;
+            height: 140px;
+            overflow-y: auto;
+            border: 1px solid #222;
+            font-size: 13px;
+            color: #bbb;
+            margin-bottom: 12px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px;
+            background: #1e1e26;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .chat-input-area button {
+            padding: 10px 16px;
+            background: #ff7700;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background: #e06600;
+        }
+
+        /* Barra dos três ícones de logo organizados lado a lado no rodapé */
         .icones-inferiores {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
 
         .icones-inferiores a {
@@ -296,7 +359,7 @@
 
     </div>
 
-    <!-- Bloco da Web TV (No meio com o player da Iblups) -->
+    <!-- Bloco da Web TV (Logo abaixo) -->
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
@@ -304,21 +367,33 @@
         </div>
     </div>
 
-    <!-- Três ícones de ação lado a lado no rodapé -->
+    <!-- Bloco de Bate-Papo / Recados (No Meio) -->
+    <div class="chat-box">
+        <h3>Bate-Papo da Rádio</h3>
+        <div class="mensagens-container" id="historico-chat">
+            <div style="color: #888; text-align: center; margin-top: 40px;">Seja bem-vindo ao chat! Peça sua música ou mande seu recado.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
+            <button type="button" onclick="enviarMensagem()">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Os Três Ícones de Logo no Rodapé (Por último) -->
     <div class="icones-inferiores">
-        <!-- Botão WhatsApp -->
+        <!-- 1. Botão WhatsApp -->
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
             <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
         </a>
 
-        <!-- Botão Facebook -->
+        <!-- 2. Botão Facebook -->
         <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
             <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
         </a>
 
-        <!-- Novo Botão Play Alternativo / Web TV levando para a página do servidor -->
+        <!-- 3. Novo Botão Play Alternativo / Web TV (Levando para o servidor) -->
         <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
-            <img src="WhatsApp Image 2026-10-16 at ...jpeg" alt="Play Alternativo Web TV">
+            <img src="Imagem do WhatsApp 2026-10-16.jpeg" alt="Play Alternativo Web TV">
         </a>
     </div>
 
@@ -402,6 +477,31 @@
             status.textContent =
                 "Não foi possível carregar o áudio da rádio.";
         });
+
+        // Função simples para interagir no chat local
+        function enviarMensagem() {
+            const input = document.getElementById("input-mensagem");
+            const historico = document.getElementById("historico-chat");
+            const texto = input.value.trim();
+
+            if (texto !== "") {
+                if (historico.innerHTML.includes("Seja bem-vindo")) {
+                    historico.innerHTML = "";
+                }
+                const novaMsg = document.createElement("div");
+                novaMsg.style.marginBottom = "6px";
+                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
+                historico.appendChild(novaMsg);
+                input.value = "";
+                historico.scrollTop = historico.scrollHeight;
+            }
+        }
+
+        function verificarEnter(e) {
+            if (e.key === "Enter") {
+                enviarMensagem();
+            }
+        }
     </script>
 
 </body>
