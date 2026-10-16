@@ -232,7 +232,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            max-height: 80px;
+            max-height: 85px;
             overflow-y: auto;
         }
 
@@ -241,7 +241,7 @@
             border: 1px solid #333;
             border-radius: 6px;
             cursor: pointer;
-            padding: 4px 7px;
+            padding: 5px 8px;
             font-size: 16px;
             transition: background 0.2s, transform 0.1s;
         }
@@ -371,22 +371,23 @@
             <div style="color: #888; text-align: center; margin-top: 45px;">Seja bem-vindo ao mural interativo! Mande seu recado, use emojis ou grave um áudio PTT 🎙️🎶</div>
         </div>
 
+        <!-- Painel de Emojis Corrigido e Funcional -->
         <div class="emoji-panel">
-            <button class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
-            <button class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
-            <button class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
-            <button class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
-            <button class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
-            <button class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
-            <button class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
-            <button class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
-            <button class="emoji-btn" onclick="inserirEmoji('🎤')">🎤</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
+            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎤')">🎤</button>
         </div>
 
         <div class="chat-controls">
@@ -502,4 +503,67 @@
                 }
                 const novaMsg = document.createElement("div");
                 novaMsg.style.marginBottom = "8px";
-                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte
+                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
+                historico.appendChild(novaMsg);
+                input.value = "";
+                historico.scrollTop = historico.scrollHeight;
+            }
+        }
+
+        function verificarEnter(e) {
+            if (e.key === "Enter") {
+                enviarMensagem();
+            }
+        }
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let gravando = false;
+
+        async function alternarGravacaoPtt() {
+            const btnPtt = document.getElementById("btn-ptt");
+            const historico = document.getElementById("historico-chat");
+
+            if (!gravando) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+
+                        if (historico.innerHTML.includes("Seja bem-vindo")) {
+                            historico.innerHTML = "";
+                        }
+
+                        const msgAudio = document.createElement("div");
+                        msgAudio.style.marginBottom = "8px";
+                        msgAudio.innerHTML = `<strong style="color: #ff7700;">Áudio PTT (Ouvinte):</strong><br><audio controls style="width: 100%; max-height: 35px; margin-top: 4px;" src="${audioUrl}"></audio>`;
+                        historico.appendChild(msgAudio);
+                        historico.scrollTop = historico.scrollHeight;
+                    };
+
+                    mediaRecorder.start();
+                    gravando = true;
+                    btnPtt.classList.add("gravando");
+                    btnPtt.title = "Gravando... Clique novamente para parar e enviar!";
+                } catch (err) {
+                    alert("Não foi possível acessar o microfone. Verifique as permissões do navegador.");
+                    console.error(err);
+                }
+            } else {
+                mediaRecorder.stop();
+                gravando = false;
+                btnPtt.classList.remove("gravando");
+                btnPtt.title = "Gravar mensagem de voz (Walkie-Talkie)";
+            }
+        }
+    </script>
+</body>
+</html>
