@@ -207,78 +207,62 @@
             border: 0;
         }
 
+        /* Central de Bate-Papo e PTT em tempo real */
         .chat-box {
             text-align: left;
         }
 
-        .mensagens-container {
-            background: #0f0f13;
+        .chat-iframe-container {
+            width: 100%;
+            height: 220px;
             border-radius: 10px;
-            padding: 12px;
-            height: 180px;
-            overflow-y: auto;
+            overflow: hidden;
             border: 1px solid #222;
-            font-size: 13px;
-            color: #ddd;
+            background: #0f0f13;
             margin-bottom: 12px;
         }
 
-        .emoji-panel {
+        .chat-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Painel PTT / Mensagem de Voz de Apoio */
+        .ptt-panel {
             background: #121217;
             border: 1px solid #222;
-            border-radius: 8px;
-            padding: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-height: 85px;
-            overflow-y: auto;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
         }
 
-        .emoji-btn {
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 6px;
-            cursor: pointer;
-            padding: 5px 8px;
-            font-size: 16px;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .emoji-btn:hover {
-            background: #ff7700;
-            transform: scale(1.15);
-        }
-
-        .chat-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .chat-controls input {
-            flex: 1;
-            padding: 11px;
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
+        .ptt-panel p {
+            margin: 0 0 8px 0;
             font-size: 13px;
+            color: #aaa;
+        }
+
+        .ptt-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
         }
 
         #btn-ptt {
             background: #2b2b36;
             border: 1px solid #444;
             color: #fff;
-            padding: 10px 12px;
+            padding: 10px 16px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px;
+            font-weight: bold;
             transition: background 0.2s, border-color 0.2s;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
         }
 
         #btn-ptt.gravando {
@@ -289,22 +273,15 @@
 
         @keyframes pulsarGravacao {
             0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
+            100% { transform: scale(1.05); }
         }
 
-        .chat-controls button.enviar-btn {
-            padding: 11px 16px;
-            background: #ff7700;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .chat-controls button.enviar-btn:hover {
-            background: #e06600;
+        #historico-ptt {
+            margin-top: 10px;
+            max-height: 100px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 12px;
         }
 
         .icones-inferiores {
@@ -339,6 +316,7 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
+    <!-- Bloco da Rádio -->
     <div class="radio-box">
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
@@ -358,6 +336,7 @@
         </div>
     </div>
 
+    <!-- Bloco da Web TV -->
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
@@ -365,47 +344,38 @@
         </div>
     </div>
 
+    <!-- Bloco de Bate-Papo e PTT em Tempo Real -->
     <div class="chat-box">
         <h3>Bate-Papo da Rádio</h3>
-        <div class="mensagens-container" id="historico-chat">
-            <div style="color: #888; text-align: center; margin-top: 45px;">Seja bem-vindo ao mural interativo! Mande seu recado, use emojis ou grave um áudio PTT 🎙️🎶</div>
+        
+        <!-- Chat em tempo real profissional para Web Rádio -->
+        <div class="chat-iframe-container">
+            <iframe src="https://www5.cbox.ws/box/?boxid=954714&boxtag=inesquecivel" title="Bate-Papo Rádio Músicas Inesquecíveis" allowTransparency="true" allow="microphone"></iframe>
         </div>
 
-        <!-- Painel de Emojis Corrigido e Funcional -->
-        <div class="emoji-panel">
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎤')">🎤</button>
-        </div>
-
-        <div class="chat-controls">
-            <button type="button" id="btn-ptt" title="Gravar mensagem de voz (Walkie-Talkie)" onclick="alternarGravacaoPtt()">🎙️</button>
-            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
-            <button type="button" class="enviar-btn" onclick="enviarMensagem()">Enviar</button>
+        <!-- Gravador de Voz Walkie-Talkie (PTT) para recados falados -->
+        <div class="ptt-panel">
+            <p>🎙️ <strong>Walkie-Talkie da Rádio:</strong> Grave seu recado de voz ao vivo!</p>
+            <div class="ptt-controls">
+                <button type="button" id="btn-ptt" onclick="alternarGravacaoPtt()">🎙️ Gravar Áudio PTT</button>
+            </div>
+            <div id="historico-ptt"></div>
         </div>
     </div>
 
+    <!-- Rodapé com os Três Logos -->
     <div class="icones-inferiores">
+        <!-- 1. Botão WhatsApp -->
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
             <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
         </a>
 
+        <!-- 2. Botão Facebook -->
         <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
             <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
         </a>
 
+        <!-- 3. Botão Play Alternativo / Web TV -->
         <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
             <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
         </a>
@@ -486,45 +456,16 @@
             }
         });
 
-        function inserirEmoji(emoji) {
-            const input = document.getElementById("input-mensagem");
-            input.value += emoji;
-            input.focus();
-        }
-
-        function enviarMensagem() {
-            const input = document.getElementById("input-mensagem");
-            const historico = document.getElementById("historico-chat");
-            const texto = input.value.trim();
-
-            if (texto !== "") {
-                if (historico.innerHTML.includes("Seja bem-vindo")) {
-                    historico.innerHTML = "";
-                }
-                const novaMsg = document.createElement("div");
-                novaMsg.style.marginBottom = "8px";
-                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
-                historico.appendChild(novaMsg);
-                input.value = "";
-                historico.scrollTop = historico.scrollHeight;
-            }
-        }
-
-        function verificarEnter(e) {
-            if (e.key === "Enter") {
-                enviarMensagem();
-            }
-        }
-
+        // Sistema de Gravação de Voz PTT (Walkie-Talkie)
         let mediaRecorder;
         let audioChunks = [];
-        let gravando = false;
+        let gravandoPtt = false;
 
         async function alternarGravacaoPtt() {
             const btnPtt = document.getElementById("btn-ptt");
-            const historico = document.getElementById("historico-chat");
+            const historicoPtt = document.getElementById("historico-ptt");
 
-            if (!gravando) {
+            if (!gravandoPtt) {
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     mediaRecorder = new MediaRecorder(stream);
@@ -538,30 +479,25 @@
                         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                         const audioUrl = URL.createObjectURL(audioBlob);
 
-                        if (historico.innerHTML.includes("Seja bem-vindo")) {
-                            historico.innerHTML = "";
-                        }
-
-                        const msgAudio = document.createElement("div");
-                        msgAudio.style.marginBottom = "8px";
-                        msgAudio.innerHTML = `<strong style="color: #ff7700;">Áudio PTT (Ouvinte):</strong><br><audio controls style="width: 100%; max-height: 35px; margin-top: 4px;" src="${audioUrl}"></audio>`;
-                        historico.appendChild(msgAudio);
-                        historico.scrollTop = historico.scrollHeight;
+                        const playerDiv = document.createElement("div");
+                        playerDiv.style.marginTop = "8px";
+                        playerDiv.innerHTML = `<span style="color: #ff7700; font-size: 11px;">Seu Áudio PTT Gravado:</span><br><audio controls style="width: 100%; height: 32px;" src="${audioUrl}"></audio>`;
+                        historicoPtt.appendChild(playerDiv);
                     };
 
                     mediaRecorder.start();
-                    gravando = true;
+                    gravandoPtt = true;
                     btnPtt.classList.add("gravando");
-                    btnPtt.title = "Gravando... Clique novamente para parar e enviar!";
+                    btnPtt.textContent = "🔴 Gravando... Clique para Enviar";
                 } catch (err) {
                     alert("Não foi possível acessar o microfone. Verifique as permissões do navegador.");
                     console.error(err);
                 }
             } else {
                 mediaRecorder.stop();
-                gravando = false;
+                gravandoPtt = false;
                 btnPtt.classList.remove("gravando");
-                btnPtt.title = "Gravar mensagem de voz (Walkie-Talkie)";
+                btnPtt.textContent = "🎙️ Gravar Áudio PTT";
             }
         }
     </script>
