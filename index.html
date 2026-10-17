@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,7 +20,7 @@
             color: #ff7700;
             margin-top: 15px;
             font-size: 28px;
-            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255,119,0,0.5);
         }
 
         .subtitulo-topo {
@@ -31,18 +32,16 @@
 
         .radio-box, .tv-box {
             max-width: 520px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 20px;
             background: #141418;
             padding: 20px;
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             border: 1px solid #22222c;
             position: relative;
         }
 
-        .radio-box {
-            overflow: hidden;
-        }
+        .radio-box { overflow: hidden; }
 
         .imagem-radio {
             position: relative;
@@ -65,13 +64,14 @@
             transform: translate(-50%, -50%);
             width: 26px;
             height: 26px;
-            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255,255,255,0.85);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0,0,0,0.8);
             color: white;
             font-size: 9px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 6px rgba(255, 119, 0, 0.5);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.9),
+                        0 0 6px rgba(255,119,0,0.5);
             z-index: 10;
             display: flex;
             align-items: center;
@@ -80,8 +80,8 @@
         }
 
         #botao-play:hover {
-            background: rgba(255, 119, 0, 0.9);
-            border-color: #ffffff;
+            background: rgba(255,119,0,0.9);
+            border-color: white;
             transform: translate(-50%, -50%) scale(1.15);
         }
 
@@ -92,13 +92,13 @@
             height: 72px;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(255, 0, 50, 0.98) 0%, 
-                rgba(255, 60, 0, 0.88) 40%, 
-                rgba(180, 0, 30, 0.75) 70%, 
-                rgba(0, 0, 0, 0.9) 100%
-            );
-            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.95), 0 0 14px rgba(255, 0, 60, 0.85);
+            background: radial-gradient(circle,
+                rgba(255,0,50,0.98) 0%,
+                rgba(255,60,0,0.88) 40%,
+                rgba(180,0,30,0.75) 70%,
+                rgba(0,0,0,0.9) 100%);
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.95),
+                        0 0 14px rgba(255,0,60,0.85);
             mix-blend-mode: screen;
             opacity: 0.95;
             pointer-events: none;
@@ -110,8 +110,8 @@
         .bloco-luz-dir { left: 83.5%; }
 
         @keyframes pulsarAvancado {
-            0% { transform: translate(-50%, -50%) scale(0.93); opacity: 0.82; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+            0% { transform: translate(-50%,-50%) scale(0.93); opacity: 0.82; }
+            100% { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
         }
 
         .ondas-visor {
@@ -207,8 +207,44 @@
             border: 0;
         }
 
+        /* Caixa grande do chat incorporado */
+        .chat-box {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            margin: 25px auto;
+            padding: 16px;
+            background: #141418;
+            border: 1px solid #2998ff;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(41,152,255,0.25);
+            scroll-margin-top: 15px;
+        }
+
+        .chat-box h3 {
+            margin: 0 0 15px;
+            color: #55b5ff;
+            font-size: 22px;
+        }
+
+        #tawk_6ad36f51352c6134ccc4baeb {
+            display: block;
+            width: 100%;
+            height: 650px;
+            min-height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        #tawk_6ad36f51352c6134ccc4baeb iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
         .icones-inferiores {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 15px;
@@ -227,9 +263,31 @@
 
         .icones-inferiores img {
             width: 105px;
+            max-width: 26vw;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+
+            h1 { font-size: 23px; }
+
+            .radio-box, .tv-box {
+                padding: 12px;
+            }
+
+            .chat-box {
+                padding: 8px;
+            }
+
+            #tawk_6ad36f51352c6134ccc4baeb {
+                height: 600px;
+                min-height: 500px;
+            }
+
+            .icones-inferiores { gap: 9px; }
         }
     </style>
 </head>
@@ -239,7 +297,7 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
-    <!-- Bloco da Rádio -->
+    <!-- Rádio: estrutura e transmissão preservadas -->
     <div class="radio-box">
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
@@ -248,40 +306,73 @@
             <div class="ondas-visor">
                 <span></span><span></span><span></span><span></span><span></span>
             </div>
-            <button id="botao-play" type="button" aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
+            <button id="botao-play" type="button"
+                aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
         </div>
+
         <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
         <audio id="audio-radio" preload="none"></audio>
         <p id="status-radio">Rádio pronta para tocar</p>
+
         <div class="tocando-agora">
             <span>Tocando Agora</span>
             <div id="nome-musica">Aguardando conexão...</div>
         </div>
     </div>
 
-    <!-- Bloco da Web TV -->
+    <!-- Web TV preservada -->
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
-            <iframe src="https://iblups.com/embed/musicasinesqueciveis" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe
+                src="https://iblups.com/embed/musicasinesqueciveis"
+                title="Web TV Rádio Músicas Inesquecíveis"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
         </div>
     </div>
 
-    <!-- Rodapé com os Três Logos -->
+    <!-- Chat grande, incorporado e aberto na própria página -->
+    <section class="chat-box" id="chat-ao-vivo">
+        <h3>💬 Chat ao vivo da Rádio</h3>
+
+        <!-- O Tawk.to será carregado neste espaço -->
+        <div id="tawk_6ad36f51352c6134ccc4baeb"></div>
+    </section>
+
+    <!-- Ícones no final da página -->
     <div class="icones-inferiores">
-        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" aria-label="Pedir música no WhatsApp">
-            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="Peça sua música no WhatsApp">
+
+        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Pedir música no WhatsApp">
+            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg"
+                 alt="Peça sua música no WhatsApp">
         </a>
 
-        <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" aria-label="Grupo do Facebook">
-            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Grupo do Facebook">
+        <a href="https://www.facebook.com/groups/1279173282256062/"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Grupo do Facebook">
+            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg"
+                 alt="Grupo do Facebook">
         </a>
 
-        <a href="https://iblups.com/musicasinesqueciveis" target="_blank" aria-label="Abrir Web TV em tela cheia">
-            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg" alt="Play Alternativo Web TV">
+        <a href="https://iblups.com/musicasinesqueciveis"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Abrir Web TV em tela cheia">
+            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg"
+                 alt="Play Alternativo Web TV">
+        </a>
+
+        <!-- Este ícone leva até o chat; não abre outra página -->
+        <a href="#chat-ao-vivo" aria-label="Ir para o chat ao vivo">
+            <img src="WhatsApp Image 2026-10-17 at 16.54.46.jpeg"
+                 alt="Ir para o chat da rádio">
         </a>
     </div>
 
+    <!-- Rádio e consulta da música -->
     <script>
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
@@ -293,19 +384,23 @@
 
         function atualizarInfoMusica() {
             const urlAlvo = "http://212.84.160.3:6097/7.html";
-            const proxyUrl = https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)};
+            const proxyUrl =
+                `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
 
             fetch(proxyUrl, { cache: "no-store" })
                 .then(resposta => resposta.json())
                 .then(dados => {
                     if (dados && dados.contents) {
-                        let parser = new DOMParser();
-                        let htmlDoc = parser.parseFromString(dados.contents, 'text/html');
-                        let textoPuro = htmlDoc.body.textContent || "";
-                        
-                        let partes = textoPuro.split(',');
+                        const parser = new DOMParser();
+                        const htmlDoc = parser.parseFromString(
+                            dados.contents, "text/html"
+                        );
+                        const textoPuro = htmlDoc.body.textContent || "";
+                        const partes = textoPuro.split(",");
+
                         if (partes.length >= 7) {
-                            let musicaAtual = partes[6];
+                            const musicaAtual = partes[6];
+
                             if (musicaAtual && musicaAtual.trim() !== "") {
                                 divMusica.textContent = musicaAtual;
                             }
@@ -335,7 +430,8 @@
                 status.textContent = "Rádio ao vivo";
                 atualizarInfoMusica();
             } catch (erro) {
-                status.textContent = "Não foi possível tocar. Verifique a conexão.";
+                status.textContent =
+                    "Não foi possível tocar. Verifique a conexão.";
                 console.error(erro);
             }
         }
@@ -344,13 +440,16 @@
             botao.textContent = "Ⅱ";
             status.textContent = "Rádio ao vivo";
             atualizarInfoMusica();
+
             if (!window.intervaloMusica) {
-                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
+                window.intervaloMusica =
+                    setInterval(atualizarInfoMusica, 15000);
             }
         });
 
         audio.addEventListener("pause", function() {
             botao.textContent = "▶️";
+
             if (window.intervaloMusica) {
                 clearInterval(window.intervaloMusica);
                 window.intervaloMusica = null;
@@ -358,17 +457,26 @@
         });
     </script>
 
-    <!-- Script Oficial do Tawk.to idêntico ao painel da sua tela -->
+    <!-- NOVO widget Embed do Tawk.to.
+         Substitui o script flutuante antigo. -->
     <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6ad36f51352c6134ccc4baeb/1k54u1lvg';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+        var Tawk_API = Tawk_API || {};
+        var Tawk_LoadStart = new Date();
+
+        Tawk_API.embedded = "tawk_6ad36f51352c6134ccc4baeb";
+
+        (function() {
+            var s1 = document.createElement("script");
+            var s0 = document.getElementsByTagName("script")[0];
+
+            s1.async = true;
+            s1.src =
+                "https://embed.tawk.to/6ad36f51352c6134ccc4baeb/1k563neri";
+            s1.charset = "UTF-8";
+            s1.setAttribute("crossorigin", "*");
+
+            s0.parentNode.insertBefore(s1, s0);
+        })();
     </script>
 
 </body>
