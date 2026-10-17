@@ -211,75 +211,14 @@
             text-align: left;
         }
 
-        .mensagens-container {
-            background: #0f0f13;
+        /* O novo espaço onde o chat oficial vai encaixar perfeitamente */
+        #tawkToContainer {
+            width: 100%;
+            min-height: 450px;
             border-radius: 10px;
-            padding: 12px;
-            height: 320px;
-            overflow-y: auto;
+            overflow: hidden;
+            background: #0f0f13;
             border: 1px solid #222;
-            font-size: 13px;
-            color: #ddd;
-            margin-bottom: 12px;
-        }
-
-        .emoji-panel {
-            background: #121217;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-height: 90px;
-            overflow-y: auto;
-        }
-
-        .emoji-btn {
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 6px;
-            cursor: pointer;
-            padding: 6px 9px;
-            font-size: 16px;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .emoji-btn:hover {
-            background: #ff7700;
-            transform: scale(1.15);
-        }
-
-        .chat-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .chat-controls input {
-            flex: 1;
-            padding: 11px;
-            background: #1e1e26;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
-        }
-
-        .chat-controls button.enviar-btn {
-            padding: 11px 16px;
-            background: #ff7700;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .chat-controls button.enviar-btn:hover {
-            background: #e06600;
         }
 
         .icones-inferiores {
@@ -342,35 +281,10 @@
         </div>
     </div>
 
-    <!-- Bloco de Bate-Papo / Mural da Rádio -->
+    <!-- Bloco do Novo Chat Oficial (Sem caixinha velha) -->
     <div class="chat-box">
         <h3>Bate-Papo da Rádio</h3>
-        
-        <div class="mensagens-container" id="historico-chat">
-            <div style="color: #888; text-align: center; margin-top: 130px;">Seja bem-vindo ao mural interativo! Mande seu recado ou peça sua música 🎶📻</div>
-        </div>
-
-        <div class="emoji-panel">
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎵')">🎵</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎶')">🎶</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎸')">🎸</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🎷')">🎷</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📻')">📻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('📺')">📺</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🔥')">🔥</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('❤️')">❤️</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('😎')">😎</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👍')">👍</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('👏')">👏</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🍻')">🍻</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('✨')">✨</button>
-            <button type="button" class="emoji-btn" onclick="inserirEmoji('🚀')">🚀</button>
-        </div>
-
-        <div class="chat-controls">
-            <input type="text" id="input-mensagem" placeholder="Digite seu recado ou peça uma música..." onkeypress="verificarEnter(event)">
-            <button type="button" class="enviar-btn" onclick="enviarMensagem()">Enviar</button>
-        </div>
+        <div id="tawkToContainer"></div>
     </div>
 
     <!-- Rodapé com os Três Logos -->
@@ -462,36 +376,23 @@
                 window.intervaloMusica = null;
             }
         });
-
-        function inserirEmoji(emoji) {
-            const input = document.getElementById("input-mensagem");
-            input.value += emoji;
-            input.focus();
-        }
-
-        function enviarMensagem() {
-            const input = document.getElementById("input-mensagem");
-            const historico = document.getElementById("historico-chat");
-            const texto = input.value.trim();
-
-            if (texto !== "") {
-                if (historico.innerHTML.includes("Seja bem-vindo")) {
-                    historico.innerHTML = "";
-                }
-                const novaMsg = document.createElement("div");
-                novaMsg.style.marginBottom = "8px";
-                novaMsg.innerHTML = `<strong style="color: #ff7700;">Ouvinte:</strong> ${texto}`;
-                historico.appendChild(novaMsg);
-                input.value = "";
-                historico.scrollTop = historico.scrollHeight;
-            }
-        }
-
-        function verificarEnter(e) {
-            if (e.key === "Enter") {
-                enviarMensagem();
-            }
-        }
     </script>
+
+    <!-- Script Oficial do Tawk.to configurado para carregar dentro do bloco -->
+    <script type="text/javascript">
+    var Tawk_API = Tawk_API || {};
+    Tawk_API.containerId = 'tawkToContainer';
+    
+    (function(){
+    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    s1.async = true;
+    s1.src = 'https://embed.tawk.to/6ad36f51352c6134ccc4baeb/default';
+    s1.charset = 'UTF-8';
+    s1.setAttribute('crossorigin', '*');
+    s0.parentNode.insertBefore(s1, s0);
+    })();
+    </script>
+    <!-- Fim do Script Tawk.to -->
+
 </body>
 </html>
