@@ -29,7 +29,7 @@
             letter-spacing: 0.5px;
         }
 
-        .radio-box, .tv-box, .chat-box {
+        .radio-box, .tv-box {
             max-width: 520px;
             margin: 0 auto 20px auto;
             background: #141418;
@@ -182,7 +182,7 @@
             font-weight: bold;
         }
 
-        .tv-box h3, .chat-box h3 {
+        .tv-box h3 {
             color: #ff7700;
             margin-top: 0;
             margin-bottom: 15px;
@@ -205,20 +205,6 @@
             width: 100%;
             height: 100%;
             border: 0;
-        }
-
-        .chat-box {
-            text-align: left;
-        }
-
-        /* Container ajustado para o chat oficial do Tawk.to */
-        #tawkToContainer {
-            width: 100%;
-            min-height: 450px;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #0f0f13;
-            border: 1px solid #222;
         }
 
         .icones-inferiores {
@@ -279,12 +265,6 @@
         <div class="video-container">
             <iframe src="https://iblups.com/embed/musicasinesqueciveis" title="Web TV Rádio Músicas Inesquecíveis" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-    </div>
-
-    <!-- Bloco do Chat Oficial Tawk.to -->
-    <div class="chat-box">
-        <h3>Bate-Papo da Rádio</h3>
-        <div id="tawkToContainer"></div>
     </div>
 
     <!-- Rodapé com os Três Logos -->
@@ -378,21 +358,18 @@
         });
     </script>
 
-    <!-- Script Oficial do Tawk.to embutido no bloco da página -->
+    <!-- Script Oficial Padrão do Tawk.to (Exatamente antes de fechar o body) -->
     <script type="text/javascript">
-    var Tawk_API = Tawk_API || {};
-    Tawk_API.containerId = 'tawkToContainer';
-    
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/6ad36f51352c6134ccc4baeb/default';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6ad36f51352c6134ccc4baeb/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    <!-- Fim do Script Tawk.to -->
 
 </body>
 </html>
