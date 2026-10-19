@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -207,7 +206,6 @@
             border: 0;
         }
 
-        /* Caixa grande do chat incorporado */
         .chat-box {
             width: 100%;
             max-width: 1000px;
@@ -271,22 +269,10 @@
 
         @media (max-width: 600px) {
             body { padding: 10px; }
-
             h1 { font-size: 23px; }
-
-            .radio-box, .tv-box {
-                padding: 12px;
-            }
-
-            .chat-box {
-                padding: 8px;
-            }
-
-            #tawk_6ad36f51352c6134ccc4baeb {
-                height: 600px;
-                min-height: 500px;
-            }
-
+            .radio-box, .tv-box { padding: 12px; }
+            .chat-box { padding: 8px; }
+            #tawk_6ad36f51352c6134ccc4baeb { height: 600px; min-height: 500px; }
             .icones-inferiores { gap: 9px; }
         }
     </style>
@@ -297,7 +283,6 @@
     <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
     <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
-    <!-- Rádio: estrutura e transmissão preservadas -->
     <div class="radio-box">
         <div class="imagem-radio">
             <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
@@ -311,7 +296,7 @@
         </div>
 
         <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
-        <audio id="audio-radio" preload="none"></audio>
+        <audio id="audio-radio" preload="none">
         <p id="status-radio">Rádio pronta para tocar</p>
 
         <div class="tocando-agora">
@@ -320,7 +305,6 @@
         </div>
     </div>
 
-    <!-- Web TV preservada -->
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
@@ -333,46 +317,36 @@
         </div>
     </div>
 
-    <!-- Chat grande, incorporado e aberto na própria página -->
     <section class="chat-box" id="chat-ao-vivo">
         <h3>💬 Chat ao vivo da Rádio</h3>
-
-        <!-- O Tawk.to será carregado neste espaço -->
         <div id="tawk_6ad36f51352c6134ccc4baeb"></div>
     </section>
 
-    <!-- Ícones no final da página -->
     <div class="icones-inferiores">
-
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f"
            target="_blank" rel="noopener noreferrer"
            aria-label="Pedir música no WhatsApp">
             <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg"
                  alt="Peça sua música no WhatsApp">
         </a>
-
         <a href="https://www.facebook.com/groups/1279173282256062/"
            target="_blank" rel="noopener noreferrer"
            aria-label="Grupo do Facebook">
             <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg"
                  alt="Grupo do Facebook">
         </a>
-
         <a href="https://iblups.com/musicasinesqueciveis"
            target="_blank" rel="noopener noreferrer"
            aria-label="Abrir Web TV em tela cheia">
             <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg"
                  alt="Play Alternativo Web TV">
         </a>
-
-        <!-- Este ícone leva até o chat; não abre outra página -->
         <a href="#chat-ao-vivo" aria-label="Ir para o chat ao vivo">
             <img src="WhatsApp Image 2026-10-17 at 16.54.46.jpeg"
                  alt="Ir para o chat da rádio">
         </a>
     </div>
 
-    <!-- Rádio e consulta da música -->
     <script>
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
@@ -457,8 +431,6 @@
         });
     </script>
 
-    <!-- NOVO widget Embed do Tawk.to.
-         Substitui o script flutuante antigo. -->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {};
         var Tawk_LoadStart = new Date();
@@ -470,8 +442,7 @@
             var s0 = document.getElementsByTagName("script")[0];
 
             s1.async = true;
-            s1.src =
-                "https://embed.tawk.to/6ad36f51352c6134ccc4baeb/1k563neri";
+            s1.src = "https://embed.tawk.to/6ad36f51352c6134ccc4baeb/1k54ullvg";
             s1.charset = "UTF-8";
             s1.setAttribute("crossorigin", "*");
 
