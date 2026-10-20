@@ -206,39 +206,96 @@
             border: 0;
         }
 
-        /* Caixa grande do chat incorporado */
+        /* Estilos da Caixa do Chat da Nina Incorporado */
         .chat-box {
             width: 100%;
-            max-width: 1000px;
+            max-width: 520px;
             box-sizing: border-box;
             margin: 25px auto;
             padding: 16px;
             background: #141418;
-            border: 1px solid #2998ff;
+            border: 1px solid #10b981;
             border-radius: 16px;
-            box-shadow: 0 0 20px rgba(41,152,255,0.25);
+            box-shadow: 0 0 20px rgba(16,185,129,0.25);
             scroll-margin-top: 15px;
+            text-align: left;
         }
 
         .chat-box h3 {
             margin: 0 0 15px;
-            color: #55b5ff;
-            font-size: 22px;
+            color: #10b981;
+            font-size: 20px;
+            text-align: center;
         }
 
-        #tawk_6ad36f51352c6134ccc4baeb {
-            display: block;
-            width: 100%;
-            height: 650px;
-            min-height: 500px;
-            overflow: hidden;
+        #nina-chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #0e0e12;
+            padding: 12px;
             border-radius: 10px;
-            background: #fff;
+            border: 1px solid #22222c;
+            margin-bottom: 12px;
         }
 
-        #tawk_6ad36f51352c6134ccc4baeb iframe {
-            width: 100% !important;
-            max-width: 100% !important;
+        .nina-msg {
+            padding: 10px 14px;
+            border-radius: 8px;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .nina-msg.bot {
+            background: #22222c;
+            color: #e5e7eb;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .nina-msg.user {
+            background: #10b981;
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        #nina-chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        #nina-chat-input {
+            flex: 1;
+            padding: 10px 12px;
+            background: #1b1b22;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #nina-chat-input:focus {
+            border-color: #10b981;
+        }
+
+        #nina-chat-send {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #nina-chat-send:hover {
+            background: #059669;
         }
 
         .icones-inferiores {
@@ -270,22 +327,8 @@
 
         @media (max-width: 600px) {
             body { padding: 10px; }
-
             h1 { font-size: 23px; }
-
-            .radio-box, .tv-box {
-                padding: 12px;
-            }
-
-            .chat-box {
-                padding: 8px;
-            }
-
-            #tawk_6ad36f51352c6134ccc4baeb {
-                height: 600px;
-                min-height: 500px;
-            }
-
+            .radio-box, .tv-box, .chat-box { padding: 12px; }
             .icones-inferiores { gap: 9px; }
         }
     </style>
@@ -332,17 +375,22 @@
         </div>
     </div>
 
-    <!-- Chat grande, incorporado e aberto na própria página -->
+    <!-- Chat da Nina Incorporado na Própria Página -->
     <section class="chat-box" id="chat-ao-vivo">
-        <h3>💬 Chat ao vivo da Rádio</h3>
-
-        <!-- O Tawk.to será carregado neste espaço -->
-        <div id="tawk_6ad36f51352c6134ccc4baeb"></div>
+        <h3>💬 Falar com a Nina</h3>
+        <div id="nina-chat-messages">
+            <div class="nina-msg bot">Olá! Sou a Nina, assistente da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso ajudar-te ou que música gostarias de pedir hoje?</div>
+        </div>
+        <div id="nina-chat-input-area">
+            <input type="text" id="nina-chat-input" placeholder="Escreve aqui o teu pedido ou mensagem..." onkeypress="checkNinaEnter(event)">
+            <button id="nina-chat-send" onclick="sendNinaMessage()">Enviar</button>
+        </div>
     </section>
 
-    <!-- Ícones no final da página -->
+    <!-- Ícones no final da página (Apenas WhatsApp e Facebook) -->
     <div class="icones-inferiores">
 
+        <!-- 1º Ícone: WhatsApp -->
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f"
            target="_blank" rel="noopener noreferrer"
            aria-label="Pedir música no WhatsApp">
@@ -350,6 +398,7 @@
                  alt="Peça sua música no WhatsApp">
         </a>
 
+        <!-- 2º Ícone: Facebook -->
         <a href="https://www.facebook.com/groups/1279173282256062/"
            target="_blank" rel="noopener noreferrer"
            aria-label="Grupo do Facebook">
@@ -357,18 +406,6 @@
                  alt="Grupo do Facebook">
         </a>
 
-        <a href="https://iblups.com/musicasinesqueciveis"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Abrir Web TV em tela cheia">
-            <img src="WhatsApp Image 2026-10-16 at 19.08.53.jpeg"
-                 alt="Play Alternativo Web TV">
-        </a>
-
-        <!-- Este ícone leva até o chat; não abre outra página -->
-        <a href="#chat-ao-vivo" aria-label="Ir para o chat ao vivo">
-            <img src="WhatsApp Image 2026-10-17 at 16.54.46.jpeg"
-                 alt="Ir para o chat da rádio">
-        </a>
     </div>
 
     <!-- Rádio e consulta da música -->
@@ -456,26 +493,68 @@
         });
     </script>
 
-    <!-- NOVO widget Embed do Tawk.to.
-         Substitui o script flutuante antigo. -->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {};
-        var Tawk_LoadStart = new Date();
+    <!-- Cérebro e Lógica da Nina -->
+    <script>
+        function checkNinaEnter(e) {
+            if (e.key === 'Enter') {
+                sendNinaMessage();
+            }
+        }
 
-        Tawk_API.embedded = "tawk_6ad36f51352c6134ccc4baeb";
+        function sendNinaMessage() {
+            const input = document.getElementById('nina-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
 
-        (function() {
-            var s1 = document.createElement("script");
-            var s0 = document.getElementsByTagName("script")[0];
+            const messagesContainer = document.getElementById('nina-chat-messages');
 
-            s1.async = true;
-            s1.src =
-                "https://embed.tawk.to/6ad36f51352c6134ccc4baeb/1k563neri";
-            s1.charset = "UTF-8";
-            s1.setAttribute("crossorigin", "*");
+            // Mensagem do Utilizador
+            const userDiv = document.createElement('div');
+            userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
 
-            s0.parentNode.insertBefore(s1, s0);
-        })();
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Resposta Inteligente da Nina baseada no Cérebro e FAQ
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = processNinaResponse(text);
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
+        }
+
+        function processNinaResponse(query) {
+            const q = query.toLowerCase();
+
+            if (q.includes('radio') || q.includes('projeto') || q.includes('site') || q.includes('que radio')) {
+                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+            if (q.includes('programacao') || q.includes('horario') || q.includes('dia')) {
+                return 'Nossa programação é eclética e escolhida a dedo para animar o seu estabelecimento ou o seu dia! Tocamos o melhor do rock clássico, heavy metal e preciosidades tiradas lá do porão. Tudo focado na nossa curadoria especial para o horário comercial. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+            if (q.includes('banda') || q.includes('toca') || q.includes('musica') || q.includes('pedir') || q.includes('ac/dc') || q.includes('beatles') || q.includes('queen') || q.includes('pink floyd') || q.includes('metallica') || q.includes('iron')) {
+                return 'Pedido anotado com todo o carinho! O DJ Xavier acompanha toda a conversa aqui no chat e já coloca o som no radar da nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+            if (q.includes('dj') || q.includes('admin') || q.includes('dono') || q.includes('xavier')) {
+                return 'O DJ da rádio é o DJ Xavier! Ele acompanha tudo o que conversamos por aqui.';
+            }
+            if (q.includes('whatsapp') || q.includes('grupo') || q.includes('falar')) {
+                return 'Você pode falar direto com o DJ Xavier e interagir com a comunidade através do grupo de WhatsApp disponível aqui no site!';
+            }
+            if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som')) {
+                return 'O DJ virtual que toca o som e faz a distribuição às vezes dá um tilt e cai, mas quando isso acontece o DJ Xavier restaura e logo volta ao ar!';
+            }
+            if (q.includes('criacao') || q.includes('cria uma musica') || q.includes('verso') || q.includes('musica') || q.includes('letra')) {
+                return 'Com certeza! A criatividade por aqui não para. Manda a ideia do estilo ou tema que eu crio uns versos e rimas na hora para ti!';
+            }
+
+            // Resposta padrão alinhada com a personalidade
+            return 'Entendido perfeitamente! O DJ Xavier acompanha a nossa conversa aqui no chat e já registou o seu recado para interagir com a nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
+        }
     </script>
 
 </body>
