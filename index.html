@@ -493,7 +493,7 @@
         });
     </script>
 
-    <!-- Cérebro e Lógica da Nina -->
+    <!-- Cérebro e Lógica da Nina (Corrigido) -->
     <script>
         function checkNinaEnter(e) {
             if (e.key === 'Enter') {
@@ -517,45 +517,4 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            // Resposta Inteligente da Nina baseada no Cérebro e FAQ
-            setTimeout(() => {
-                const botDiv = document.createElement('div');
-                botDiv.className = 'nina-msg bot';
-                botDiv.textContent = processNinaResponse(text);
-                messagesContainer.appendChild(botDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 600);
-        }
-
-        function processNinaResponse(query) {
-            const q = query.toLowerCase();
-
-            if (q.includes('radio') || q.includes('projeto') || q.includes('site') || q.includes('que radio')) {
-                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-            if (q.includes('programacao') || q.includes('horario') || q.includes('dia')) {
-                return 'Nossa programação é eclética e escolhida a dedo para animar o seu estabelecimento ou o seu dia! Tocamos o melhor do rock clássico, heavy metal e preciosidades tiradas lá do porão. Tudo focado na nossa curadoria especial para o horário comercial. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-            if (q.includes('banda') || q.includes('toca') || q.includes('musica') || q.includes('pedir') || q.includes('ac/dc') || q.includes('beatles') || q.includes('queen') || q.includes('pink floyd') || q.includes('metallica') || q.includes('iron')) {
-                return 'Pedido anotado com todo o carinho! O DJ Xavier acompanha toda a conversa aqui no chat e já coloca o som no radar da nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-            if (q.includes('dj') || q.includes('admin') || q.includes('dono') || q.includes('xavier')) {
-                return 'O DJ da rádio é o DJ Xavier! Ele acompanha tudo o que conversamos por aqui.';
-            }
-            if (q.includes('whatsapp') || q.includes('grupo') || q.includes('falar')) {
-                return 'Você pode falar direto com o DJ Xavier e interagir com a comunidade através do grupo de WhatsApp disponível aqui no site!';
-            }
-            if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som')) {
-                return 'O DJ virtual que toca o som e faz a distribuição às vezes dá um tilt e cai, mas quando isso acontece o DJ Xavier restaura e logo volta ao ar!';
-            }
-            if (q.includes('criacao') || q.includes('cria uma musica') || q.includes('verso') || q.includes('musica') || q.includes('letra')) {
-                return 'Com certeza! A criatividade por aqui não para. Manda a ideia do estilo ou tema que eu crio uns versos e rimas na hora para ti!';
-            }
-
-            // Resposta padrão alinhada com a personalidade
-            return 'Entendido perfeitamente! O DJ Xavier acompanha a nossa conversa aqui no chat e já registou o seu recado para interagir com a nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
-        }
-    </script>
-
-</body>
-</html>
+            // Resposta Inteligente da Nina baseada no Cérebro e
