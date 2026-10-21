@@ -318,3 +318,185 @@
     <div class="tv-box">
         <h3>Web TV - Ao Vivo</h3>
         <div class="video-container">
+            <iframe
+                src="https://iblups.com/embed/musicasinesqueciveis"
+                title="Web TV Rádio Músicas Inesquecíveis"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <section class="chat-box" id="chat-ao-vivo">
+        <h3>💬 Falar com a Nina</h3>
+        <div id="nina-chat-messages">
+            <div class="nina-msg bot">Olá! Sou a Nina, assistente oficial e recepcionista da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso te ajudar hoje? 🎶</div>
+        </div>
+        <div id="nina-chat-input-area">
+            <input type="text" id="nina-chat-input" placeholder="Escreva aqui o seu pedido..." onkeypress="checkNinaEnter(event)">
+            <button id="nina-chat-send" onclick="sendNinaMessage()">Enviar</button>
+        </div>
+    </section>
+
+    <div class="icones-inferiores">
+        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" rel="noopener noreferrer">
+            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="WhatsApp">
+        </a>
+        <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" rel="noopener noreferrer">
+            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Facebook">
+        </a>
+    </div>
+
+    <script>
+        // CONFIGURAÇÕES DO TELEGRAM E DA RÁDIO
+        const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
+        
+        // ⚠️ COLOQUE O SEU CHAT ID REAL AQUI ENTRE AS ASPAS (Ex: "123456789")
+        const TELEGRAM_CHAT_ID = "SEU_CHAT_ID_AQUI";
+
+        const audio = document.getElementById("audio-radio");
+        const botao = document.getElementById("botao-play");
+        const status = document.getElementById("status-radio");
+        const divMusica = document.getElementById("nome-musica");
+
+        const enderecoRadio = "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+
+        function atualizarInfoMusica() {
+            const urlAlvo = "http://212.84.160.3:6097/7.html";
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
+
+            fetch(proxyUrl, { cache: "no-store" })
+                .then(resposta => resposta.json())
+                .then(dados => {
+                    if (dados && dados.contents) {
+                        const parser = new DOMParser();
+                        const htmlDoc = parser.parseFromString(dados.contents, "text/html");
+                        const textoPuro = htmlDoc.body.textContent || "";
+                        const partes = textoPuro.split(",");
+
+                        if (partes.length >= 7 && partes[6].trim() !== "") {
+                            divMusica.textContent = partes[6];
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
+        async function alternarRadio() {
+            if (!audio.paused) {
+                audio.pause();
+                botao.textContent = "▶️";
+                status.textContent = "Rádio pausada";
+                return;
+            }
+
+            if (!audio.src) { audio.src = enderecoRadio; }
+
+            status.textContent = "Conectando à rádio...";
+
+            try {
+                await audio.play();
+                botao.textContent = "Ⅱ";
+                status.textContent = "Rádio ao vivo";
+                atualizarInfoMusica();
+            } catch (erro) {
+                status.textContent = "Não foi possível tocar. Verifique a conexão.";
+            }
+        }
+
+        audio.addEventListener("playing", function() {
+            botao.textContent = "Ⅱ";
+            status.textContent = "Rádio ao vivo";
+            atualizarInfoMusica();
+
+            if (!window.intervaloMusica) {
+                window.intervaloMusica = setInterval(atualizarInfoMusica, 15000);
+            }
+        });
+
+        audio.addEventListener("pause", function() {
+            botao.textContent = "▶️";
+            if (window.intervaloMusica) {
+                clearInterval(window.intervaloMusica);
+                window.intervaloMusica = null;
+            }
+        });
+
+        // LÓGICA DO CHAT E ENVIO PARA O TELEGRAM VIA IMAGEM (ANT-CORS)
+        function checkNinaEnter(e) {
+            if (e.key === 'Enter') sendNinaMessage();
+        }
+
+        function sendToTelegram(messageText) {
+            if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === "SEU_CHAT_ID_AQUI") {
+                console.warn("Aviso: Telegram Chat ID não configurado.");
+                return;
+            }
+
+            const textoFormatado = `🚨 NOVO PEDIDO NO SITE!\n\n🎧 Mensagem: ${messageText}`;
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(textoFormatado)}`;
+            
+            // Truque da imagem invisível para burlar o CORS do navegador
+            const imgPonte = new Image();
+            imgPonte.src = url;
+        }
+
+        function sendNinaMessage() {
+            const input = document.getElementById('nina-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('nina-chat-messages');
+
+            // Mensagem do ouvinte
+            const userDiv = document.createElement('div');
+            userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
+
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Envia para o Telegram
+            sendToTelegram(text);
+
+            // Resposta da Nina
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = processarInteligenciaNina(text);
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+        }
+
+        function processarInteligenciaNina(query) {
+            const q = query.toLowerCase().trim();
+
+            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis. Como posso te ajudar hoje?';
+            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir hoje?';
+            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco na Rádio TV Web Músicas Inesquecíveis. Como posso ajudar a embalar a sua noite?';
+            if (q.includes('olá') || q.includes('ola') || q.includes('salve') || q.includes('oi')) return 'Olá! Seja muito bem-vindo à Rádio TV Web Músicas Inesquecíveis! Eu sou a Nina e o DJ Xavier está de olho no chat. O que gostaria de pedir?';
+
+            if (q.includes('quem é você') || q.includes('quem e voce') || q.includes('seu nome') || q.includes('quem e nina')) {
+                return 'Meu nome é Nina, sou a atendente e assistente da Rádio TV Web Músicas Inesquecíveis. Ao conversar comigo, o seu assunto é gravado e o DJ Xavier atenderá o seu pedido!';
+            }
+
+            if (q.includes('que radio') || q.includes('que rádio') || q.includes('que site') || q.includes('projeto')) {
+                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            if (q.includes('xavier') || q.includes('dj') || q.includes('dono') || q.includes('locutor')) {
+                return 'O DJ da nossa rádio é o DJ Xavier! Ele acompanha toda a nossa conversa aqui no chat e cuida com todo o carinho da programação no estúdio.';
+            }
+
+            if (q.includes('toca') || q.includes('pedir') || q.includes('ouvir') || q.includes('música') || q.includes('musica') || q.includes('som') || q.includes('banda') || q.includes('rock')) {
+                return 'Anotado com sucesso! O DJ Xavier já recebeu o recado no estúdio e vai colocar o seu som no radar da programação! Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
+        }
+    </script>
+
+</body>
+</html>
