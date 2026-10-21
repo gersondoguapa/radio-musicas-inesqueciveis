@@ -1,29 +1,29 @@
 function processNinaResponse(query) {
             const q = query.toLowerCase();
 
-            // 1. Perguntas sobre como falar com o DJ / contacto
-            if (q.includes('como falar') || q.includes('falar com o dj') || q.includes('chamar o dj') || q.includes('falar com o xavier')) {
+            // 1. Perguntas específicas sobre como falar com o DJ (Vem primeiro para não cair na regra geral do "dj")
+            if (q.includes('como falar') || q.includes('falar com o dj') || q.includes('chamar o dj') || q.includes('falar com o xavier') || q.includes('contato') || q.includes('contatar')) {
                 return 'Podes falar diretamente comigo aqui no chat (o DJ Xavier acompanha tudo em direto no Telegram) ou através do grupo de WhatsApp disponível nos botões oficiais aqui do site!';
             }
 
-            // 2. Perguntas sobre bandas e estilos musicais
+            // 2. Rádio fora do ar / problemas técnicos
+            if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som') || q.includes('parou')) {
+                return 'O DJ virtual que toca o som e faz a distribuição às vezes dá um tilt e cai, mas quando isso acontece o DJ Xavier restaura e logo volta ao ar!';
+            }
+
+            // 3. Perguntas sobre bandas e estilos musicais
             if (q.includes('banda') || q.includes('tocam') || q.includes('quais') || q.includes('rock') || q.includes('heavy metal')) {
                 return 'Na nossa programação e no universo do rock tocamos as maiores bandas de todos os tempos, incluindo um acervo de músicas inesquecíveis e pop rock. Aqui estão as nossas principais referências: The Beatles, The Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Metallica, Iron Maiden, Nirvana, Guns N\' Roses, Deep Purple, Rush, Fleetwood Mac, U2, Aerosmith, Creedence Clearwater Revival, Slade, Dschinghis Khan e Yes!';
             }
             
-            // 3. Sobre a rádio e projeto
+            // 4. Sobre a rádio e projeto
             if (q.includes('radio') || q.includes('projeto') || q.includes('site') || q.includes('que radio')) {
                 return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos. Afinal, aqui só tocamos tudo aquilo que te toca!';
             }
 
-            // 4. Programação e horários
+            // 5. Programação e horários
             if (q.includes('programacao') || q.includes('horario') || q.includes('dia')) {
                 return 'Nossa programação é eclética e escolhida a dedo para animar o seu estabelecimento ou o seu dia! Tocamos o melhor do rock clássico, heavy metal e preciosidades tiradas lá do porão. Tudo focado na nossa curadoria especial para o horário comercial. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-
-            // 5. Sobre o DJ Xavier (identidade)
-            if (q.includes('dj') || q.includes('admin') || q.includes('dono') || q.includes('xavier')) {
-                return 'O DJ e comandante desta nave musical é o DJ Xavier! Ele acompanha todas as conversas do chat em direto no Telegram para interagir com a nossa programação.';
             }
 
             // 6. WhatsApp e Redes
@@ -31,24 +31,24 @@ function processNinaResponse(query) {
                 return 'Podes interagir com a comunidade e enviar mensagens através do grupo de WhatsApp disponível nos botões oficiais aqui do site!';
             }
 
-            // 7. Rádio fora do ar / problemas técnicos
-            if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som') || q.includes('parou')) {
-                return 'O DJ virtual que toca o som e faz a distribuição às vezes dá um tilt e cai, mas quando isso acontece o DJ Xavier restaura e logo volta ao ar!';
-            }
-
-            // 8. Criação de versos / rimas
+            // 7. Criação de versos / rimas
             if (q.includes('criacao') || q.includes('cria uma musica') || q.includes('verso') || q.includes('letra')) {
                 return 'Com certeza! A criatividade por aqui não para. Manda a ideia do estilo ou tema que eu crio uns versos e rimas na hora para ti!';
             }
 
-            // 9. Saudações gerais
+            // 8. Saudações gerais
             if (q.includes('ola') || q.includes('bom dia') || q.includes('boa tarde') || q.includes('boa noite') || q.includes('eae') || q.includes('salve')) {
                 return 'Olá! Que bom ter-te por aqui na Rádio TV Web Músicas Inesquecíveis. O que gostarias de ouvir ou saber sobre a nossa programação?';
             }
 
-            // 10. Pedidos de música reais (com verbos de ação específicos)
+            // 9. Pedidos de música reais (com verbos de ação específicos)
             if (q.includes('pedir') || q.includes('toca o') || q.includes('toca a') || q.includes('toca ') || q.includes('manda ')) {
                 return 'Pedido anotado com todo o carinho! O DJ Xavier acompanha toda a conversa aqui no chat em direto no Telegram e já regista o seu som no radar da nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            // 10. Sobre o DJ Xavier (Deixado por último para só disparar se a pergunta for estritamente sobre ele)
+            if (q.includes('dj') || q.includes('admin') || q.includes('dono') || q.includes('xavier')) {
+                return 'O DJ e comandante desta nave musical é o DJ Xavier! Ele acompanha todas as conversas do chat em direto no Telegram para interagir com a nossa programação.';
             }
 
             // Resposta padrão inteligente para conversas gerais
