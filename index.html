@@ -339,7 +339,7 @@
         </div>
     </section>
 
-    <!-- NOVO BLOCO DO TELEGRAM (COLOCADO ABAIXO PARA VOCÊ TESTAR) -->
+    <!-- NOVO BLOCO DO TELEGRAM (COM OS SEUS DADOS CONFIGURADOS) -->
     <section class="chat-box" id="chat-telegram-novo" style="border-color: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.25);">
         <h3 style="color: #0088cc;">✈️ Chat Integrado com Telegram</h3>
         <div id="telegram-chat-messages" style="height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
@@ -484,9 +484,9 @@
             return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
         }
 
-        // FUNÇÕES PARA O NOVO TESTE DO TELEGRAM
-        const TELEGRAM_BOT_TOKEN = 'COLOQUE_SEU_TOKEN_AQUI'; // Ex: '123456789:ABCdef...'
-        const TELEGRAM_CHAT_ID = 'COLOQUE_SEU_CHAT_ID_AQUI';     // Ex: '987654321'
+        // TELEGRAM CONFIGURADO COM OS SEUS DADOS EXATOS
+        const TELEGRAM_BOT_TOKEN = '8936441272:AAFrDohJzEnC0oDk6cf-RhxkroUIQbSfbo';[cite: 5]
+        const TELEGRAM_CHAT_ID = '8993146859';[cite: 8]
 
         function checkTelegramEnter(e) {
             if (e.key === 'Enter') sendTelegramMessage();
@@ -505,17 +505,6 @@
             messagesContainer.appendChild(userDiv);
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            if (TELEGRAM_BOT_TOKEN === 'COLOQUE_SEU_TOKEN_AQUI') {
-                setTimeout(() => {
-                    const avisoDiv = document.createElement('div');
-                    avisoDiv.className = 'nina-msg bot';
-                    avisoDiv.textContent = '⚠️ Cole o seu Token do Bot e o Chat ID no código JavaScript para enviar a mensagem ao Telegram.';
-                    messagesContainer.appendChild(avisoDiv);
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }, 500);
-                return;
-            }
 
             // Dispara para a API do Telegram
             const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
