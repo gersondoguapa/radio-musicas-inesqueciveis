@@ -11,7 +11,7 @@
       padding: 0;
     }
     body {
-      background-color: #121212;
+      background-color: #0d0d0d;
       color: #ffffff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
@@ -22,18 +22,60 @@
     }
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      width: 100%;
     }
     h1 {
       color: #ff6600;
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-      text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+      text-shadow: 0 0 15px rgba(255, 102, 0, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     p.subtitle {
-      color: #ccc;
-      font-size: 1rem;
+      color: #bbb;
+      font-size: 1.1rem;
     }
+
+    /* Banner Marquee / Nome da Música */
+    .now-playing-container {
+      width: 100%;
+      max-width: 1200px;
+      background: #181818;
+      border: 1px solid #ff6600;
+      border-radius: 8px;
+      padding: 8px 15px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+    }
+    .now-playing-label {
+      background: #ff6600;
+      color: #000;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-right: 15px;
+      font-size: 0.9rem;
+    }
+    .marquee-text {
+      white-space: nowrap;
+      overflow: hidden;
+      box-sizing: border-border-box;
+      color: #ffaa00;
+      font-weight: 500;
+      font-size: 1rem;
+      animation: marquee 18s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
     .main-container {
       display: flex;
       flex-wrap: wrap;
@@ -49,15 +91,15 @@
       gap: 20px;
     }
     .player-card, .tv-card {
-      background: #1e1e1e;
+      background: #161616;
       border: 2px solid #ff6600;
       border-radius: 12px;
       padding: 15px;
-      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(255, 102, 0, 0.25);
     }
     .player-card h2, .tv-card h2 {
       color: #ff6600;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -65,9 +107,9 @@
     }
     audio {
       width: 100%;
-      height: 45px;
+      height: 50px;
       outline: none;
-      border-radius: 6px;
+      border-radius: 8px;
     }
     .tv-container {
       position: relative;
@@ -86,20 +128,20 @@
       border: 0;
     }
     
-    /* Widget do Chat da Nina */
+    /* Widget Chat da Nina */
     .chat-section {
       flex: 1 1 380px;
       max-width: 450px;
-      background: #1e1e1e;
+      background: #161616;
       border: 2px solid #ff6600;
       border-radius: 12px;
       display: flex;
       flex-direction: column;
-      height: 600px;
-      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+      height: 620px;
+      box-shadow: 0 4px 20px rgba(255, 102, 0, 0.25);
     }
     .chat-header {
-      background: #ff6600;
+      background: linear-gradient(90deg, #ff6600, #e65c00);
       color: #fff;
       padding: 15px;
       border-top-left-radius: 9px;
@@ -109,12 +151,14 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
     .chat-header span.status-dot {
       width: 10px;
       height: 10px;
       background-color: #00ff66;
       border-radius: 50%;
+      box-shadow: 0 0 8px #00ff66;
       display: inline-block;
     }
     .chat-messages {
@@ -123,43 +167,47 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: #141414;
+      gap: 12px;
+      background: #101010;
     }
     .message {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 10px;
+      max-width: 82%;
+      padding: 11px 15px;
+      border-radius: 12px;
       font-size: 0.95rem;
       line-height: 1.4;
     }
     .message.bot {
-      background-color: #2a2a2a;
+      background-color: #242424;
       color: #fff;
       align-self: flex-start;
-      border-left: 3px solid #ff6600;
+      border-left: 4px solid #ff6600;
+      border-top-left-radius: 2px;
     }
     .message.user {
       background-color: #ff6600;
       color: #fff;
       align-self: flex-end;
+      border-bottom-right-radius: 2px;
+      font-weight: 500;
     }
     .chat-input-area {
       display: flex;
-      padding: 10px;
-      background: #1e1e1e;
+      padding: 12px;
+      background: #161616;
       border-bottom-left-radius: 9px;
       border-bottom-right-radius: 9px;
       gap: 8px;
     }
     .chat-input-area input {
       flex: 1;
-      padding: 10px;
-      border: 1px solid #444;
+      padding: 12px;
+      border: 1px solid #333;
       border-radius: 6px;
-      background: #2b2b2b;
+      background: #222;
       color: #fff;
       outline: none;
+      font-size: 0.95rem;
     }
     .chat-input-area input:focus {
       border-color: #ff6600;
@@ -168,7 +216,7 @@
       background: #ff6600;
       color: #fff;
       border: none;
-      padding: 10px 16px;
+      padding: 12px 18px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
@@ -183,18 +231,24 @@
 
   <header>
     <h1>Rádio TV Web Músicas Inesquecíveis</h1>
-    <p class="subtitle">O melhor do Classic Rock, Retro & Clássicos na Web com DJ Xavier</p>
+    <p class="subtitle">O melhor do Classic Rock, Retro & Clássicos com DJ Xavier</p>
   </header>
+
+  <!-- Banner com Letreiro da Música no Ar -->
+  <div class="now-playing-container">
+    <div class="now-playing-label">NO AR 🎙️</div>
+    <div class="marquee-text" id="songTitle">Carregando informações da transmissão...</div>
+  </div>
 
   <div class="main-container">
     
     <div class="media-section">
-      <!-- Player de Áudio -->
+      <!-- Player de Áudio Principal -->
       <div class="player-card">
-        <h2>🎵 Rádio Ao Vivo</h2>
-        <audio controls autoplay>
+        <h2>🎵 Rádio Ao Vivo (Som HD / Subwoofer)</h2>
+        <audio controls autoplay preload="auto">
           <source src="http://109.169.23.23:6097/;stream.mp3" type="audio/mpeg">
-          O seu navegador não suporta o reprodutor de áudio.
+          Seu navegador não suporta o áudio.
         </audio>
       </div>
 
@@ -232,6 +286,25 @@
     const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
     let pendingMusicRequest = false;
 
+    // Atualização de Metadados / Música no Ar
+    function fetchCurrentSong() {
+      fetch('http://109.169.23.23:6097/7.html')
+        .then(response => response.text())
+        .then(data => {
+          const parts = data.split(',');
+          if (parts.length >= 7 && parts[6]) {
+            document.getElementById('songTitle').innerText = "Tocando agora: " + parts[6];
+          } else {
+            document.getElementById('songTitle').innerText = "Rádio TV Web Músicas Inesquecíveis - No Ar com DJ Xavier!";
+          }
+        })
+        .catch(() => {
+          document.getElementById('songTitle').innerText = "Rádio TV Web Músicas Inesquecíveis - O Melhor do Classic Rock e Retrô!";
+        });
+    }
+    setInterval(fetchCurrentSong, 10000);
+    fetchCurrentSong();
+
     function addMessage(text, sender) {
       const chatMessages = document.getElementById('chatMessages');
       const msgDiv = document.createElement('div');
@@ -247,10 +320,9 @@
       }
     }
 
-    // Função para enviar os pedidos de música para o estúdio via Telegram
+    // Envio direto do Pedido para o Telegram do Estúdio
     function sendToStudioTelegram(listenerMessage) {
       const text = encodeURIComponent(`🚨 *NOVO PEDIDO DE MÚSICA NO SITE!*\n\n🎧 *Pedido:* ${listenerMessage}`);
-      // Busca as atualizações do Bot para enviar para o seu chat
       fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/getUpdates`)
         .then(res => res.json())
         .then(data => {
@@ -290,7 +362,7 @@
         return;
       }
 
-      // Saudações e Dúvidas Gerais
+      // Respostas da Nina
       if (lower.includes('oi') || lower.includes('olá') || lower.includes('ola') || lower.includes('bom dia') || lower.includes('boa tarde') || lower.includes('boa noite')) {
         setTimeout(() => {
           addMessage("Olá! Seja muito bem-vindo(a) à Rádio TV Web Músicas Inesquecíveis! Quer pedir uma música ou saber mais sobre a rádio?", 'bot');
@@ -298,14 +370,20 @@
         return;
       }
 
-      if (lower.includes('quem') || lower.includes('dj') || lower.includes('xavier')) {
+      if (lower.includes('que radio') || lower.includes('qual radio') || lower.includes('sobre') || lower.includes('estúdio')) {
         setTimeout(() => {
-          addMessage("O comando dos toca-discos é do <b>DJ Xavier</b>, trazendo os melhores clássicos do Rock e músicas inesquecíveis para você!", 'bot');
+          addMessage("Esta é a <b>Rádio TV Web Músicas Inesquecíveis</b>, transmitindo o melhor do Classic Rock, Heavy Metal, Euro-Disco e clássicos inesquecíveis, sob o comando do <b>DJ Xavier</b>!", 'bot');
         }, 600);
         return;
       }
 
-      // Resposta padrão
+      if (lower.includes('quem') || lower.includes('dj') || lower.includes('xavier')) {
+        setTimeout(() => {
+          addMessage("O comando dos toca-discos é do <b>DJ Xavier</b>, trazendo os melhores clássicos para você!", 'bot');
+        }, 600);
+        return;
+      }
+
       setTimeout(() => {
         addMessage("Que legal! Qualquer coisa, é só me pedir uma música que eu envio direto para o estúdio do DJ Xavier!", 'bot');
       }, 600);
