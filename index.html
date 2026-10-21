@@ -1,36 +1,29 @@
 function processNinaResponse(query) {
             const q = query.toLowerCase();
 
-            // 1. Se a pessoa quer dizer um pedido real (precisa ter o nome do cantor ou a palavra "toca" + algo claro)
             if (q.startsWith('toca ') || q.startsWith('manda ') || q.includes(' a música ') || q.includes(' a musica ')) {
                 return 'Pedido anotado! O DJ Xavier está a acompanhar a conversa em direto no Telegram e já registou o som para a nossa programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
             }
 
-            // 2. Perguntas sobre bandas e estilos
             if (q.includes('banda') || q.includes('tocam') || q.includes('quais') || q.includes('rock') || q.includes('heavy metal')) {
                 return 'No nosso acervo tocamos as maiores bandas de todos os tempos: The Beatles, The Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Metallica, Iron Maiden, Nirvana, Guns N\' Roses, Deep Purple, Rush, Fleetwood Mac, U2, Aerosmith, Creedence Clearwater Revival, Slade, Dschinghis Khan e Yes!';
             }
             
-            // 3. Sobre a rádio
             if (q.includes('radio') || q.includes('projeto') || q.includes('site') || q.includes('que radio')) {
                 return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Uma programação eclética com o melhor do rock clássico e preciosidades tiradas do porão. Afinal, aqui só tocamos tudo aquilo que te toca!';
             }
 
-            // 4. Como falar com o DJ / Ajuda
             if (q.includes('falar') || q.includes('dj') || q.includes('xavier') || q.includes('ajuda') || q.includes('pedir')) {
                 return 'Para pedir uma música, basta escrever aqui o nome do cantor e da faixa. O DJ Xavier está a acompanhar tudo em direto no Telegram e interage connosco!';
             }
 
-            // 5. Rádio fora do ar / problemas
             if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som') || q.includes('parou')) {
                 return 'Às vezes o streaming dá um pequeno soluço, mas o DJ Xavier está sempre de olho para restaurar o sinal de imediato!';
             }
 
-            // 6. Saudações (Bom dia, olá, etc.)
             if (q.includes('ola') || q.includes('bom dia') || q.includes('boa tarde') || q.includes('boa noite') || q.includes('eae') || q.includes('salve')) {
                 return 'Olá! Que bom ter-te por aqui na Rádio TV Web Músicas Inesquecíveis. O que gostarias de ouvir hoje?';
             }
 
-            // Resposta padrão neutra para qualquer outra conversa, sem inventar pedidos
             return 'Entendido! O DJ Xavier está a ver a nossa conversa aqui no chat. Como posso ajudar-te na nossa programação?';
         }
