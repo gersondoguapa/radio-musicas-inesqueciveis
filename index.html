@@ -206,7 +206,6 @@
             border: 0;
         }
 
-        /* Estilos do Chat Reorganizados em Laranja */
         .chat-box {
             width: 100%;
             max-width: 520px;
@@ -256,7 +255,6 @@
             word-wrap: break-word;
         }
 
-        /* Mensagens da Nina (Bot) */
         .nina-msg.bot {
             background: #22222c;
             color: #e5e7eb;
@@ -265,7 +263,6 @@
             border-left: 3px solid #ff7700;
         }
 
-        /* Mensagens do Ouvinte (Usuário) - Laranja Visível */
         .nina-msg.user {
             background: #d97706;
             color: #ffffff;
@@ -413,7 +410,6 @@
         </a>
     </div>
 
-    <!-- Script do Player de Áudio e Consulta 7.html Preservado -->
     <script>
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
@@ -498,24 +494,31 @@
         });
     </script>
 
-    <!-- Script de Inteligência da Nina com Gemini API Ajustada -->
+    <!-- Script de Inteligência da Nina Perfeitamente Ajustado -->
     <script>
-        // Chave Gemini mantida e estruturada
         const GEMINI_EMBEDDED_KEY = "AQ.Ab8RN6L1wG3IwnrVaIgXDKOHkAle6JwN4MhyerP5Cxo9vDmsQ";
 
-        const NINA_SYSTEM_PROMPT = `Você é a NINA, a inteligência artificial avançada e assistente virtual (recepcionista/atendente oficial) da Rádio TV Web Músicas Inesquecíveis.
+        const NINA_SYSTEM_PROMPT = `Você é a NINA, a inteligência artificial, recepcionista e assistente oficial da Rádio TV Web Músicas Inesquecíveis. O locutor e proprietário é o DJ Xavier.
 
-DIRETRIZES RIGOROSAS DE RESPOSTA:
-1. IDENTIDADE FIXA: Seu nome é NINA. Você é a recepcionista amigável, educada e culta da Rádio TV Web Músicas Inesquecíveis. O administrador e locutor principal da rádio é o DJ Xavier.
-2. NUNCA CORTE FRASES: Dê respostas completas, fluidas, acolhedoras e em Português do Brasil.
-3. SAUDAÇÕES: Se o ouvinte disser apenas "Olá", "Bom dia", "Boa tarde", "Boa noite" ou "Qual o seu nome", responda sempre com calor e simpatia se apresentando como NINA, assistente da Rádio TV Web Músicas Inesquecíveis, e pergunte como pode ajudar.
-4. CONCEITO DA RÁDIO:
-"Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos, classic rock, heavy metal e flashbacks. Afinal, aqui só tocamos tudo aquilo que te toca!"
-5. BANDAS DO ACERVO: The Beatles, The Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Metallica, Iron Maiden, Nirvana, Guns N' Roses, Deep Purple, Rush, Fleetwood Mac, U2, Aerosmith, Creedence Clearwater Revival, Slade, Dschinghis Khan, Yes e clássicos inesquecíveis.
-6. PEDIDOS DE MÚSICA: Quando o ouvinte pedir uma música, confirme dizendo:
-"Entendi perfeitamente! Vou registrar o seu pedido e encaminhar diretamente para a equipe e para o DJ Xavier no Telegram/estúdio. A execução dependerá da disponibilidade da programação. Afinal, aqui só tocamos tudo aquilo que te toca!"
-7. AUSÊNCIA DO ADMINISTRADOR/DJ: Se perguntarem pelo DJ Xavier, informe que ele acompanha o chat e os recados são encaminhados em tempo real a ele.
-8. NUNCA invente senhas ou dados bancários. Mantenha o papo musical, amigável e descontraído.`;
+REGRAS DE DIÁLOGO E COMPORTAMENTO SUPER HUMANO:
+1. EDUCAÇÃO E CORRESPONDÊNCIA DE SAUDAÇÕES:
+   - Se o ouvinte disser "Bom dia", responda com "Bom dia!".
+   - Se o ouvinte disser "Boa tarde", responda com "Boa tarde!".
+   - Se o ouvinte disser "Boa noite", responda com "Boa noite!".
+   - Se o ouvinte disser apenas "Olá", responda com "Olá!". Seja sempre natural e corresponda exatamente ao comprimento e tom da saudação do ouvinte.
+
+2. FLUXO DE PEDIDO DE MÚSICA (Siga rigorosamente estas 2 etapas):
+   - ETAPA 1 (Quando o ouvinte diz "Quero pedir uma música", "Posso pedir um som", ou algo genérico sem informar os detalhes):
+     Responda informando que o DJ Xavier acompanha o chat e diga: "Sim, posso anotar o seu pedido! Por favor, me diga seu nome, o nome da música e o nome do cantor ou banda."
+   - ETAPA 2 (Quando o ouvinte informa o nome da música e do cantor/banda):
+     Responda de forma alegre e confirme exatamente o pedido dizendo: "Beleza! Está anotado. O DJ Xavier vai colocar [Nome da Música - Nome do Cantor/Banda] no ar para você!" (Sempre repita o nome da música e do artista na resposta).
+
+3. INFORMAÇÕES DA RÁDIO:
+   - Toca desde música clássica, flashback, classic rock, heavy metal até grandes raridades do porão.
+   - Slogan: "Afinal, aqui só tocamos tudo aquilo que te toca!"
+   - Se perguntarem do DJ Xavier, diga que ele acompanha o chat no estúdio em tempo real.
+
+4. TOM DE VOZ: Amigável, educado, brasileiro, claro e sem frases prontas engessadas.`;
 
         let ninaConversationHistory = [];
 
@@ -568,7 +571,11 @@ DIRETRIZES RIGOROSAS DE RESPOSTA:
                 contents: [
                     {
                         role: "user",
-                        parts: [{ text: "DIRETRIZES DA NINA:\n" + NINA_SYSTEM_PROMPT + "\n\nSiga estritamente essa personalidade em todas as respostas." }]
+                        parts: [{ text: "INSTRUÇÕES OBRIGATÓRIAS DA NINA:\n" + NINA_SYSTEM_PROMPT }]
+                    },
+                    {
+                        role: "model",
+                        parts: [{ text: "Entendido perfeitamente! Assumo a identidade da Nina com todas as regras de saudação, confirmação de música em 2 etapas e estilo de resposta solicitados." }]
                     },
                     ...ninaConversationHistory
                 ]
@@ -599,35 +606,15 @@ DIRETRIZES RIGOROSAS DE RESPOSTA:
         function processNinaFallback(query) {
             const q = query.toLowerCase().trim();
 
-            if (q.includes('nome') || q.includes('quem e voce') || q.includes('quem é você') || q.includes('qual o seu nome') || q.includes('qual seu nome')) {
-                return 'Meu nome é Nina! Sou a assistente virtual e recepcionista oficial da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso te ajudar hoje?';
+            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, da Rádio TV Web Músicas Inesquecíveis!';
+            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Como posso te ajudar na nossa rádio hoje?';
+            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco. Quer ouvir alguma música inesquecível hoje?';
+
+            if (q.includes('pedir') || q.includes('ouvir') || q.includes('toca') || q.includes('som')) {
+                return 'Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda.';
             }
 
-            if (q.includes('fora do ar') || q.includes('caiu') || q.includes('som') || q.includes('parou') || q.includes('nao liga') || q.includes('não liga') || q.includes('nao toca') || q.includes('travou')) {
-                return 'Às vezes o streaming dá um pequeno soluço ou demora a ligar, mas o DJ Xavier está sempre de olho para restaurar o sinal de imediato!';
-            }
-
-            if (q.includes('banda') || q.includes('tocam') || q.includes('quais') || q.includes('rock') || q.includes('heavy metal') || q.includes('estilo') || q.includes('acervo')) {
-                return 'No nosso acervo tocamos as maiores bandas de todos os tempos: The Beatles, The Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Metallica, Iron Maiden, Nirvana, Guns N\' Roses, Deep Purple, Rush, Fleetwood Mac, U2, Aerosmith, Creedence Clearwater Revival, Slade, Dschinghis Khan e Yes!';
-            }
-
-            if (q.includes('falar') || q.includes('chamar') || q.includes('contato') || q.includes('dj') || q.includes('xavier') || q.includes('dono') || q.includes('admin')) {
-                return 'Podes falar diretamente comigo aqui no chat (o DJ Xavier acompanha tudo em direto no estúdio/Telegram) ou através do grupo de WhatsApp e botões oficiais disponíveis no final da página!';
-            }
-
-            if (q.startsWith('toca ') || q.startsWith('manda ') || q.includes('gostaria de ouvir') || q.includes('queria ouvir') || q.includes('tocar a') || q.includes('tocar o') || q.includes('pedir musica') || q.includes('pedir música')) {
-                return 'Pedido anotado com sucesso! O DJ Xavier já recebeu a notificação no estúdio e registrou o seu som para a programação. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-
-            if (q.includes('radio') || q.includes('rádio') || q.includes('projeto') || q.includes('site') || q.includes('programacao') || q.includes('programação')) {
-                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão! Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-
-            if (q.includes('ola') || q.includes('olá') || q.includes('bom dia') || q.includes('boa tarde') || q.includes('boa noite') || q.includes('eae') || q.includes('salve') || q.includes('beleza')) {
-                return 'Olá! Que bom ter-te por aqui na Rádio TV Web Músicas Inesquecíveis. Eu sou a Nina! O que gostarias de ouvir ou saber sobre a nossa programação hoje?';
-            }
-
-            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar no que precisares sobre a nossa rádio. O DJ Xavier acompanha a nossa conversa em tempo real. Gostarias de pedir algum som ou saber mais sobre as nossas preciosidades musicais?';
+            return 'Olá! Sou a Nina, assistente da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier está acompanhando nossa conversa. Como posso te ajudar?';
         }
     </script>
 
