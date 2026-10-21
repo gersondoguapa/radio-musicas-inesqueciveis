@@ -1,393 +1,432 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rádio TV Web Músicas Inesquecíveis</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #0d0d0d;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 15px;
-      width: 100%;
-    }
-    h1 {
-      color: #ff6600;
-      font-size: 2.5rem;
-      margin-bottom: 5px;
-      text-shadow: 0 0 15px rgba(255, 102, 0, 0.7);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    p.subtitle {
-      color: #bbb;
-      font-size: 1.1rem;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rádio Músicas Inesquecíveis</title>
 
-    /* Banner Marquee / Nome da Música */
-    .now-playing-container {
-      width: 100%;
-      max-width: 1200px;
-      background: #181818;
-      border: 1px solid #ff6600;
-      border-radius: 8px;
-      padding: 8px 15px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
-    }
-    .now-playing-label {
-      background: #ff6600;
-      color: #000;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 4px;
-      white-space: nowrap;
-      margin-right: 15px;
-      font-size: 0.9rem;
-    }
-    .marquee-text {
-      white-space: nowrap;
-      overflow: hidden;
-      box-sizing: border-border-box;
-      color: #ffaa00;
-      font-weight: 500;
-      font-size: 1rem;
-      animation: marquee 18s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+    <style>
+        body {
+            background-color: #0b0b0e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-    .main-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      width: 100%;
-      max-width: 1200px;
-    }
-    .media-section {
-      flex: 1 1 600px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .player-card, .tv-card {
-      background: #161616;
-      border: 2px solid #ff6600;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 20px rgba(255, 102, 0, 0.25);
-    }
-    .player-card h2, .tv-card h2 {
-      color: #ff6600;
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    audio {
-      width: 100%;
-      height: 50px;
-      outline: none;
-      border-radius: 8px;
-    }
-    .tv-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
-      overflow: hidden;
-      border-radius: 8px;
-      background: #000;
-    }
-    .tv-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    
-    /* Widget Chat da Nina */
-    .chat-section {
-      flex: 1 1 380px;
-      max-width: 450px;
-      background: #161616;
-      border: 2px solid #ff6600;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      height: 620px;
-      box-shadow: 0 4px 20px rgba(255, 102, 0, 0.25);
-    }
-    .chat-header {
-      background: linear-gradient(90deg, #ff6600, #e65c00);
-      color: #fff;
-      padding: 15px;
-      border-top-left-radius: 9px;
-      border-top-right-radius: 9px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-    .chat-header span.status-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #00ff66;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #00ff66;
-      display: inline-block;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background: #101010;
-    }
-    .message {
-      max-width: 82%;
-      padding: 11px 15px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    .message.bot {
-      background-color: #242424;
-      color: #fff;
-      align-self: flex-start;
-      border-left: 4px solid #ff6600;
-      border-top-left-radius: 2px;
-    }
-    .message.user {
-      background-color: #ff6600;
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 2px;
-      font-weight: 500;
-    }
-    .chat-input-area {
-      display: flex;
-      padding: 12px;
-      background: #161616;
-      border-bottom-left-radius: 9px;
-      border-bottom-right-radius: 9px;
-      gap: 8px;
-    }
-    .chat-input-area input {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid #333;
-      border-radius: 6px;
-      background: #222;
-      color: #fff;
-      outline: none;
-      font-size: 0.95rem;
-    }
-    .chat-input-area input:focus {
-      border-color: #ff6600;
-    }
-    .chat-input-area button {
-      background: #ff6600;
-      color: #fff;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-    .chat-input-area button:hover {
-      background: #e65c00;
-    }
-  </style>
+        h1 {
+            color: #ff7700;
+            margin-top: 15px;
+            font-size: 28px;
+            text-shadow: 0 0 10px rgba(255,119,0,0.5);
+        }
+
+        .subtitulo-topo {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .radio-box, .tv-box {
+            max-width: 520px;
+            margin: 0 auto 20px;
+            background: #141418;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            border: 1px solid #22222c;
+            position: relative;
+        }
+
+        .radio-box { overflow: hidden; }
+
+        .imagem-radio {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .imagem-radio img {
+            display: block;
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        #botao-play {
+            position: absolute;
+            top: 41.5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid rgba(255,255,255,0.85);
+            border-radius: 50%;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            font-size: 9px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.9),
+                        0 0 6px rgba(255,119,0,0.5);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #botao-play:hover {
+            background: rgba(255,119,0,0.9);
+            border-color: white;
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        .bloco-luz-esq, .bloco-luz-dir {
+            position: absolute;
+            top: 51.5%;
+            width: 72px;
+            height: 72px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,0,50,0.98) 0%,
+                rgba(255,60,0,0.88) 40%,
+                rgba(180,0,30,0.75) 70%,
+                rgba(0,0,0,0.9) 100%);
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.95),
+                        0 0 14px rgba(255,0,60,0.85);
+            mix-blend-mode: screen;
+            opacity: 0.95;
+            pointer-events: none;
+            animation: pulsarAvancado 0.35s infinite alternate ease-in-out;
+            z-index: 2;
+        }
+
+        .bloco-luz-esq { left: 17%; }
+        .bloco-luz-dir { left: 83.5%; }
+
+        @keyframes pulsarAvancado {
+            0% { transform: translate(-50%,-50%) scale(0.93); opacity: 0.82; }
+            100% { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
+        }
+
+        .ondas-visor {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+            height: 18px;
+            pointer-events: none;
+            z-index: 7;
+        }
+
+        .ondas-visor span {
+            width: 3px;
+            background: #ff7700;
+            border-radius: 2px;
+            box-shadow: 0 0 6px #ff7700;
+            animation: balancaOnda 0.6s infinite ease-in-out;
+        }
+
+        .ondas-visor span:nth-child(2) { animation-duration: 0.4s; }
+        .ondas-visor span:nth-child(3) { animation-duration: 0.7s; }
+        .ondas-visor span:nth-child(4) { animation-duration: 0.5s; }
+        .ondas-visor span:nth-child(5) { animation-duration: 0.8s; }
+
+        @keyframes balancaOnda {
+            0%, 100% { height: 3px; }
+            50% { height: 15px; }
+        }
+
+        .instrucao {
+            font-size: 15px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        #status-radio {
+            color: #ff7700;
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .tocando-agora {
+            margin-top: 15px;
+            padding: 12px;
+            background: #1b1b22;
+            border-radius: 10px;
+            border-left: 4px solid #ff7700;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .tocando-agora span {
+            display: block;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        #nome-musica {
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .tv-box h3 {
+            color: #ff7700;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Container do Bate-Papo Tawk.to */
+        .chat-box {
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            margin: 25px auto;
+            padding: 16px;
+            background: #141418;
+            border: 1px solid #1e3a8a;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(30, 58, 138, 0.4);
+            scroll-margin-top: 15px;
+            text-align: center;
+        }
+
+        .chat-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #60a5fa;
+            font-size: 20px;
+        }
+
+        .tawk-embed-container {
+            width: 100%;
+            height: 520px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .icones-inferiores {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .icones-inferiores a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .icones-inferiores a:hover {
+            transform: scale(1.05);
+        }
+
+        .icones-inferiores img {
+            width: 105px;
+            max-width: 26vw;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 23px; }
+            .radio-box, .tv-box, .chat-box { padding: 12px; }
+            .icones-inferiores { gap: 9px; }
+        }
+    </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>Rádio TV Web Músicas Inesquecíveis</h1>
-    <p class="subtitle">O melhor do Classic Rock, Retro & Clássicos com DJ Xavier</p>
-  </header>
+    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
+    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
 
-  <!-- Banner com Letreiro da Música no Ar -->
-  <div class="now-playing-container">
-    <div class="now-playing-label">NO AR 🎙️</div>
-    <div class="marquee-text" id="songTitle">Carregando informações da transmissão...</div>
-  </div>
-
-  <div class="main-container">
-    
-    <div class="media-section">
-      <!-- Player de Áudio Principal -->
-      <div class="player-card">
-        <h2>🎵 Rádio Ao Vivo (Som HD / Subwoofer)</h2>
-        <audio controls autoplay preload="auto">
-          <source src="http://109.169.23.23:6097/;stream.mp3" type="audio/mpeg">
-          Seu navegador não suporta o áudio.
-        </audio>
-      </div>
-
-      <!-- Player de Web TV -->
-      <div class="tv-card">
-        <h2>📺 Web TV ao Vivo</h2>
-        <div class="tv-container">
-          <iframe src="https://iblups.com/embed/musicasinesqueciveis" allowfullscreen></iframe>
+    <div class="radio-box">
+        <div class="imagem-radio">
+            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
+            <div class="bloco-luz-esq"></div>
+            <div class="bloco-luz-dir"></div>
+            <div class="ondas-visor">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <button id="botao-play" type="button"
+                aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
         </div>
-      </div>
+
+        <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
+        <audio id="audio-radio" preload="none"></audio>
+        <p id="status-radio">Rádio pronta para tocar</p>
+
+        <div class="tocando-agora">
+            <span>Tocando Agora</span>
+            <div id="nome-musica">Aguardando conexão...</div>
+        </div>
     </div>
 
-    <!-- Chat da Nina -->
-    <div class="chat-section">
-      <div class="chat-header">
-        <span class="status-dot"></span>
-        Nina | Rádio Músicas Inesquecíveis
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="message bot">
-          Olá! Sou a <b>Nina</b>, assistente da Rádio TV Web Músicas Inesquecíveis! 🎶<br>
-          Como posso te ajudar hoje? Se quiser pedir uma música para o DJ Xavier, é só me avisar!
+    <div class="tv-box">
+        <h3>Web TV - Ao Vivo</h3>
+        <div class="video-container">
+            <iframe
+                src="https://iblups.com/embed/musicasinesqueciveis"
+                title="Web TV Rádio Músicas Inesquecíveis"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
         </div>
-      </div>
-      <div class="chat-input-area">
-        <input type="text" id="userInput" placeholder="Digite sua mensagem ou pedido de música..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()">Enviar</button>
-      </div>
     </div>
 
-  </div>
+    <!-- Seção de Bate-Papo da Nina via Tawk.to -->
+    <section class="chat-box" id="chat-ao-vivo">
+        <h3>💬 Chat ao vivo da Rádio</h3>
+        <div class="tawk-embed-container">
+            <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/670a8d6e2472517387b322a3/18967p00n';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+            </script>
+        </div>
+    </section>
 
-  <script>
-    // Configurações do Telegram Backend
-    const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
-    let pendingMusicRequest = false;
+    <div class="icones-inferiores">
+        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Pedir música no WhatsApp">
+            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg"
+                 alt="Peça sua música no WhatsApp">
+        </a>
 
-    // Atualização de Metadados / Música no Ar
-    function fetchCurrentSong() {
-      fetch('http://109.169.23.23:6097/7.html')
-        .then(response => response.text())
-        .then(data => {
-          const parts = data.split(',');
-          if (parts.length >= 7 && parts[6]) {
-            document.getElementById('songTitle').innerText = "Tocando agora: " + parts[6];
-          } else {
-            document.getElementById('songTitle').innerText = "Rádio TV Web Músicas Inesquecíveis - No Ar com DJ Xavier!";
-          }
-        })
-        .catch(() => {
-          document.getElementById('songTitle').innerText = "Rádio TV Web Músicas Inesquecíveis - O Melhor do Classic Rock e Retrô!";
+        <a href="https://www.facebook.com/groups/1279173282256062/"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Grupo do Facebook">
+            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg"
+                 alt="Grupo do Facebook">
+        </a>
+    </div>
+
+    <script>
+        const audio = document.getElementById("audio-radio");
+        const botao = document.getElementById("botao-play");
+        const status = document.getElementById("status-radio");
+        const divMusica = document.getElementById("nome-musica");
+
+        const enderecoRadio =
+            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+
+        function atualizarInfoMusica() {
+            const urlAlvo = "http://212.84.160.3:6097/7.html";
+            const proxyUrl =
+                `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
+
+            fetch(proxyUrl, { cache: "no-store" })
+                .then(resposta => resposta.json())
+                .then(dados => {
+                    if (dados && dados.contents) {
+                        const parser = new DOMParser();
+                        const htmlDoc = parser.parseFromString(
+                            dados.contents, "text/html"
+                        );
+                        const textoPuro = htmlDoc.body.textContent || "";
+                        const partes = textoPuro.split(",");
+
+                        if (partes.length >= 7) {
+                            const musicaAtual = partes[6];
+
+                            if (musicaAtual && musicaAtual.trim() !== "") {
+                                divMusica.textContent = musicaAtual;
+                            }
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
+        async function alternarRadio() {
+            if (!audio.paused) {
+                audio.pause();
+                botao.textContent = "▶️";
+                status.textContent = "Rádio pausada";
+                return;
+            }
+
+            if (!audio.src) {
+                audio.src = enderecoRadio;
+            }
+
+            status.textContent = "Conectando à rádio...";
+
+            try {
+                await audio.play();
+                botao.textContent = "Ⅱ";
+                status.textContent = "Rádio ao vivo";
+                atualizarInfoMusica();
+            } catch (erro) {
+                status.textContent =
+                    "Não foi possível tocar. Verifique a conexão.";
+                console.error(erro);
+            }
+        }
+
+        audio.addEventListener("playing", function() {
+            botao.textContent = "Ⅱ";
+            status.textContent = "Rádio ao vivo";
+            atualizarInfoMusica();
+
+            if (!window.intervaloMusica) {
+                window.intervaloMusica =
+                    setInterval(atualizarInfoMusica, 15000);
+            }
         });
-    }
-    setInterval(fetchCurrentSong, 10000);
-    fetchCurrentSong();
 
-    function addMessage(text, sender) {
-      const chatMessages = document.getElementById('chatMessages');
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message', sender);
-      msgDiv.innerHTML = text;
-      chatMessages.appendChild(msgDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+        audio.addEventListener("pause", function() {
+            botao.textContent = "▶️";
 
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    }
+            if (window.intervaloMusica) {
+                clearInterval(window.intervaloMusica);
+                window.intervaloMusica = null;
+            }
+        });
+    </script>
 
-    // Envio direto do Pedido para o Telegram do Estúdio
-    function sendToStudioTelegram(listenerMessage) {
-      const text = encodeURIComponent(`🚨 *NOVO PEDIDO DE MÚSICA NO SITE!*\n\n🎧 *Pedido:* ${listenerMessage}`);
-      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/getUpdates`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.ok && data.result.length > 0) {
-            const chatId = data.result[data.result.length - 1].message.chat.id;
-            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${chatId}&text=${text}&parse_mode=Markdown`);
-          }
-        })
-        .catch(err => console.error("Erro ao enviar pedido para o Telegram:", err));
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      addMessage(text, 'user');
-      input.value = '';
-
-      const lower = text.toLowerCase();
-
-      // Fluxo em 2 Passos para Pedido de Música
-      if (pendingMusicRequest) {
-        pendingMusicRequest = false;
-        sendToStudioTelegram(text);
-        setTimeout(() => {
-          addMessage(`Anotado com sucesso! 📝 Envei o seu pedido ("<b>${text}</b>") diretamente para a mesa do DJ Xavier no estúdio. Fique ligado na programação! 🎧📻`, 'bot');
-        }, 600);
-        return;
-      }
-
-      if (lower.includes('música') || lower.includes('musica') || lower.includes('pedir') || lower.includes('tocar')) {
-        pendingMusicRequest = true;
-        setTimeout(() => {
-          addMessage("Com certeza! Qual música e cantor/banda você gostaria de ouvir? Mande também o seu nome e de onde está ouvindo!", 'bot');
-        }, 600);
-        return;
-      }
-
-      // Respostas da Nina
-      if (lower.includes('oi') || lower.includes('olá') || lower.includes('ola') || lower.includes('bom dia') || lower.includes('boa tarde') || lower.includes('boa noite')) {
-        setTimeout(() => {
-          addMessage("Olá! Seja muito bem-vindo(a) à Rádio TV Web Músicas Inesquecíveis! Quer pedir uma música ou saber mais sobre a rádio?", 'bot');
-        }, 600);
-        return;
-      }
-
-      if (lower.includes('que radio') || lower.includes('qual radio') || lower.includes('sobre') || lower.includes('estúdio')) {
-        setTimeout(() => {
-          addMessage("Esta é a <b>Rádio TV Web Músicas Inesquecíveis</b>, transmitindo o melhor do Classic Rock, Heavy Metal, Euro-Disco e clássicos inesquecíveis, sob o comando do <b>DJ Xavier</b>!", 'bot');
-        }, 600);
-        return;
-      }
-
-      if (lower.includes('quem') || lower.includes('dj') || lower.includes('xavier')) {
-        setTimeout(() => {
-          addMessage("O comando dos toca-discos é do <b>DJ Xavier</b>, trazendo os melhores clássicos para você!", 'bot');
-        }, 600);
-        return;
-      }
-
-      setTimeout(() => {
-        addMessage("Que legal! Qualquer coisa, é só me pedir uma música que eu envio direto para o estúdio do DJ Xavier!", 'bot');
-      }, 600);
-    }
-  </script>
 </body>
 </html>
