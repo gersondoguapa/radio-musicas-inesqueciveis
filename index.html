@@ -348,10 +348,6 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO DO BOT E TELEGRAM DO DJ XAVIER
-        const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";[cite: 1]
-        const TELEGRAM_CHAT_ID = "8936441272";[cite: 5]
-
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
         const status = document.getElementById("status-radio");
@@ -424,15 +420,6 @@
             if (e.key === 'Enter') sendNinaMessage();
         }
 
-        // FUNÇÃO DO TELEGRAM (ENVIO DIRETO E LIMPO)
-        function enviarNotificacaoTelegram(texto) {
-            if (!TELEGRAM_CHAT_ID) return;
-            const msg = encodeURIComponent(`📻 PEDIDO NO SITE:\n\n${texto}`);
-            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${msg}`;[cite: 1, 5]
-            const img = new Image();
-            img.src = url;
-        }
-
         function sendNinaMessage() {
             const input = document.getElementById('nina-chat-input');
             const text = input.value.trim();
@@ -447,9 +434,6 @@
 
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            // DISPARA O AVISO NO TELEGRAM DO DJ XAVIER
-            enviarNotificacaoTelegram(text);
 
             setTimeout(() => {
                 const botDiv = document.createElement('div');
