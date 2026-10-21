@@ -348,9 +348,9 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO DO TELEGRAM DO DJ XAVIER
-        const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
-        const TELEGRAM_CHAT_ID = "8936441272"; // Configurado diretamente para o seu bot/chat
+        // CONFIGURAÇÃO DO BOT E TELEGRAM DO DJ XAVIER
+        const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";[cite: 1]
+        const TELEGRAM_CHAT_ID = "8936441272";[cite: 5]
 
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
@@ -424,10 +424,11 @@
             if (e.key === 'Enter') sendNinaMessage();
         }
 
+        // FUNÇÃO DO TELEGRAM (ENVIO DIRETO E LIMPO)
         function enviarNotificacaoTelegram(texto) {
             if (!TELEGRAM_CHAT_ID) return;
             const msg = encodeURIComponent(`📻 PEDIDO NO SITE:\n\n${texto}`);
-            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${msg}`;
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${msg}`;[cite: 1, 5]
             const img = new Image();
             img.src = url;
         }
@@ -447,7 +448,7 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            // Envia o pedido para o Telegram do DJ Xavier
+            // DISPARA O AVISO NO TELEGRAM DO DJ XAVIER
             enviarNotificacaoTelegram(text);
 
             setTimeout(() => {
