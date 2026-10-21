@@ -350,7 +350,7 @@
     <script>
         // CONFIGURAÇÃO DO TELEGRAM DO DJ XAVIER
         const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
-        const TELEGRAM_CHAT_ID = "SEU_CHAT_ID_AQUI"; // << Substitui pelo teu número de Chat ID do Telegram
+        const TELEGRAM_CHAT_ID = "8936441272"; // Configurado diretamente para o seu bot/chat
 
         const audio = document.getElementById("audio-radio");
         const botao = document.getElementById("botao-play");
@@ -425,7 +425,7 @@
         }
 
         function enviarNotificacaoTelegram(texto) {
-            if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === "SEU_CHAT_ID_AQUI") return;
+            if (!TELEGRAM_CHAT_ID) return;
             const msg = encodeURIComponent(`📻 PEDIDO NO SITE:\n\n${texto}`);
             const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${msg}`;
             const img = new Image();
