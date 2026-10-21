@@ -327,11 +327,11 @@
         </div>
     </div>
 
-    <!-- CHAT DA NINA PRINCIPAL -->
+    <!-- CHAT NINA -->
     <section class="chat-box" id="chat-ao-vivo">
-        <h3>💬 Chat com a Nina (Ao Vivo)</h3>
+        <h3>💬 Falar com a Nina</h3>
         <div id="nina-chat-messages">
-            <div class="nina-msg bot">Olá! Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Escreva aqui o seu pedido de música! 🎶</div>
+            <div class="nina-msg bot">Olá! Sou a Nina, assistente oficial e recepcionista da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso te ajudar hoje? 🎶</div>
         </div>
         <div id="nina-chat-input-area">
             <input type="text" id="nina-chat-input" placeholder="Escreva aqui o seu pedido..." onkeypress="checkNinaEnter(event)">
@@ -339,7 +339,19 @@
         </div>
     </section>
 
-    <!-- LOGOS DO RODAPÉ -->
+    <!-- CHAT TELEGRAM -->
+    <section class="chat-box" id="chat-telegram-novo" style="border-color: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.25);">
+        <h3 style="color: #0088cc;">✈️ Chat Integrado com Telegram</h3>
+        <div id="telegram-chat-messages" style="height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
+            <div class="nina-msg bot">Envie uma mensagem aqui para testar a chegada direta no seu Telegram!</div>
+        </div>
+        <div id="telegram-chat-input-area" style="display: flex; gap: 8px;">
+            <input type="text" id="telegram-chat-input" placeholder="Digite sua mensagem para o Telegram..." style="flex: 1; padding: 10px 12px; background: #1b1b22; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; outline: none;" onkeypress="checkTelegramEnter(event)">
+            <button id="telegram-chat-send" onclick="sendTelegramMessage()" style="background: #0088cc; color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Enviar</button>
+        </div>
+    </section>
+
+    <!-- OS DOIS LOGOS CORRETOS NO RODAPÉ -->
     <div class="icones-inferiores">
         <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" rel="noopener noreferrer">
             <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="WhatsApp">
@@ -455,7 +467,7 @@
             if (q.includes('olá') || q.includes('ola') || q.includes('salve') || q.includes('oi')) return 'Olá! Seja muito bem-vindo à Rádio TV Web Músicas Inesquecíveis! Eu sou a Nina e o DJ Xavier está de olho no chat. O que gostaria de pedir?';
 
             if (q.includes('quem é você') || q.includes('quem e voce') || q.includes('seu nome') || q.includes('quem e nina')) {
-                return 'Meu nome é Nina, sou a atendente e assistente da Rádio TV Web Músicas Inesquecíveis. Ao conversar comigo, o seu assunto é anotado e o DJ Xavier atenderá o seu pedido!';
+                return 'Meu nome é Nina, sou a atendente e assistente da Rádio TV Web Músicas Inesquecíveis. Ao conversar comigo, o seu assunto é gravado e o DJ Xavier atenderá o seu pedido!';
             }
 
             if (q.includes('que radio') || q.includes('que rádio') || q.includes('que site') || q.includes('projeto')) {
@@ -470,7 +482,49 @@
                 return 'Anotado com sucesso! O DJ Xavier já recebeu o recado no estúdio e vai colocar o seu som no radar da programação! Afinal, aqui só tocamos tudo aquilo que te toca!';
             }
 
-            return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui no estúdio. O seu recado já foi registrado! Se quiser pedir mais algum som, é só me avisar!';
+            return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
+        }
+
+        // TELEGRAM - CONFIGURAÇÕES E ENVIO DIRETO
+        const TELEGRAM_BOT_TOKEN = '8936441272:AAFrDohJzEnC0oDk6cf-RhxkroUIQbSfbo';
+        const TELEGRAM_CHAT_ID = '8993146859';
+
+        function checkTelegramEnter(e) {
+            if (e.key === 'Enter') sendTelegramMessage();
+        }
+
+        function sendTelegramMessage() {
+            const input = document.getElementById('telegram-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('telegram-chat-messages');
+
+            // 1. ADICIONA O TEXTO DO USUÁRIO NA TELA
+            const userDiv = document.createElement('div');
+            userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
+
+            // 2. LIMPA O CAMPO DE TEXTO E ROLA O CHAT PARA BAIXO
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // 3. ENVIA DIRETO AO TELEGRAM
+            const mensagemFinal = encodeURIComponent(`🎵 Mensagem do site da Rádio:\n\n${text}`);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${mensagemFinal}`;
+
+            const img = new Image();
+            img.src = url;
+
+            // 4. MENSAGEM DE CONFIRMAÇÃO DO BOT NA TELA
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = '✔️ Mensagem enviada com sucesso para o seu Telegram!';
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 400);
         }
     </script>
 </body>
