@@ -494,7 +494,7 @@
         });
     </script>
 
-    <!-- Script da Nina com Cérebro Local Inteligente e Fluxo Perfeito em 2 Passos -->
+    <!-- Script de Inteligência da Nina Totalmente Refinado -->
     <script>
         let aguardandoDetalhesMusica = false;
 
@@ -522,7 +522,7 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            // Simulando a digitação da Nina
+            // Simulação de resposta
             const botDiv = document.createElement('div');
             botDiv.className = 'nina-msg bot';
             botDiv.textContent = 'Nina está a digitar...';
@@ -532,41 +532,56 @@
             setTimeout(() => {
                 botDiv.textContent = processarRespostaNina(text);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 600);
+            }, 500);
         }
 
         function processarRespostaNina(query) {
             const q = query.toLowerCase().trim();
 
-            // 1. Saudações Educadas
-            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha tudo por aqui. Como posso te ajudar hoje?';
-            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir ou saber sobre a nossa programação?';
-            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco na Rádio TV Web Músicas Inesquecíveis. Como posso ajudar a embalar a sua noite?';
-            if (q.includes('olá') || q.includes('ola') || q.includes('eae') || q.includes('salve')) return 'Olá! Seja muito bem-vindo à Rádio TV Web Músicas Inesquecíveis! Eu sou a Nina e o DJ Xavier está de olho no chat. O que gostaria de pedir?';
-
-            // 2. Fluxo Passo 2: Se ela já pediu os dados antes, qualquer resposta agora confirma o pedido
-            if (aguardandoDetalhesMusica) {
+            // 1. Dúvidas sobre o status da Rádio
+            if (q.includes('fora do ar') || q.includes('sem som') || q.includes('parou') || q.includes('caiu') || q.includes('não toca') || q.includes('nao toca') || q.includes('travou')) {
                 aguardandoDetalhesMusica = false;
+                return 'Às vezes o streaming dá um pequeno sinal de oscilação, mas o DJ Xavier está no estúdio acompanhando e ajustando tudo para o som voltar perfeito!';
+            }
+
+            // 2. Pergunta sobre que Rádio é essa
+            if (q.includes('que radio') || q.includes('que rádio') || q.includes('qual radio') || q.includes('qual rádio') || q.includes('sobre a radio')) {
+                aguardandoDetalhesMusica = false;
+                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação eclética com raridades do porão, classic rock, heavy metal, flashbacks e clássicos inesquecíveis. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            // 3. Pergunta sobre quais bandas tocam na rádio
+            if (q.includes('qual bandas') || q.includes('quais bandas') || q.includes('que bandas') || q.includes('o que toca') || q.includes('quais artistas')) {
+                aguardandoDetalhesMusica = false;
+                return 'No nosso acervo tocamos grandes nomes como The Beatles, Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Creedence, Metallica, Iron Maiden e muitas raridades musicais!';
+            }
+
+            // 4. Pergunta ou comentário se já foi anotado
+            if (q.includes('anotou') || q.includes('já sei') || q.includes('ja sei') || q.includes('recebeu')) {
+                aguardandoDetalhesMusica = false;
+                return 'Sim! Fique tranquilo, o recado já está registrado e visível para o DJ Xavier no estúdio. Se quiser pedir outra música ou tirar alguma dúvida, estou por aqui!';
+            }
+
+            // 5. Saudações
+            if (q.includes('bom dia')) { aguardandoDetalhesMusica = false; return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis! Como posso te ajudar?'; }
+            if (q.includes('boa tarde')) { aguardandoDetalhesMusica = false; return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir hoje?'; }
+            if (q.includes('boa noite')) { aguardandoDetalhesMusica = false; return 'Boa noite! Que bom ter você conosco. Quer ouvir alguma preciosidade musical hoje?'; }
+            if (q.includes('olá') || q.includes('ola') || q.includes('eae') || q.includes('salve')) { aguardandoDetalhesMusica = false; return 'Olá! Seja muito bem-vindo! Eu sou a Nina e o DJ Xavier acompanha a nossa conversa. Como posso te ajudar?'; }
+
+            // 6. PASSO 2 DO PEDIDO: Se o usuário estava no fluxo de pedir e enviou os dados
+            if (aguardandoDetalhesMusica) {
+                aguardandoDetalhesMusica = false; // Desativa a espera para a próxima mensagem ser normal!
                 return `Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar "${query}" no ar para você! Afinal, aqui só tocamos tudo aquilo que te toca!`;
             }
 
-            // 3. Fluxo Passo 1: Quando o ouvinte pede para tocar algo de forma genérica
-            if (q.includes('pedir') || q.includes('ouvir') || q.includes('toca') || q.includes('som') || q.includes('queria') || q.includes('gostaria') || q.includes('musica') || q.includes('música')) {
-                aguardandoDetalhesMusica = true; // Ativa a trava para aguardar o nome da música/cantor
+            // 7. PASSO 1 DO PEDIDO: Apenas se for uma solicitação EXPLÍCITA de pedido de música
+            if (q.includes('quero pedir') || q.includes('posso pedir') || q.includes('gostaria de pedir') || q.includes('pedir uma musica') || q.includes('pedir um som') || q.includes('tocar uma musica')) {
+                aguardandoDetalhesMusica = true; // Liga o modo de espera do nome da música/cantor
                 return 'Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda.';
             }
 
-            // 4. Sobre o DJ Xavier ou a Rádio
-            if (q.includes('xavier') || q.includes('dono') || q.includes('locutor')) {
-                return 'O DJ Xavier é o comandante e proprietário da nossa rádio! Ele está sempre aqui no estúdio cuidando da programação e acompanhando o chat em tempo real.';
-            }
-
-            if (q.includes('estilo') || q.includes('banda') || q.includes('tocam') || q.includes('rock') || q.includes('flashback')) {
-                return 'No nosso acervo tocamos as maiores raridades e clássicos: classic rock, heavy metal, flashbacks e sucessos inesquecíveis! Afinal, aqui só tocamos tudo aquilo que te toca.';
-            }
-
-            // 5. Resposta Padrão Acolhedora
-            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar no que precisares sobre a nossa rádio. Gostaria de pedir algum som ou saber mais sobre as nossas preciosidades musicais?';
+            // 8. Resposta Padrão Acolhedora
+            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar. Gostarias de pedir algum som ou saber mais sobre a nossa programação?';
         }
     </script>
 
