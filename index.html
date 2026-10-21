@@ -494,26 +494,9 @@
         });
     </script>
 
-    <!-- Script da Nina com Inteligência Reforçada -->
+    <!-- Script da Nina com Cérebro Local Inteligente e Fluxo Perfeito em 2 Passos -->
     <script>
-        const GEMINI_EMBEDDED_KEY = "AQ.Ab8RN6L1wG3IwnrVaIgXDKOHkAle6JwN4MhyerP5Cxo9vDmsQ";
-
-        const NINA_SYSTEM_PROMPT = `Você é a NINA, a inteligência artificial, recepcionista e assistente oficial da Rádio TV Web Músicas Inesquecíveis. O locutor e proprietário é o DJ Xavier.
-
-REGRAS DE DIÁLOGO:
-1. SAUDAÇÕES:
-   - Se o ouvinte disser "Bom dia", responda exatamente com "Bom dia! Tudo bem com você? Sou a Nina, da Rádio TV Web Músicas Inesquecíveis!".
-   - Se disser "Boa tarde" ou "Boa noite", responda de forma equivalente e educada.
-
-2. FLUXO DE PEDIDO DE MÚSICA:
-   - Se o ouvinte disser apenas "Quero pedir uma música" ou "gostaria de pedir uma música", responda:
-     "Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda."
-   - Se o ouvinte fornecer as informações da música, cantor, banda ou seu próprio nome (exemplo: "banda...", "música...", "meu nome é..."), responda com entusiasmo e confirmação total:
-     "Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar essa música no ar para você!"
-
-3. NUNCA resete a conversa ou volte para saudações genéricas no meio de um pedido. Mantenha a continuidade humana e simpática.`;
-
-        let ninaConversationHistory = [];
+        let aguardandoDetalhesMusica = false;
 
         function checkNinaEnter(e) {
             if (e.key === 'Enter') {
@@ -521,7 +504,7 @@ REGRAS DE DIÁLOGO:
             }
         }
 
-        async function sendNinaMessage() {
+        function sendNinaMessage() {
             const input = document.getElementById('nina-chat-input');
             if (!input) return;
             
@@ -530,6 +513,7 @@ REGRAS DE DIÁLOGO:
 
             const messagesContainer = document.getElementById('nina-chat-messages');
 
+            // Mensagem do Usuário
             const userDiv = document.createElement('div');
             userDiv.className = 'nina-msg user';
             userDiv.textContent = text;
@@ -538,81 +522,51 @@ REGRAS DE DIÁLOGO:
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
+            // Simulando a digitação da Nina
             const botDiv = document.createElement('div');
             botDiv.className = 'nina-msg bot';
             botDiv.textContent = 'Nina está a digitar...';
             messagesContainer.appendChild(botDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            try {
-                const respostaIA = await chamarGeminiAPI(text, GEMINI_EMBEDDED_KEY);
-                botDiv.textContent = respostaIA;
-            } catch (erro) {
-                console.error('Erro na API Gemini:', erro);
-                botDiv.textContent = processNinaFallback(text);
-            }
-
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            setTimeout(() => {
+                botDiv.textContent = processarRespostaNina(text);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
         }
 
-        async function chamarGeminiAPI(userText, apiKey) {
-            ninaConversationHistory.push({ role: "user", parts: [{ text: userText }] });
-
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [
-                    {
-                        role: "user",
-                        parts: [{ text: NINA_SYSTEM_PROMPT }]
-                    },
-                    {
-                        role: "model",
-                        parts: [{ text: "Compreendido! Agirei exatamente com as saudações corretas e na confirmação fluida em 2 etapas para pedidos de música." }]
-                    },
-                    ...ninaConversationHistory
-                ]
-            };
-
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Erro na comunicação: status ${response.status}`);
-            }
-
-            const data = await response.json();
-            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-            if (!reply) {
-                throw new Error("Resposta inválida da API");
-            }
-
-            ninaConversationHistory.push({ role: "model", parts: [{ text: reply }] });
-
-            return reply;
-        }
-
-        function processNinaFallback(query) {
+        function processarRespostaNina(query) {
             const q = query.toLowerCase().trim();
 
-            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, da Rádio TV Web Músicas Inesquecíveis!';
-            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Como posso te ajudar na nossa rádio hoje?';
-            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco. Quer ouvir alguma música inesquecível hoje?';
+            // 1. Saudações Educadas
+            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha tudo por aqui. Como posso te ajudar hoje?';
+            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir ou saber sobre a nossa programação?';
+            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco na Rádio TV Web Músicas Inesquecíveis. Como posso ajudar a embalar a sua noite?';
+            if (q.includes('olá') || q.includes('ola') || q.includes('eae') || q.includes('salve')) return 'Olá! Seja muito bem-vindo à Rádio TV Web Músicas Inesquecíveis! Eu sou a Nina e o DJ Xavier está de olho no chat. O que gostaria de pedir?';
 
-            // Tratamento inteligente do Fallback quando o usuário envia os dados da música
-            if (q.includes('banda') || q.includes('musica') || q.includes('música') || q.includes('trio') || q.includes('cantor') || q.includes('nome')) {
-                return 'Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar essa música no ar para você!';
+            // 2. Fluxo Passo 2: Se ela já pediu os dados antes, qualquer resposta agora confirma o pedido
+            if (aguardandoDetalhesMusica) {
+                aguardandoDetalhesMusica = false;
+                return `Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar "${query}" no ar para você! Afinal, aqui só tocamos tudo aquilo que te toca!`;
             }
 
-            if (q.includes('pedir') || q.includes('ouvir') || q.includes('toca') || q.includes('som')) {
+            // 3. Fluxo Passo 1: Quando o ouvinte pede para tocar algo de forma genérica
+            if (q.includes('pedir') || q.includes('ouvir') || q.includes('toca') || q.includes('som') || q.includes('queria') || q.includes('gostaria') || q.includes('musica') || q.includes('música')) {
+                aguardandoDetalhesMusica = true; // Ativa a trava para aguardar o nome da música/cantor
                 return 'Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda.';
             }
 
-            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar no que precisares sobre a nossa rádio. Gostaria de pedir algum som?';
+            // 4. Sobre o DJ Xavier ou a Rádio
+            if (q.includes('xavier') || q.includes('dono') || q.includes('locutor')) {
+                return 'O DJ Xavier é o comandante e proprietário da nossa rádio! Ele está sempre aqui no estúdio cuidando da programação e acompanhando o chat em tempo real.';
+            }
+
+            if (q.includes('estilo') || q.includes('banda') || q.includes('tocam') || q.includes('rock') || q.includes('flashback')) {
+                return 'No nosso acervo tocamos as maiores raridades e clássicos: classic rock, heavy metal, flashbacks e sucessos inesquecíveis! Afinal, aqui só tocamos tudo aquilo que te toca.';
+            }
+
+            // 5. Resposta Padrão Acolhedora
+            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar no que precisares sobre a nossa rádio. Gostaria de pedir algum som ou saber mais sobre as nossas preciosidades musicais?';
         }
     </script>
 
