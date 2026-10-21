@@ -494,31 +494,24 @@
         });
     </script>
 
-    <!-- Script de Inteligência da Nina Perfeitamente Ajustado -->
+    <!-- Script da Nina com Inteligência Reforçada -->
     <script>
         const GEMINI_EMBEDDED_KEY = "AQ.Ab8RN6L1wG3IwnrVaIgXDKOHkAle6JwN4MhyerP5Cxo9vDmsQ";
 
         const NINA_SYSTEM_PROMPT = `Você é a NINA, a inteligência artificial, recepcionista e assistente oficial da Rádio TV Web Músicas Inesquecíveis. O locutor e proprietário é o DJ Xavier.
 
-REGRAS DE DIÁLOGO E COMPORTAMENTO SUPER HUMANO:
-1. EDUCAÇÃO E CORRESPONDÊNCIA DE SAUDAÇÕES:
-   - Se o ouvinte disser "Bom dia", responda com "Bom dia!".
-   - Se o ouvinte disser "Boa tarde", responda com "Boa tarde!".
-   - Se o ouvinte disser "Boa noite", responda com "Boa noite!".
-   - Se o ouvinte disser apenas "Olá", responda com "Olá!". Seja sempre natural e corresponda exatamente ao comprimento e tom da saudação do ouvinte.
+REGRAS DE DIÁLOGO:
+1. SAUDAÇÕES:
+   - Se o ouvinte disser "Bom dia", responda exatamente com "Bom dia! Tudo bem com você? Sou a Nina, da Rádio TV Web Músicas Inesquecíveis!".
+   - Se disser "Boa tarde" ou "Boa noite", responda de forma equivalente e educada.
 
-2. FLUXO DE PEDIDO DE MÚSICA (Siga rigorosamente estas 2 etapas):
-   - ETAPA 1 (Quando o ouvinte diz "Quero pedir uma música", "Posso pedir um som", ou algo genérico sem informar os detalhes):
-     Responda informando que o DJ Xavier acompanha o chat e diga: "Sim, posso anotar o seu pedido! Por favor, me diga seu nome, o nome da música e o nome do cantor ou banda."
-   - ETAPA 2 (Quando o ouvinte informa o nome da música e do cantor/banda):
-     Responda de forma alegre e confirme exatamente o pedido dizendo: "Beleza! Está anotado. O DJ Xavier vai colocar [Nome da Música - Nome do Cantor/Banda] no ar para você!" (Sempre repita o nome da música e do artista na resposta).
+2. FLUXO DE PEDIDO DE MÚSICA:
+   - Se o ouvinte disser apenas "Quero pedir uma música" ou "gostaria de pedir uma música", responda:
+     "Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda."
+   - Se o ouvinte fornecer as informações da música, cantor, banda ou seu próprio nome (exemplo: "banda...", "música...", "meu nome é..."), responda com entusiasmo e confirmação total:
+     "Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar essa música no ar para você!"
 
-3. INFORMAÇÕES DA RÁDIO:
-   - Toca desde música clássica, flashback, classic rock, heavy metal até grandes raridades do porão.
-   - Slogan: "Afinal, aqui só tocamos tudo aquilo que te toca!"
-   - Se perguntarem do DJ Xavier, diga que ele acompanha o chat no estúdio em tempo real.
-
-4. TOM DE VOZ: Amigável, educado, brasileiro, claro e sem frases prontas engessadas.`;
+3. NUNCA resete a conversa ou volte para saudações genéricas no meio de um pedido. Mantenha a continuidade humana e simpática.`;
 
         let ninaConversationHistory = [];
 
@@ -571,11 +564,11 @@ REGRAS DE DIÁLOGO E COMPORTAMENTO SUPER HUMANO:
                 contents: [
                     {
                         role: "user",
-                        parts: [{ text: "INSTRUÇÕES OBRIGATÓRIAS DA NINA:\n" + NINA_SYSTEM_PROMPT }]
+                        parts: [{ text: NINA_SYSTEM_PROMPT }]
                     },
                     {
                         role: "model",
-                        parts: [{ text: "Entendido perfeitamente! Assumo a identidade da Nina com todas as regras de saudação, confirmação de música em 2 etapas e estilo de resposta solicitados." }]
+                        parts: [{ text: "Compreendido! Agirei exatamente com as saudações corretas e na confirmação fluida em 2 etapas para pedidos de música." }]
                     },
                     ...ninaConversationHistory
                 ]
@@ -610,11 +603,16 @@ REGRAS DE DIÁLOGO E COMPORTAMENTO SUPER HUMANO:
             if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Como posso te ajudar na nossa rádio hoje?';
             if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco. Quer ouvir alguma música inesquecível hoje?';
 
+            // Tratamento inteligente do Fallback quando o usuário envia os dados da música
+            if (q.includes('banda') || q.includes('musica') || q.includes('música') || q.includes('trio') || q.includes('cantor') || q.includes('nome')) {
+                return 'Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar essa música no ar para você!';
+            }
+
             if (q.includes('pedir') || q.includes('ouvir') || q.includes('toca') || q.includes('som')) {
                 return 'Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda.';
             }
 
-            return 'Olá! Sou a Nina, assistente da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier está acompanhando nossa conversa. Como posso te ajudar?';
+            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar no que precisares sobre a nossa rádio. Gostaria de pedir algum som?';
         }
     </script>
 
