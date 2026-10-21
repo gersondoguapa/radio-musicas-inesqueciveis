@@ -1,589 +1,315 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rádio Músicas Inesquecíveis</title>
-
-    <style>
-        body {
-            background-color: #0b0b0e;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #ff7700;
-            margin-top: 15px;
-            font-size: 28px;
-            text-shadow: 0 0 10px rgba(255,119,0,0.5);
-        }
-
-        .subtitulo-topo {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .radio-box, .tv-box {
-            max-width: 520px;
-            margin: 0 auto 20px;
-            background: #141418;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-            border: 1px solid #22222c;
-            position: relative;
-        }
-
-        .radio-box { overflow: hidden; }
-
-        .imagem-radio {
-            position: relative;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .imagem-radio img {
-            display: block;
-            width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        #botao-play {
-            position: absolute;
-            top: 41.5%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 26px;
-            height: 26px;
-            border: 1.5px solid rgba(255,255,255,0.85);
-            border-radius: 50%;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            font-size: 9px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.9),
-                        0 0 6px rgba(255,119,0,0.5);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        #botao-play:hover {
-            background: rgba(255,119,0,0.9);
-            border-color: white;
-            transform: translate(-50%, -50%) scale(1.15);
-        }
-
-        .bloco-luz-esq, .bloco-luz-dir {
-            position: absolute;
-            top: 51.5%;
-            width: 72px;
-            height: 72px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle,
-                rgba(255,0,50,0.98) 0%,
-                rgba(255,60,0,0.88) 40%,
-                rgba(180,0,30,0.75) 70%,
-                rgba(0,0,0,0.9) 100%);
-            box-shadow: inset 0 0 12px rgba(0,0,0,0.95),
-                        0 0 14px rgba(255,0,60,0.85);
-            mix-blend-mode: screen;
-            opacity: 0.95;
-            pointer-events: none;
-            animation: pulsarAvancado 0.35s infinite alternate ease-in-out;
-            z-index: 2;
-        }
-
-        .bloco-luz-esq { left: 17%; }
-        .bloco-luz-dir { left: 83.5%; }
-
-        @keyframes pulsarAvancado {
-            0% { transform: translate(-50%,-50%) scale(0.93); opacity: 0.82; }
-            100% { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
-        }
-
-        .ondas-visor {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 3px;
-            align-items: flex-end;
-            height: 18px;
-            pointer-events: none;
-            z-index: 7;
-        }
-
-        .ondas-visor span {
-            width: 3px;
-            background: #ff7700;
-            border-radius: 2px;
-            box-shadow: 0 0 6px #ff7700;
-            animation: balancaOnda 0.6s infinite ease-in-out;
-        }
-
-        .ondas-visor span:nth-child(2) { animation-duration: 0.4s; }
-        .ondas-visor span:nth-child(3) { animation-duration: 0.7s; }
-        .ondas-visor span:nth-child(4) { animation-duration: 0.5s; }
-        .ondas-visor span:nth-child(5) { animation-duration: 0.8s; }
-
-        @keyframes balancaOnda {
-            0%, 100% { height: 3px; }
-            50% { height: 15px; }
-        }
-
-        .instrucao {
-            font-size: 15px;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-
-        #status-radio {
-            color: #ff7700;
-            font-size: 14px;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .tocando-agora {
-            margin-top: 15px;
-            padding: 12px;
-            background: #1b1b22;
-            border-radius: 10px;
-            border-left: 4px solid #ff7700;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .tocando-agora span {
-            display: block;
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-        }
-
-        #nome-musica {
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .tv-box h3 {
-            color: #ff7700;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .chat-box {
-            width: 100%;
-            max-width: 520px;
-            box-sizing: border-box;
-            margin: 25px auto;
-            padding: 16px;
-            background: #141418;
-            border: 1px solid #ff7700;
-            border-radius: 16px;
-            box-shadow: 0 0 20px rgba(255, 119, 0, 0.25);
-            scroll-margin-top: 15px;
-            text-align: left;
-        }
-
-        .chat-header-flex {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .chat-box h3 {
-            margin: 0;
-            color: #ff7700;
-            font-size: 20px;
-        }
-
-        #nina-chat-messages {
-            height: 350px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: #0e0e12;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #22222c;
-            margin-bottom: 12px;
-        }
-
-        .nina-msg {
-            padding: 10px 14px;
-            border-radius: 8px;
-            max-width: 85%;
-            font-size: 14px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .nina-msg.bot {
-            background: #22222c;
-            color: #e5e7eb;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-            border-left: 3px solid #ff7700;
-        }
-
-        .nina-msg.user {
-            background: #d97706;
-            color: #ffffff;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            font-weight: 500;
-        }
-
-        #nina-chat-input-area {
-            display: flex;
-            gap: 8px;
-        }
-
-        #nina-chat-input {
-            flex: 1;
-            padding: 10px 12px;
-            background: #1b1b22;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-
-        #nina-chat-input:focus {
-            border-color: #ff7700;
-        }
-
-        #nina-chat-send {
-            background: #ff7700;
-            color: white;
-            border: none;
-            padding: 0 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        #nina-chat-send:hover {
-            background: #e06600;
-        }
-
-        .icones-inferiores {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-
-        .icones-inferiores a {
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-
-        .icones-inferiores a:hover {
-            transform: scale(1.05);
-        }
-
-        .icones-inferiores img {
-            width: 105px;
-            max-width: 26vw;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            h1 { font-size: 23px; }
-            .radio-box, .tv-box, .chat-box { padding: 12px; }
-            .icones-inferiores { gap: 9px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rádio TV Web Músicas Inesquecíveis</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #ff6600;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+    }
+    p.subtitle {
+      color: #ccc;
+      font-size: 1rem;
+    }
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .media-section {
+      flex: 1 1 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .player-card, .tv-card {
+      background: #1e1e1e;
+      border: 2px solid #ff6600;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+    }
+    .player-card h2, .tv-card h2 {
+      color: #ff6600;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    audio {
+      width: 100%;
+      height: 45px;
+      outline: none;
+      border-radius: 6px;
+    }
+    .tv-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #000;
+    }
+    .tv-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    
+    /* Widget do Chat da Nina */
+    .chat-section {
+      flex: 1 1 380px;
+      max-width: 450px;
+      background: #1e1e1e;
+      border: 2px solid #ff6600;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+    }
+    .chat-header {
+      background: #ff6600;
+      color: #fff;
+      padding: 15px;
+      border-top-left-radius: 9px;
+      border-top-right-radius: 9px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-header span.status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00ff66;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #141414;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .message.bot {
+      background-color: #2a2a2a;
+      color: #fff;
+      align-self: flex-start;
+      border-left: 3px solid #ff6600;
+    }
+    .message.user {
+      background-color: #ff6600;
+      color: #fff;
+      align-self: flex-end;
+    }
+    .chat-input-area {
+      display: flex;
+      padding: 10px;
+      background: #1e1e1e;
+      border-bottom-left-radius: 9px;
+      border-bottom-right-radius: 9px;
+      gap: 8px;
+    }
+    .chat-input-area input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #2b2b2b;
+      color: #fff;
+      outline: none;
+    }
+    .chat-input-area input:focus {
+      border-color: #ff6600;
+    }
+    .chat-input-area button {
+      background: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .chat-input-area button:hover {
+      background: #e65c00;
+    }
+  </style>
 </head>
-
 <body>
 
-    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
-    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
+  <header>
+    <h1>Rádio TV Web Músicas Inesquecíveis</h1>
+    <p class="subtitle">O melhor do Classic Rock, Retro & Clássicos na Web com DJ Xavier</p>
+  </header>
 
-    <div class="radio-box">
-        <div class="imagem-radio">
-            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
-            <div class="bloco-luz-esq"></div>
-            <div class="bloco-luz-dir"></div>
-            <div class="ondas-visor">
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <button id="botao-play" type="button"
-                aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
+  <div class="main-container">
+    
+    <div class="media-section">
+      <!-- Player de Áudio -->
+      <div class="player-card">
+        <h2>🎵 Rádio Ao Vivo</h2>
+        <audio controls autoplay>
+          <source src="http://109.169.23.23:6097/;stream.mp3" type="audio/mpeg">
+          O seu navegador não suporta o reprodutor de áudio.
+        </audio>
+      </div>
+
+      <!-- Player de Web TV -->
+      <div class="tv-card">
+        <h2>📺 Web TV ao Vivo</h2>
+        <div class="tv-container">
+          <iframe src="https://iblups.com/embed/musicasinesqueciveis" allowfullscreen></iframe>
         </div>
-
-        <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
-        <audio id="audio-radio" preload="none"></audio>
-        <p id="status-radio">Rádio pronta para tocar</p>
-
-        <div class="tocando-agora">
-            <span>Tocando Agora</span>
-            <div id="nome-musica">Aguardando conexão...</div>
-        </div>
+      </div>
     </div>
 
-    <div class="tv-box">
-        <h3>Web TV - Ao Vivo</h3>
-        <div class="video-container">
-            <iframe
-                src="https://iblups.com/embed/musicasinesqueciveis"
-                title="Web TV Rádio Músicas Inesquecíveis"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+    <!-- Chat da Nina -->
+    <div class="chat-section">
+      <div class="chat-header">
+        <span class="status-dot"></span>
+        Nina | Rádio Músicas Inesquecíveis
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot">
+          Olá! Sou a <b>Nina</b>, assistente da Rádio TV Web Músicas Inesquecíveis! 🎶<br>
+          Como posso te ajudar hoje? Se quiser pedir uma música para o DJ Xavier, é só me avisar!
         </div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Digite sua mensagem ou pedido de música..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Enviar</button>
+      </div>
     </div>
 
-    <section class="chat-box" id="chat-ao-vivo">
-        <div class="chat-header-flex">
-            <h3>💬 Falar com a Nina</h3>
-        </div>
-        <div id="nina-chat-messages">
-            <div class="nina-msg bot">Olá! Sou a Nina, assistente oficial e recepcionista da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso te ajudar ou qual raridade musical gostaria de ouvir hoje?</div>
-        </div>
-        <div id="nina-chat-input-area">
-            <input type="text" id="nina-chat-input" placeholder="Escreve aqui o teu pedido ou mensagem..." onkeypress="checkNinaEnter(event)">
-            <button id="nina-chat-send" onclick="sendNinaMessage()">Enviar</button>
-        </div>
-    </section>
+  </div>
 
-    <div class="icones-inferiores">
-        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Pedir música no WhatsApp">
-            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg"
-                 alt="Peça sua música no WhatsApp">
-        </a>
+  <script>
+    // Configurações do Telegram Backend
+    const TELEGRAM_TOKEN = "8936441272:AAFrdDohJzEnC0oDk6cf-RhxkroUIQbSfbo";
+    let pendingMusicRequest = false;
 
-        <a href="https://www.facebook.com/groups/1279173282256062/"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Grupo do Facebook">
-            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg"
-                 alt="Grupo do Facebook">
-        </a>
-    </div>
+    function addMessage(text, sender) {
+      const chatMessages = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.innerHTML = text;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-    <script>
-        const audio = document.getElementById("audio-radio");
-        const botao = document.getElementById("botao-play");
-        const status = document.getElementById("status-radio");
-        const divMusica = document.getElementById("nome-musica");
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    }
 
-        const enderecoRadio =
-            "https://fpsnew2.listen2myradio.com:2199/listen.php?ip=212.84.160.3&port=6097&type=s1";
+    // Função para enviar os pedidos de música para o estúdio via Telegram
+    function sendToStudioTelegram(listenerMessage) {
+      const text = encodeURIComponent(`🚨 *NOVO PEDIDO DE MÚSICA NO SITE!*\n\n🎧 *Pedido:* ${listenerMessage}`);
+      // Busca as atualizações do Bot para enviar para o seu chat
+      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/getUpdates`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok && data.result.length > 0) {
+            const chatId = data.result[data.result.length - 1].message.chat.id;
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${chatId}&text=${text}&parse_mode=Markdown`);
+          }
+        })
+        .catch(err => console.error("Erro ao enviar pedido para o Telegram:", err));
+    }
 
-        function atualizarInfoMusica() {
-            const urlAlvo = "http://212.84.160.3:6097/7.html";
-            const proxyUrl =
-                `https://api.allorigins.win/get?url=${encodeURIComponent(urlAlvo)}`;
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
 
-            fetch(proxyUrl, { cache: "no-store" })
-                .then(resposta => resposta.json())
-                .then(dados => {
-                    if (dados && dados.contents) {
-                        const parser = new DOMParser();
-                        const htmlDoc = parser.parseFromString(
-                            dados.contents, "text/html"
-                        );
-                        const textoPuro = htmlDoc.body.textContent || "";
-                        const partes = textoPuro.split(",");
+      addMessage(text, 'user');
+      input.value = '';
 
-                        if (partes.length >= 7) {
-                            const musicaAtual = partes[6];
+      const lower = text.toLowerCase();
 
-                            if (musicaAtual && musicaAtual.trim() !== "") {
-                                divMusica.textContent = musicaAtual;
-                            }
-                        }
-                    }
-                })
-                .catch(() => {});
-        }
+      // Fluxo em 2 Passos para Pedido de Música
+      if (pendingMusicRequest) {
+        pendingMusicRequest = false;
+        sendToStudioTelegram(text);
+        setTimeout(() => {
+          addMessage(`Anotado com sucesso! 📝 Envei o seu pedido ("<b>${text}</b>") diretamente para a mesa do DJ Xavier no estúdio. Fique ligado na programação! 🎧📻`, 'bot');
+        }, 600);
+        return;
+      }
 
-        async function alternarRadio() {
-            if (!audio.paused) {
-                audio.pause();
-                botao.textContent = "▶️";
-                status.textContent = "Rádio pausada";
-                return;
-            }
+      if (lower.includes('música') || lower.includes('musica') || lower.includes('pedir') || lower.includes('tocar')) {
+        pendingMusicRequest = true;
+        setTimeout(() => {
+          addMessage("Com certeza! Qual música e cantor/banda você gostaria de ouvir? Mande também o seu nome e de onde está ouvindo!", 'bot');
+        }, 600);
+        return;
+      }
 
-            if (!audio.src) {
-                audio.src = enderecoRadio;
-            }
+      // Saudações e Dúvidas Gerais
+      if (lower.includes('oi') || lower.includes('olá') || lower.includes('ola') || lower.includes('bom dia') || lower.includes('boa tarde') || lower.includes('boa noite')) {
+        setTimeout(() => {
+          addMessage("Olá! Seja muito bem-vindo(a) à Rádio TV Web Músicas Inesquecíveis! Quer pedir uma música ou saber mais sobre a rádio?", 'bot');
+        }, 600);
+        return;
+      }
 
-            status.textContent = "Conectando à rádio...";
+      if (lower.includes('quem') || lower.includes('dj') || lower.includes('xavier')) {
+        setTimeout(() => {
+          addMessage("O comando dos toca-discos é do <b>DJ Xavier</b>, trazendo os melhores clássicos do Rock e músicas inesquecíveis para você!", 'bot');
+        }, 600);
+        return;
+      }
 
-            try {
-                await audio.play();
-                botao.textContent = "Ⅱ";
-                status.textContent = "Rádio ao vivo";
-                atualizarInfoMusica();
-            } catch (erro) {
-                status.textContent =
-                    "Não foi possível tocar. Verifique a conexão.";
-                console.error(erro);
-            }
-        }
-
-        audio.addEventListener("playing", function() {
-            botao.textContent = "Ⅱ";
-            status.textContent = "Rádio ao vivo";
-            atualizarInfoMusica();
-
-            if (!window.intervaloMusica) {
-                window.intervaloMusica =
-                    setInterval(atualizarInfoMusica, 15000);
-            }
-        });
-
-        audio.addEventListener("pause", function() {
-            botao.textContent = "▶️";
-
-            if (window.intervaloMusica) {
-                clearInterval(window.intervaloMusica);
-                window.intervaloMusica = null;
-            }
-        });
-    </script>
-
-    <!-- Script de Inteligência da Nina Totalmente Refinado -->
-    <script>
-        let aguardandoDetalhesMusica = false;
-
-        function checkNinaEnter(e) {
-            if (e.key === 'Enter') {
-                sendNinaMessage();
-            }
-        }
-
-        function sendNinaMessage() {
-            const input = document.getElementById('nina-chat-input');
-            if (!input) return;
-            
-            const text = input.value.trim();
-            if (!text) return;
-
-            const messagesContainer = document.getElementById('nina-chat-messages');
-
-            // Mensagem do Usuário
-            const userDiv = document.createElement('div');
-            userDiv.className = 'nina-msg user';
-            userDiv.textContent = text;
-            messagesContainer.appendChild(userDiv);
-
-            input.value = '';
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            // Simulação de resposta
-            const botDiv = document.createElement('div');
-            botDiv.className = 'nina-msg bot';
-            botDiv.textContent = 'Nina está a digitar...';
-            messagesContainer.appendChild(botDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            setTimeout(() => {
-                botDiv.textContent = processarRespostaNina(text);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 500);
-        }
-
-        function processarRespostaNina(query) {
-            const q = query.toLowerCase().trim();
-
-            // 1. Dúvidas sobre o status da Rádio
-            if (q.includes('fora do ar') || q.includes('sem som') || q.includes('parou') || q.includes('caiu') || q.includes('não toca') || q.includes('nao toca') || q.includes('travou')) {
-                aguardandoDetalhesMusica = false;
-                return 'Às vezes o streaming dá um pequeno sinal de oscilação, mas o DJ Xavier está no estúdio acompanhando e ajustando tudo para o som voltar perfeito!';
-            }
-
-            // 2. Pergunta sobre que Rádio é essa
-            if (q.includes('que radio') || q.includes('que rádio') || q.includes('qual radio') || q.includes('qual rádio') || q.includes('sobre a radio')) {
-                aguardandoDetalhesMusica = false;
-                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação eclética com raridades do porão, classic rock, heavy metal, flashbacks e clássicos inesquecíveis. Afinal, aqui só tocamos tudo aquilo que te toca!';
-            }
-
-            // 3. Pergunta sobre quais bandas tocam na rádio
-            if (q.includes('qual bandas') || q.includes('quais bandas') || q.includes('que bandas') || q.includes('o que toca') || q.includes('quais artistas')) {
-                aguardandoDetalhesMusica = false;
-                return 'No nosso acervo tocamos grandes nomes como The Beatles, Rolling Stones, Led Zeppelin, Pink Floyd, Queen, Black Sabbath, AC/DC, Creedence, Metallica, Iron Maiden e muitas raridades musicais!';
-            }
-
-            // 4. Pergunta ou comentário se já foi anotado
-            if (q.includes('anotou') || q.includes('já sei') || q.includes('ja sei') || q.includes('recebeu')) {
-                aguardandoDetalhesMusica = false;
-                return 'Sim! Fique tranquilo, o recado já está registrado e visível para o DJ Xavier no estúdio. Se quiser pedir outra música ou tirar alguma dúvida, estou por aqui!';
-            }
-
-            // 5. Saudações
-            if (q.includes('bom dia')) { aguardandoDetalhesMusica = false; return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis! Como posso te ajudar?'; }
-            if (q.includes('boa tarde')) { aguardandoDetalhesMusica = false; return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir hoje?'; }
-            if (q.includes('boa noite')) { aguardandoDetalhesMusica = false; return 'Boa noite! Que bom ter você conosco. Quer ouvir alguma preciosidade musical hoje?'; }
-            if (q.includes('olá') || q.includes('ola') || q.includes('eae') || q.includes('salve')) { aguardandoDetalhesMusica = false; return 'Olá! Seja muito bem-vindo! Eu sou a Nina e o DJ Xavier acompanha a nossa conversa. Como posso te ajudar?'; }
-
-            // 6. PASSO 2 DO PEDIDO: Se o usuário estava no fluxo de pedir e enviou os dados
-            if (aguardandoDetalhesMusica) {
-                aguardandoDetalhesMusica = false; // Desativa a espera para a próxima mensagem ser normal!
-                return `Beleza! Está anotado com sucesso. O DJ Xavier já recebeu o recado no estúdio e vai colocar "${query}" no ar para você! Afinal, aqui só tocamos tudo aquilo que te toca!`;
-            }
-
-            // 7. PASSO 1 DO PEDIDO: Apenas se for uma solicitação EXPLÍCITA de pedido de música
-            if (q.includes('quero pedir') || q.includes('posso pedir') || q.includes('gostaria de pedir') || q.includes('pedir uma musica') || q.includes('pedir um som') || q.includes('tocar uma musica')) {
-                aguardandoDetalhesMusica = true; // Liga o modo de espera do nome da música/cantor
-                return 'Sim! O DJ Xavier está acompanhando tudo. Posso anotar seu pedido sim! Por favor, me diga o seu nome, o nome da música e o nome do cantor ou banda.';
-            }
-
-            // 8. Resposta Padrão Acolhedora
-            return 'Entendido perfeitamente! Sou a Nina e estou aqui para te ajudar. Gostarias de pedir algum som ou saber mais sobre a nossa programação?';
-        }
-    </script>
-
+      // Resposta padrão
+      setTimeout(() => {
+        addMessage("Que legal! Qualquer coisa, é só me pedir uma música que eu envio direto para o estúdio do DJ Xavier!", 'bot');
+      }, 600);
+    }
+  </script>
 </body>
 </html>
