@@ -327,6 +327,7 @@
         </div>
     </div>
 
+    <!-- SEU CHAT ATUAL (NINA) -->
     <section class="chat-box" id="chat-ao-vivo">
         <h3>💬 Falar com a Nina</h3>
         <div id="nina-chat-messages">
@@ -335,6 +336,18 @@
         <div id="nina-chat-input-area">
             <input type="text" id="nina-chat-input" placeholder="Escreva aqui o seu pedido..." onkeypress="checkNinaEnter(event)">
             <button id="nina-chat-send" onclick="sendNinaMessage()">Enviar</button>
+        </div>
+    </section>
+
+    <!-- NOVO BLOCO DO TELEGRAM (COLOCADO ABAIXO PARA VOCÊ TESTAR) -->
+    <section class="chat-box" id="chat-telegram-novo" style="border-color: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.25);">
+        <h3 style="color: #0088cc;">✈️ Chat Integrado com Telegram</h3>
+        <div id="telegram-chat-messages" style="height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
+            <div class="nina-msg bot">Envie uma mensagem aqui para testar a chegada direta no seu Telegram!</div>
+        </div>
+        <div id="telegram-chat-input-area" style="display: flex; gap: 8px;">
+            <input type="text" id="telegram-chat-input" placeholder="Digite sua mensagem para o Telegram..." style="flex: 1; padding: 10px 12px; background: #1b1b22; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; outline: none;" onkeypress="checkTelegramEnter(event)">
+            <button id="telegram-chat-send" onclick="sendTelegramMessage()" style="background: #0088cc; color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Enviar</button>
         </div>
     </section>
 
@@ -469,6 +482,66 @@
             }
 
             return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
+        }
+
+        // FUNÇÕES PARA O NOVO TESTE DO TELEGRAM
+        const TELEGRAM_BOT_TOKEN = 'COLOQUE_SEU_TOKEN_AQUI'; // Ex: '123456789:ABCdef...'
+        const TELEGRAM_CHAT_ID = 'COLOQUE_SEU_CHAT_ID_AQUI';     // Ex: '987654321'
+
+        function checkTelegramEnter(e) {
+            if (e.key === 'Enter') sendTelegramMessage();
+        }
+
+        function sendTelegramMessage() {
+            const input = document.getElementById('telegram-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('telegram-chat-messages');
+
+            const userDiv = document.createElement('div');
+            userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            if (TELEGRAM_BOT_TOKEN === 'COLOQUE_SEU_TOKEN_AQUI') {
+                setTimeout(() => {
+                    const avisoDiv = document.createElement('div');
+                    avisoDiv.className = 'nina-msg bot';
+                    avisoDiv.textContent = '⚠️ Cole o seu Token do Bot e o Chat ID no código JavaScript para enviar a mensagem ao Telegram.';
+                    messagesContainer.appendChild(avisoDiv);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 500);
+                return;
+            }
+
+            // Dispara para a API do Telegram
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: `🎵 Mensagem do site da Rádio:\n\n${text}`
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = '✔️ Mensagem enviada com sucesso para o seu Telegram!';
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            })
+            .catch(err => {
+                const errDiv = document.createElement('div');
+                errDiv.className = 'nina-msg bot';
+                errDiv.textContent = '❌ Erro ao enviar mensagem para o Telegram.';
+                messagesContainer.appendChild(errDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            });
         }
     </script>
 </body>
