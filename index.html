@@ -128,9 +128,9 @@
 
         .ondas-visor span {
             width: 3px;
-            background: #00ffcc;
+            background: #ff7700;
             border-radius: 2px;
-            box-shadow: 0 0 6px #00ffcc;
+            box-shadow: 0 0 6px #ff7700;
             animation: balancaOnda 0.6s infinite ease-in-out;
         }
 
@@ -206,6 +206,7 @@
             border: 0;
         }
 
+        /* Estilos do Chat Reorganizados em Laranja */
         .chat-box {
             width: 100%;
             max-width: 520px;
@@ -213,9 +214,9 @@
             margin: 25px auto;
             padding: 16px;
             background: #141418;
-            border: 1px solid #10b981;
+            border: 1px solid #ff7700;
             border-radius: 16px;
-            box-shadow: 0 0 20px rgba(16,185,129,0.25);
+            box-shadow: 0 0 20px rgba(255, 119, 0, 0.25);
             scroll-margin-top: 15px;
             text-align: left;
         }
@@ -229,7 +230,7 @@
 
         .chat-box h3 {
             margin: 0;
-            color: #10b981;
+            color: #ff7700;
             font-size: 20px;
         }
 
@@ -255,19 +256,22 @@
             word-wrap: break-word;
         }
 
+        /* Mensagens da Nina (Bot) */
         .nina-msg.bot {
             background: #22222c;
             color: #e5e7eb;
             align-self: flex-start;
             border-bottom-left-radius: 2px;
-            border-left: 3px solid #10b981;
+            border-left: 3px solid #ff7700;
         }
 
+        /* Mensagens do Ouvinte (Usuário) - Laranja Visível */
         .nina-msg.user {
-            background: #10b981;
-            color: #fff;
+            background: #d97706;
+            color: #ffffff;
             align-self: flex-end;
             border-bottom-right-radius: 2px;
+            font-weight: 500;
         }
 
         #nina-chat-input-area {
@@ -287,11 +291,11 @@
         }
 
         #nina-chat-input:focus {
-            border-color: #10b981;
+            border-color: #ff7700;
         }
 
         #nina-chat-send {
-            background: #10b981;
+            background: #ff7700;
             color: white;
             border: none;
             padding: 0 16px;
@@ -302,7 +306,7 @@
         }
 
         #nina-chat-send:hover {
-            background: #059669;
+            background: #e06600;
         }
 
         .icones-inferiores {
@@ -494,9 +498,9 @@
         });
     </script>
 
-    <!-- Script de Inteligência da Nina com Gemini API Embutida -->
+    <!-- Script de Inteligência da Nina com Gemini API Ajustada -->
     <script>
-        // Chave da API embutida diretamente (sem precisar configurar botões)
+        // Chave Gemini mantida e estruturada
         const GEMINI_EMBEDDED_KEY = "AQ.Ab8RN6L1wG3IwnrVaIgXDKOHkAle6JwN4MhyerP5Cxo9vDmsQ";
 
         const NINA_SYSTEM_PROMPT = `Você é a NINA, a inteligência artificial avançada e assistente virtual (recepcionista/atendente oficial) da Rádio TV Web Músicas Inesquecíveis.
@@ -561,10 +565,13 @@ DIRETRIZES RIGOROSAS DE RESPOSTA:
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
             const payload = {
-                system_instruction: {
-                    parts: [{ text: NINA_SYSTEM_PROMPT }]
-                },
-                contents: ninaConversationHistory
+                contents: [
+                    {
+                        role: "user",
+                        parts: [{ text: "DIRETRIZES DA NINA:\n" + NINA_SYSTEM_PROMPT + "\n\nSiga estritamente essa personalidade em todas as respostas." }]
+                    },
+                    ...ninaConversationHistory
+                ]
             };
 
             const response = await fetch(endpoint, {
@@ -578,7 +585,11 @@ DIRETRIZES RIGOROSAS DE RESPOSTA:
             }
 
             const data = await response.json();
-            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, deu um pequeno toque no sinal da IA, mas o DJ Xavier já está ajustando tudo!";
+            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!reply) {
+                throw new Error("Resposta inválida da API");
+            }
 
             ninaConversationHistory.push({ role: "model", parts: [{ text: reply }] });
 
