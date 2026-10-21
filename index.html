@@ -443,3 +443,86 @@
 
             const userDiv = document.createElement('div');
             userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
+
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = processarInteligenciaNina(text);
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+        }
+
+        function processarInteligenciaNina(query) {
+            const q = query.toLowerCase().trim();
+
+            if (q.includes('bom dia')) return 'Bom dia! Tudo bem com você? Sou a Nina, assistente oficial da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha tudo por aqui. Como posso te ajudar hoje?';
+            if (q.includes('boa tarde')) return 'Boa tarde! Tudo ótimo por aqui! Sou a Nina, da Rádio TV Web Músicas Inesquecíveis. O que gostaria de ouvir hoje?';
+            if (q.includes('boa noite')) return 'Boa noite! Que bom ter você conosco na Rádio TV Web Músicas Inesquecíveis. Como posso ajudar a embalar a sua noite?';
+            if (q.includes('olá') || q.includes('ola') || q.includes('salve') || q.includes('oi')) return 'Olá! Seja muito bem-vindo à Rádio TV Web Músicas Inesquecíveis! Eu sou a Nina e o DJ Xavier está de olho no chat. O que gostaria de pedir?';
+
+            if (q.includes('quem é você') || q.includes('quem e voce') || q.includes('seu nome') || q.includes('quem e nina')) {
+                return 'Meu nome é Nina, sou a atendente e assistente da Rádio TV Web Músicas Inesquecíveis. Ao conversar comigo, o seu assunto é gravado e o DJ Xavier atenderá o seu pedido!';
+            }
+
+            if (q.includes('que radio') || q.includes('que rádio') || q.includes('que site') || q.includes('projeto')) {
+                return 'Esta é a Rádio TV Web Músicas Inesquecíveis! Possuímos uma programação musical eclética, rolando a partir de muitos ritmos, no qual foi retirada a dedo a nata, a verdadeira pérola das músicas (aquela raridade). Aqui você encontra preciosidades retiradas lá do porão: desde a música clássica passando por vários ritmos. Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            if (q.includes('xavier') || q.includes('dj') || q.includes('dono') || q.includes('locutor')) {
+                return 'O DJ da nossa rádio é o DJ Xavier! Ele acompanha toda a nossa conversa aqui no chat e cuida com todo o carinho da programação no estúdio.';
+            }
+
+            if (q.includes('toca') || q.includes('pedir') || q.includes('ouvir') || q.includes('música') || q.includes('musica') || q.includes('som') || q.includes('banda') || q.includes('rock')) {
+                return 'Anotado com sucesso! O DJ Xavier já recebeu o recado no estúdio e vai colocar o seu som no radar da programação! Afinal, aqui só tocamos tudo aquilo que te toca!';
+            }
+
+            return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
+        }
+
+        // TELEGRAM - CHAVES E ENVIO DIRETO CORRIGIDO
+        const TELEGRAM_BOT_TOKEN = '8936441272:AAFrDohJzEnC0oDk6cf-RhxkroUIQbSfbo';
+        const TELEGRAM_CHAT_ID = '8993146859';
+
+        function checkTelegramEnter(e) {
+            if (e.key === 'Enter') sendTelegramMessage();
+        }
+
+        function sendTelegramMessage() {
+            const input = document.getElementById('telegram-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('telegram-chat-messages');
+
+            const userDiv = document.createElement('div');
+            userDiv.className = 'nina-msg user';
+            userDiv.textContent = text;
+            messagesContainer.appendChild(userDiv);
+
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            const mensagemFinal = encodeURIComponent(`🎵 Mensagem do site da Rádio:\n\n${text}`);
+            // Correção exata do link com api.telegram.org e /bot no caminho:
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${mensagemFinal}`;
+
+            const img = new Image();
+            img.src = url;
+
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'nina-msg bot';
+                botDiv.textContent = '✔️ Mensagem enviada com sucesso para o seu Telegram!';
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 400);
+        }
+    </script>
+</body>
+</html>
