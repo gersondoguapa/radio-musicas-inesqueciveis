@@ -339,14 +339,14 @@
         </div>
     </section>
 
-    <!-- CHAT TELEGRAM -->
+    <!-- CHAT TELEGRAM (CAMINHO DA ROÇA) -->
     <section class="chat-box" id="chat-telegram-novo" style="border-color: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.25);">
-        <h3 style="color: #0088cc;">✈️ Chat Integrado com Telegram</h3>
-        <div id="telegram-chat-messages" style="height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
-            <div class="nina-msg bot">Envie uma mensagem aqui para testar a chegada direta no seu Telegram!</div>
+        <h3 style="color: #0088cc;">✈️ Chat via Telegram</h3>
+        <div id="telegram-chat-messages" style="height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
+            <div class="nina-msg bot">Escreva seu recado ou pedido de música abaixo para enviar direto para o Telegram da Rádio!</div>
         </div>
         <div id="telegram-chat-input-area" style="display: flex; gap: 8px;">
-            <input type="text" id="telegram-chat-input" placeholder="Digite sua mensagem para o Telegram..." style="flex: 1; padding: 10px 12px; background: #1b1b22; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; outline: none;" onkeypress="checkTelegramEnter(event)">
+            <input type="text" id="telegram-chat-input" placeholder="Digite sua mensagem..." style="flex: 1; padding: 10px 12px; background: #1b1b22; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; outline: none;" onkeypress="checkTelegramEnter(event)">
             <button id="telegram-chat-send" onclick="sendTelegramMessage()" style="background: #0088cc; color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Enviar</button>
         </div>
     </section>
@@ -485,10 +485,7 @@
             return 'Entendido perfeitamente! O DJ Xavier acompanha tudo por aqui. O seu recado já foi anotado para o estúdio! Se quiser pedir mais algum som, é só me avisar!';
         }
 
-        // TELEGRAM - CHAVES E ENVIO DIRETO CORRIGIDO
-        const TELEGRAM_BOT_TOKEN = '8936441272:AAFrDohJzEnC0oDk6cf-RhxkroUIQbSfbo';
-        const TELEGRAM_CHAT_ID = '8993146859';
-
+        // FUNÇÃO TELEGRAM - CAMINHO DA ROÇA
         function checkTelegramEnter(e) {
             if (e.key === 'Enter') sendTelegramMessage();
         }
@@ -500,6 +497,7 @@
 
             const messagesContainer = document.getElementById('telegram-chat-messages');
 
+            // Mostra a mensagem no chat do site
             const userDiv = document.createElement('div');
             userDiv.className = 'nina-msg user';
             userDiv.textContent = text;
@@ -508,20 +506,20 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            const mensagemFinal = encodeURIComponent(`🎵 Mensagem do site da Rádio:\n\n${text}`);
-            // Correção exata do link com api.telegram.org e /bot no caminho:
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${mensagemFinal}`;
+            // Prepara o link direto pro Telegram da Nina com a mensagem pronta
+            const mensagemFormatada = encodeURIComponent(text);
+            const linkTelegram = `https://t.me/NinaMusicasInesqueciveisBot?text=${mensagemFormatada}`;
 
-            const img = new Image();
-            img.src = url;
+            // Abre a conversa no Telegram na hora
+            window.open(linkTelegram, '_blank');
 
             setTimeout(() => {
                 const botDiv = document.createElement('div');
                 botDiv.className = 'nina-msg bot';
-                botDiv.textContent = '✔️ Mensagem enviada com sucesso para o seu Telegram!';
+                botDiv.textContent = '✔️ Abrindo o Telegram para enviar seu pedido!';
                 messagesContainer.appendChild(botDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 400);
+            }, 300);
         }
     </script>
 </body>
