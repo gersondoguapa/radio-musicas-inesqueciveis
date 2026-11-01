@@ -1,379 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rádio Músicas Inesquecíveis</title>
-    <style>
-        body {
-            background-color: #0b0b0e;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #ff7700;
-            margin-top: 15px;
-            font-size: 28px;
-            text-shadow: 0 0 10px rgba(255,119,0,0.5);
-        }
-        .subtitulo-topo {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        .radio-box, .tv-box {
-            max-width: 520px;
-            margin: 0 auto 20px;
-            background: #141418;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-            border: 1px solid #22222c;
-            position: relative;
-        }
-        .radio-box {
-            overflow: hidden;
-        }
-        .imagem-radio {
-            position: relative;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .imagem-radio img {
-            display: block;
-            width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-        #botao-play {
-            position: absolute;
-            top: 41.5%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(255,255,255,0.9);
-            border-radius: 50%;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 6px rgba(255,119,0,0.5);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, background 0.2s;
-        }
-        #botao-play:hover {
-            background: rgba(255,119,0,0.9);
-            border-color: white;
-            transform: translate(-50%, -50%) scale(1.15);
-        }
-        .bloco-luz-esq, .bloco-luz-dir {
-            position: absolute;
-            top: 51.5%;
-            width: 72px;
-            height: 72px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,0,50,0.98) 0%, rgba(255,60,0,0.88) 40%, rgba(180,0,30,0.75) 70%, rgba(0,0,0,0.9) 100%);
-            box-shadow: inset 0 0 12px rgba(0,0,0,0.95), 0 0 14px rgba(255,0,60,0.85);
-            mix-blend-mode: screen;
-            opacity: 0.95;
-            pointer-events: none;
-            animation: pulsarAvancado 0.35s infinite alternate ease-in-out;
-            z-index: 2;
-        }
-        .bloco-luz-esq { left: 17%; }
-        .bloco-luz-dir { left: 83.5%; }
-        @keyframes pulsarAvancado {
-            0% { transform: translate(-50%,-50%) scale(0.93); opacity: 0.82; }
-            100% { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
-        }
-        .ondas-visor {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 3px;
-            align-items: flex-end;
-            height: 18px;
-            pointer-events: none;
-            z-index: 7;
-        }
-        .ondas-visor span {
-            width: 3px;
-            background: #ff7700;
-            border-radius: 2px;
-            box-shadow: 0 0 6px #ff7700;
-            animation: balancaOnda 0.6s infinite ease-in-out;
-        }
-        .ondas-visor span:nth-child(2) { animation-duration: 0.4s; }
-        .ondas-visor span:nth-child(3) { animation-duration: 0.7s; }
-        .ondas-visor span:nth-child(4) { animation-duration: 0.5s; }
-        .ondas-visor span:nth-child(5) { animation-duration: 0.8s; }
-        @keyframes balancaOnda {
-            0%, 100% { height: 3px; }
-            50% { height: 15px; }
-        }
-        .instrucao {
-            font-size: 15px;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-        #status-radio {
-            color: #ff7700;
-            font-size: 14px;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        .tocando-agora {
-            margin-top: 15px;
-            padding: 12px;
-            background: #1b1b22;
-            border-radius: 10px;
-            border-left: 4px solid #ff7700;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-        .tocando-agora span {
-            display: block;
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-        }
-        #nome-musica {
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-        }
-        .tv-box h3 {
-            color: #ff7700;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            background: #1a1a1f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        .aviso-tv {
-            color: #ff7700;
-            padding: 20px;
-        }
-        .chat-box {
-            width: 100%;
-            max-width: 520px;
-            box-sizing: border-box;
-            margin: 25px auto;
-            padding: 16px;
-            background: #141418;
-            border: 1px solid #ff7700;
-            border-radius: 16px;
-            box-shadow: 0 0 20px rgba(255, 119, 0, 0.25);
-            text-align: left;
-        }
-        .chat-box h3 {
-            margin: 0;
-            color: #ff7700;
-            font-size: 20px;
-            margin-bottom: 12px;
-        }
-        #nina-chat-messages {
-            height: 350px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: #0e0e12;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #22222c;
-            margin-bottom: 12px;
-        }
-        .nina-msg {
-            padding: 10px 14px;
-            border-radius: 8px;
-            max-width: 85%;
-            font-size: 14px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-        .nina-msg.bot {
-            background: #22222c;
-            color: #e5e7eb;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-            border-left: 3px solid #ff7700;
-        }
-        .nina-msg.user {
-            background: #d97706;
-            color: #ffffff;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            font-weight: 500;
-        }
-        #nina-chat-input-area {
-            display: flex;
-            gap: 8px;
-        }
-        #nina-chat-input {
-            flex: 1;
-            padding: 10px 12px;
-            background: #1b1b22;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-        #nina-chat-input:focus {
-            border-color: #ff7700;
-        }
-        #nina-chat-send {
-            background: #ff7700;
-            color: white;
-            border: none;
-            padding: 0 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        #nina-chat-send:hover {
-            background: #e06600;
-        }
-        .icones-inferiores {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-        .icones-inferiores a {
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-        .icones-inferiores a:hover {
-            transform: scale(1.05);
-        }
-        .icones-inferiores img {
-            width: 105px;
-            max-width: 26vw;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            h1 { font-size: 23px; }
-            .radio-box, .tv-box, .chat-box { padding: 12px; }
-            .icones-inferiores { gap: 9px; }
-        }
-    </style>
-</head>
-<body>
+<!-- TV Web CORRIGIDA - Formato HLS -->
+<div class="tv-box">
+    <h3>Web TV - Ao Vivo</h3>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js"></script>
+    <div class="video-container">
+        <video id="player-tv" controls autoplay muted style="width:100%;height:100%;background:#000;">
+            Seu navegador não suporta vídeo.
+        </video>
+    </div>
+    <p id="status-tv" style="margin-top:10px;color:#ff7700;font-size:13px;">Conectando à TV ao vivo...</p>
+</div>
 
-    <h1>RÁDIO MÚSICAS INESQUECÍVEIS</h1>
-    <div class="subtitulo-topo">Sempre com o melhor da música!</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('player-tv');
+    const statusTv = document.getElementById('status-tv');
+    const streamTv = 'https://live.iblups.com:1935/live/24d4fdd27e47957835ba2f809817625d/index.m3u8';
 
-    <div class="radio-box">
-        <div class="imagem-radio">
-            <img src="som.jpg" alt="Aparelho de som da Rádio Músicas Inesquecíveis">
-            <div class="bloco-luz-esq"></div>
-            <div class="bloco-luz-dir"></div>
-            <div class="ondas-visor">
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <button id="botao-play" type="button" aria-label="Tocar rádio" onclick="alternarRadio()">▶️</button>
-        </div>
-        <p class="instrucao">Aperte o play para ouvir a transmissão ao vivo</p>
-        <audio id="audio-radio" preload="none">
-        <p id="status-radio">Rádio pronta para tocar</p>
+    if (Hls.isSupported()) {
+        const hls = new Hls({
+            maxBufferLength: 10,
+            maxMaxBufferLength: 20
+        });
+        hls.loadSource(streamTv);
+        hls.attachMedia(video);
         
-        <div class="tocando-agora">
-            <span>Tocando Agora</span>
-            <div id="nome-musica">Aguardando conexão...</div>
-        </div>
-    </div>
-
-    <div class="tv-box">
-        <h3>Web TV - Ao Vivo</h3>
-        <div class="video-container" id="container-tv">
-            <!-- AVISO: O link da TV está quebrado/indisponível -->
-            <div class="aviso-tv">
-                ⚠️ Link da TV em manutenção<br>
-                Verifique com seu provedor o endereço correto do stream
-            </div>
-            <!-- Quando tiver o link correto, cole aqui:
-            <iframe src="COLE_LINK_AQUI"></iframe>
-            -->
-        </div>
-    </div>
-
-    <!-- CHAT NINA -->
-    <section class="chat-box" id="chat-ao-vivo">
-        <h3>💬 Falar com a Nina</h3>
-        <div id="nina-chat-messages">
-            <div class="nina-msg bot">Olá! Sou a Nina, assistente oficial e recepcionista da Rádio TV Web Músicas Inesquecíveis. O DJ Xavier acompanha a nossa conversa aqui no chat. Como posso te ajudar hoje? 🎶</div>
-        </div>
-        <div id="nina-chat-input-area">
-            <input type="text" id="nina-chat-input" placeholder="Escreva aqui o seu pedido..." onkeypress="checkNinaEnter(event)">
-            <button id="nina-chat-send" onclick="sendNinaMessage()">Enviar</button>
-        </div>
-    </section>
-
-    <!-- CHAT TELEGRAM -->
-    <section class="chat-box" id="chat-telegram-novo" style="border-color: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.25);">
-        <h3 style="color: #0088cc;">✈️ Chat Integrado com Telegram</h3>
-        <div id="telegram-chat-messages" style="height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0e0e12; padding: 12px; border-radius: 10px; border: 1px solid #22222c; margin-bottom: 12px;">
-            <div class="nina-msg bot">Envie uma mensagem aqui para testar a chegada direta no seu Telegram!</div>
-        </div>
-        <div id="telegram-chat-input-area" style="display: flex; gap: 8px;">
-            <input type="text" id="telegram-chat-input" placeholder="Digite sua mensagem para o Telegram..." style="flex: 1; padding: 10px 12px; background: #1b1b22; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; outline: none;" onkeypress="checkTelegramEnter(event)">
-            <button id="telegram-chat-send" onclick="sendTelegramMessage()" style="background: #0088cc; color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Enviar</button>
-        </div>
-    </section>
-
-    <!-- OS DOIS LOGOS CORRETOS NO RODAPÉ -->
-    <div class="icones-inferiores">
-        <a href="https://chat.whatsapp.com/Gp9kg0D3oh69AfzpD3wn4f" target="_blank" rel="noopener noreferrer">
-            <img src="WhatsApp Image 2026-10-14 at 00.31.45.jpeg" alt="WhatsApp">
-        </a>
-        <a href="https://www.facebook.com/groups/1279173282256062/" target="_blank" rel="noopener noreferrer">
-            <img src="Grupo facebook 2026-10-14 at 00.31.45 (1).jpeg" alt="Facebook">
-        </a>
-    </div>
-
-    <!-- JANELA FLUTUANTE E BOTÃO DA NINA DO LOVABLE -->
-    <div id="nina-janela" style="display:none;position:fixed;right:20px;bottom:90px;width:370px;height:560px;max-width:calc(100vw - 24px);max-height:calc(100vh - 130px);z-index:9999;border:1px solid rgba(255,255,255,.25);border-radius:18px;overflow:hidden;background:#0d0d10;box-shadow:0 20px 60px rgba(0,0,0,.55);">
-      <iframe src="https://nina-wave-radio.lovable.app/nina" title="Fale com a Nina" style="width:100%;height:100%;border:0;"></iframe>
-    </div>
-    <button onclick="var j=document.getElementById('nina-janela');j.style.display=(j.style.display==='none'||!j.style.display)?'block':'none';"
-      style="position:fixed;right:20px;bottom:20px;z-index:10000;background:linear-gradient(135deg,#f97316,#db2777);color:#fff;border:0;border-radius:999px;padding:
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            statusTv.textContent = "✅ TV ao vivo — transmitindo";
+            video.play().catch(() => {
+                statusTv.textContent = "Clique no play para assistir";
+            });
+        });
+        
+        hls.on(Hls.Events.ERROR, function(event, data) {
+            if (data.fatal) {
+                statusTv.textContent = "❌ Sinal fora do ar ou formato incompatível";
+            }
+        });
+    }
+    // Safari suporta HLS nativamente
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamTv;
+        video.addEventListener('loadedmetadata', function() {
+            statusTv.textContent = "✅ TV ao vivo — transmitindo";
+            video.play();
+        });
+    }
+});
+</script>
